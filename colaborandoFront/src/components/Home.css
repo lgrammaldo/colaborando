@@ -1,0 +1,208 @@
+.titulo-seleccion {
+    background-color: #f5f5f5; /* Color de fondo suave */
+    color: #333; /* Color de texto oscuro */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 10px 20px; /* Espaciado interno */
+    font-family: Arial, sans-serif; /* Fuente más común */
+  }
+  
+  .titulo-seleccion h2 {
+    font-size: 18px;
+    color: #555; /* Color de texto más suave */
+    margin-right: 150px;
+  }
+  
+  .titulo-semana {
+    color: #333; /* Color de texto oscuro */
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px 20px; /* Espaciado interno */
+  }
+  
+  .dar-turno-button {
+    background-color: #007bff; /* Color de fondo del botón "Dar Turno" */
+    color: #fff; /* Color del texto en blanco */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Efecto de transición al pasar el ratón */
+    font-size: 16px;
+  }
+  
+  .dar-turno-button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el ratón por encima */
+  }
+  
+  
+    
+  .contenedor-hora {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    margin: 0 auto; 
+  } 
+    .calendario-turnos-container {
+      display: flex;
+      flex-direction: column;
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    
+    .calendar-container {
+      background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 280px; /* Reducir el ancho máximo */
+    max-height: 300px; /* Reducir la altura máxima */
+    }
+     /* Estilos para la tabla de pacientes (ajusta según tus necesidades) */
+     .tabla-turnos {
+      background-color: #ffffff; /* Color de fondo de la tabla de turnos */
+      border-radius: 5px; /* Bordes redondeados para la tabla de turnos */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  
+    
+    }
+    .seleccion-hora {
+      background-color: #ffffff;
+      padding: 10px; /* Ajusta el espaciado interior */
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-top: 10px; /* Añade espacio en la parte superior */
+      max-width: 280px; /* Establece un ancho máximo */
+      width: 80%; /* Ajusta el ancho según tus necesidades */
+      /* Otras propiedades como el color de fondo, borde, etc. */
+    }
+    
+  
+    /* Ajusta los campos de entrada de texto y select */
+  .seleccion-hora input,
+  .seleccion-hora select {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  /* Alinea el botón de "Dar Turno" al centro */
+  .dar-turno-button {
+    margin: 10px 0;
+  }
+    /* Estilos para el select de hora */
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    /* Estilos para los campos de texto */
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    /* Estilos para el botón Dar Turno */
+    .dar-turno-button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: auto; /* Mueve el botón hacia la derecha */
+      
+      
+      margin-top: 10px;
+    }
+    
+    
+    .dar-turno-button:hover {
+      background-color: #0056b3;
+    }
+    
+   
+    
+    
+   /* Modificar el diseño del calendario */
+   .react-calendar {
+    font-family:  sans-serif; 
+    background-color: #fff; /* Cambia el fondo del calendario a blanco */
+    border: none; /* Elimina el borde */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Agrega una sombra sutile alrededor del calendario */
+  }
+  .react-calendar__month-view__weekdays {
+    background-color: #3498db; /* Cambia el fondo de los días de la semana */
+    color: #fff; /* Cambia el color del texto de los días de la semana a blanco */
+  }
+  /* Estilo para los números de los sábados y domingos */
+  .react-calendar__month-view__days__day--weekend abbr {
+    color: #ff0000; /* Cambia el color del texto de los números de sábados y domingos a rojo (#ff0000) */
+  }
+  .react-calendar__tile {
+    color: #333; /* Cambia el color de los números */
+    background-color: #fff; /* Cambia el fondo de los días */
+    border: 1px solid #e0e0e0; /* Agrega un borde alrededor de los días */
+    padding: 8px;
+  }
+  
+  .react-calendar__tile--active {
+    background-color: #3498db; /* Cambia el fondo del día seleccionado */
+    color: #fff; /* Cambia el color del número en el día seleccionado */
+  }
+  
+  .react-calendar__navigation {
+    background-color: #3498db; /* Cambia el fondo de la barra de navegación del calendario */
+    color: #fff; /* Cambia el color del texto en la barra de navegación */
+  }
+  /* Estilo para el botón de navegación deshabilitado */
+  .react-calendar__navigation button:disabled {
+    background-color: #3498db; /* Usa el mismo fondo que la barra de navegación */
+    color: #fff; /* Usa el mismo color de texto que la barra de navegación */
+    cursor: not-allowed; /* Cambia el cursor al pasar por encima del botón deshabilitado */
+    border: none; /* Elimina el borde del botón deshabilitado si lo deseas */
+  }
+  
+  /* Estilo para la etiqueta del mes y año en el calendario */
+  .react-calendar__navigation__label {
+    font-family: 'Octubre 2023', sans-serif; /* Cambia la fuente */
+    font-size: 10px; /* Cambia el tamaño de fuente */
+    font-weight: bold; /* Cambia el peso de fuente */
+    color: #fff; /* Cambia el color del texto a blanco */
+    text-align: center; /* Centra el texto horizontalmente */
+    padding: 5px 0; /* Agrega un espacio entre el borde y el texto */
+  }
+  /* Estilo para 'Asistió' */
+  .asistio {
+    background-color:#7FFF7F;
+  }
+  
+  /* Estilo para 'No Asistió' */
+  .no-asistio {
+    background-color:#FF9999;
+  }
+  
+  /* Estilo para 'Pendiente' */
+  .pendiente {
+    background-color:#ccc;
+  }
+
+  .turno-dot {
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+  }

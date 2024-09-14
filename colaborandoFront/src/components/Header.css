@@ -1,0 +1,61 @@
+header.css
+:root{
+    --primary-color:  #376992e5 ;
+    --secondary-color: #b6ccdfb9;;
+}
+*{
+    margin:0;
+}body{
+    margin:0;
+}
+.flex-container{
+    background-color: #376992e5;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    padding: 10px;
+    text-align: center;
+}
+
+.box1{
+    display: flex;
+}
+
+.box3{
+    display: flex;
+}
+.box4{
+}
+header>h1{
+    margin: 20px 0 20px 20px;
+    font-family: cursive;
+    width: 20%;
+    height: auto;
+    
+}
+
+.container{
+    width: 100%
+}
+/*estilos para navbar*/
+#navegador{
+    width: 100%;
+    background-color: #abb3e2;
+    display: flex;
+}
+.navbar-nav>li{
+    width: auto;
+    margin: 0 20px;
+}
+.contenedor{
+    width: 300px; /* Ancho deseado del contenedor */
+  height: 300px; /* Altura deseada del contenedor */
+  border: 1px solid #ccc; /* Solo para visualización */
+  overflow: hidden; /* Oculta cualquier parte de la imagen que se salga del contenedor */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
