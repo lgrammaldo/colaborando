@@ -8,7 +8,7 @@ import Header from './Header.jsx';
 
 
 function Home() {
-  const [turnos, setTurnos] = useState([]);
+  const [turnos] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const navigate = useNavigate();
 

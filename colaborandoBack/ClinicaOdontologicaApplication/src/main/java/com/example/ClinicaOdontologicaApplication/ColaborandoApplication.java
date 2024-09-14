@@ -4,20 +4,18 @@ import com.example.ClinicaOdontologicaApplication.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class ClinicaOdontologicaApplication {
+public class ColaborandoApplication {
 
 	@Autowired
 	private EmailSenderService senderService;
 
 	public static void main(String[] args) {
-		SpringApplication.run(ClinicaOdontologicaApplication.class, args);
+		SpringApplication.run(ColaborandoApplication.class, args);
 	}
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
