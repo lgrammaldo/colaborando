@@ -30,11 +30,11 @@ CREATE TABLE empresas (
 );
 
 
--- insert into usuarios (email, password, tipo_usuario, fecha_creacion) 
--- values ("ucarvallo@gmail.com","123","Persona",'2024-08-31');
+insert into usuarios (email, password, tipo_usuario, fecha_creacion) 
+ values ("ucarvallo@gmail.com","123","Persona",'2024-08-31');
 
--- insert into  personas (usuario_id,dni, nombre,apellido, telefono)
--- values (1,12312312, "uri","carva","123123123");
+insert into  personas (usuario_id,dni, nombre,apellido, telefono)
+ values (1,12312312, "uri","carva","123123123");
 
 select * from usuarios;
 select * from personas;

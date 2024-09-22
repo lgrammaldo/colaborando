@@ -1,0 +1,17 @@
+Email: colaborandoproject@gmail.com
+
+
+
+BBDD NUBE
+https://api.clever-cloud.com/v2/sessions/login?fromAuthorize=true
+
+Crear la base
+1-ir a Personal Space, luego Create, luego en an add-on
+2- seleccionar MySql
+
+HOST:         b89e6fvhk3dxpvugodb3-mysql.services.clever-cloud.com
+databaseName: b89e6fvhk3dxpvugodb3
+user:         
+pass:         
+port:         3306
+
