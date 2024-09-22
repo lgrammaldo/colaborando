@@ -1,3 +1,4 @@
+/* ORIGINAL
 CREATE DATABASE colaborando_bd;
 use colaborando_bd;
 
@@ -30,7 +31,7 @@ CREATE TABLE empresas (
 );
 
 
--- insert into usuarios (email, password, tipo_usuario, fecha_creacion) 
+-- insert into usuarios (email, password, tipo_usuario, fecha_creacion)
 -- values ("ucarvallo@gmail.com","123","Persona",'2024-08-31');
 
 -- insert into  personas (usuario_id,dni, nombre,apellido, telefono)
@@ -45,8 +46,88 @@ ALTER TABLE empresas DROP FOREIGN KEY empresas_ibfk_1;
 DROP TABLE usuarios;
 DROP TABLE personas;
 DROP TABLE empresas;
+*/
+
+CREATE TABLE Usuarios (
+    Id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL UNIQUE,
+    Password VARCHAR(32) NOT NULL,
+    Tipo_usuario ENUM('Persona', 'Empresa') NOT NULL,
+    Fecha_creacion DATE,
+    Id_tipo_empleo INTEGER,
+    Id_empresa INTEGER
+
+);
+
+CREATE TABLE Empresas (
+    Id_empresa INT AUTO_INCREMENT PRIMARY KEY,
+    razon_social VARCHAR(100) NOT NULL,
+    Direccion VARCHAR(100) NOT NULL,
+    Telefono VARCHAR(20),
+    Cuit VARCHAR(15) UNIQUE
+);
+
+CREATE TABLE Eventos (
+Id_evento INTEGER AUTO_INCREMENT PRIMARY KEY,
+Nombre VARCHAR(100),
+Fecha DATE,
+Id_establecimiento INTEGER,
+Cantidad_personal INTEGER,
+Especificaciones VARCHAR (500),
+Mensaje_predeterminado VARCHAR (500)
+);
+
+CREATE TABLE Eventos_contratados (
+Id_evento INTEGER,
+Id_usuario INTEGER,
+Id_establecimiento INTEGER
+);
+
+CREATE TABLE Disponibilidad(
+Id_usuario INTEGER,
+Dia_de_la_semana VARCHAR(15),
+Disponibilidad_total BOOLEAN,
+Id_turno INTEGER
+);
+
+CREATE TABLE Turnos(
+Id_turno INTEGER AUTO_INCREMENT PRIMARY KEY,
+Descripcion VARCHAR(50)
+);
+
+CREATE TABLE Usuario_agenda(
+Id_usuario INTEGER,
+Fecha DATE
+);
+
+CREATE TABLE Tipo_empleo(
+Id_tipo_empleo INTEGER AUTO_INCREMENT PRIMARY KEY,
+Desc_tipo_empleo VARCHAR(50)
+);
+
+CREATE TABLE Establecimiento_usuario(
+Id_usuario INTEGER,
+Id_establecimiento INTEGER,
+Fecha_inicio DATE,
+Fecha_fin DATE
+);
+
+CREATE TABLE Rel_Usuario_Empleo(
+ID_USUARIO INTEGER,
+ID_TIPO_EMPLEO INTEGER
+);
 
 
+/*ESTAS ULTIMAS DOS VEMOS SI LAS AGREGAMOS*/
+CREATE TABLE Term_cond_usuario (
+Id_usuario INTEGER,
+Id_version INTEGER,
+Fecha_aceptacion DATE
+);
 
-
-
+CREATE TABLE Terminos_condiciiones_version (
+Id_version INTEGER,
+Texto TEXT,
+Fecha_aceptacion DATE
+);
