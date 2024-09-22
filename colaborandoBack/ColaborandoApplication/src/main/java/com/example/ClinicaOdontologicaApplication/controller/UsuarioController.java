@@ -16,7 +16,6 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/crear-persona")
-
     public ResponseEntity<Usuario2> crearPersona(@RequestBody PersonaDTO personaDTO) {
         Usuario2 usuario2 = usuarioService.crearUsuarioYPersona(personaDTO);
         return ResponseEntity.ok(usuario2);
