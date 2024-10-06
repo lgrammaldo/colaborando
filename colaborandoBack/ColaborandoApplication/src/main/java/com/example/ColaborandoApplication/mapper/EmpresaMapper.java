@@ -1,15 +1,15 @@
 package com.example.ColaborandoApplication.mapper;
 
-import com.example.ColaborandoApplication.DTO.EmpresaDTO;
-import com.example.ColaborandoApplication.Entity.Empresa;
+import com.example.ColaborandoApplication.DTO.EstablecimientoDTO;
+import com.example.ColaborandoApplication.Entity.Establecimiento;
 
 public class EmpresaMapper {
-    public static Empresa mapPersonaDTOtoPersona(EmpresaDTO empresaDTO) {
-        return Empresa.builder()
-                .razonSocial(empresaDTO.getRazonSocial())
-                .cuit(empresaDTO.getCuit())
-                .telefono(empresaDTO.getTelefono())
-                .direccion(empresaDTO.getDireccion())
+    public static Establecimiento mapPersonaDTOtoPersona(EstablecimientoDTO establecimientoDTO) {
+        return Establecimiento.builder()
+                .razonSocial(establecimientoDTO.getRazonSocial())
+                .cuit(establecimientoDTO.getCuit())
+                .telefono(establecimientoDTO.getTelefono())
+                .direccion(establecimientoDTO.getDireccion())
                 .build();
     }
 }

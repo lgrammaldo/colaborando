@@ -4,13 +4,13 @@ const PERSONA_API_BASE_URL = "http://localhost:8080/colaborando/usuario";
 
 class UsuariosService { 
 
-    createUsuarioPersona(persona){
-        return axios.post(PERSONA_API_BASE_URL + "/crear-persona", persona, {})
+    createUsuarioPersona(colaborador){
+        return axios.post(PERSONA_API_BASE_URL + "/crear-colaborador", colaborador, {})
     }
 
-    createUsuarioEmpresa(empresa){
-      return axios.post(PERSONA_API_BASE_URL + "/crear-empresa", empresa, {})
-  }
+    /*createUsuarioEmpresa(empresa){
+      return axios.post(PERSONA_API_BASE_URL + "/crear-establecimiento", empresa, {})
+    }*/
 
 }
 

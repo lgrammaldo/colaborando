@@ -1,15 +1,15 @@
 package com.example.ColaborandoApplication.mapper;
 
-import com.example.ColaborandoApplication.DTO.PersonaDTO;
-import com.example.ColaborandoApplication.Entity.Persona;
+import com.example.ColaborandoApplication.DTO.ColaboradorDTO;
+import com.example.ColaborandoApplication.Entity.Colaborador;
 
 public class PersonaMapper {
-    public static Persona mapPersonaDTOtoPersona(PersonaDTO personaDTO) {
-        return Persona.builder()
-                .dni(personaDTO.getDni())
-                .nombre(personaDTO.getNombre())
-                .apellido(personaDTO.getApellido())
-                .telefono(personaDTO.getTelefono())
+    public static Colaborador mapPersonaDTOtoPersona(ColaboradorDTO colaboradorDTO) {
+        return Colaborador.builder()
+                .dni(colaboradorDTO.getDni())
+                .nombre(colaboradorDTO.getNombre())
+                .apellido(colaboradorDTO.getApellido())
+                .telefono(colaboradorDTO.getTelefono())
                 .build();
     }
 }
