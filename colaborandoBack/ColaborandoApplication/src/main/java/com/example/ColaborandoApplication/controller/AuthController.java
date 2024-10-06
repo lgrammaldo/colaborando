@@ -2,7 +2,7 @@ package com.example.ColaborandoApplication.controller;
 
 import com.example.ColaborandoApplication.jwt.JwtTokenUtil;
 import com.example.ColaborandoApplication.model.JwtRequest;
-import com.example.ColaborandoApplication.Entity.Usuario2;
+import com.example.ColaborandoApplication.Entity.Usuario;
 import com.example.ColaborandoApplication.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class AuthController {
             throw new Exception("usuario invalido");
         }
 
-        Usuario2 user = userDetailsService.validateUser(jwtRequest.getEmail());
+        Usuario user = userDetailsService.validateUser(jwtRequest.getEmail());
         Map<String, String> data = new HashMap<>();
         data.put("token", jwtTokenUtil.generateToken(jwtRequest.getEmail()));
         data.put("rol", user.getTipoUsuario());

@@ -104,7 +104,7 @@ const Login = ({ history }) => {
                 <footer>
                   <div className="text-center mt-2">
                     <span>¿Aún no tienes cuenta? </span>
-                    <a href="/crear-usuario" className="text-decoration-none">
+                    <a href="/crear-colaborador" className="text-decoration-none">
                       Registrarse.
                     </a>
                   </div>

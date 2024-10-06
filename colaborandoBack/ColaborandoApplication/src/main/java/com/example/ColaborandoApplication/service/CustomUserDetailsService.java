@@ -1,7 +1,7 @@
 package com.example.ColaborandoApplication.service;
 
-import com.example.ColaborandoApplication.Entity.Usuario2;
-import com.example.ColaborandoApplication.repository.UsuarioRepository2;
+import com.example.ColaborandoApplication.Entity.Usuario;
+import com.example.ColaborandoApplication.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository2 usuarioRepository2;
+    private UsuarioRepository usuarioRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario2 usuario = usuarioRepository2.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             throw new UsernameNotFoundException("User not found with username: " + email);
         }
@@ -25,8 +25,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                 new ArrayList<>());
     }
 
-    public Usuario2 validateUser(String username){
-        Usuario2 usuario = usuarioRepository2.findByEmail(username);
+    public Usuario validateUser(String username){
+        Usuario usuario = usuarioRepository.findByEmail(username);
         if (usuario == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public boolean AuthenticateUser(String username, String password){
-        Usuario2 usuario = usuarioRepository2.findByEmail(username);
+        Usuario usuario = usuarioRepository.findByEmail(username);
         if (usuario == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

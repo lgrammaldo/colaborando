@@ -7,26 +7,28 @@ import javax.persistence.*;
 @Data
 @Entity
 @Builder
-@Table(name = "personas")
-public class Persona {
-
+@Table(name = "establecimientos")
+public class Establecimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne
     @JoinColumn(name = "usuario_id", unique = true)
-    private Usuario2 usuario2;
+    private Usuario usuario;
 
-    @Column(nullable = false, unique = true)
-    private Integer dni;
-
-    @Column(nullable = false)
-    private String nombre;
-
-    @Column(nullable = false)
-    private String apellido;
+    @Column(nullable = false, name = "razon_social")
+    private String razonSocial;
 
     @Column(nullable = false)
     private String telefono;
+
+    @Column(nullable = false)
+    private String cuit;
+
+    @Column(nullable = false)
+    private String direccion;
+
+    @Column(nullable = false)
+    private String codigo;
 }

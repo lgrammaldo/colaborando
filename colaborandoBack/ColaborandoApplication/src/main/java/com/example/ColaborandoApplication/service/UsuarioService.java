@@ -1,15 +1,17 @@
 package com.example.ColaborandoApplication.service;
 
-import com.example.ColaborandoApplication.DTO.EmpresaDTO;
-import com.example.ColaborandoApplication.DTO.PersonaDTO;
-import com.example.ColaborandoApplication.Entity.Empresa;
-import com.example.ColaborandoApplication.Entity.Persona;
-import com.example.ColaborandoApplication.Entity.Usuario2;
+import com.example.ColaborandoApplication.DTO.EstablecimientoDTO;
+import com.example.ColaborandoApplication.DTO.ColaboradorDTO;
+import com.example.ColaborandoApplication.Entity.Establecimiento;
+import com.example.ColaborandoApplication.Entity.Colaborador;
+import com.example.ColaborandoApplication.Entity.Usuario;
 import com.example.ColaborandoApplication.mapper.EmpresaMapper;
 import com.example.ColaborandoApplication.mapper.PersonaMapper;
 import com.example.ColaborandoApplication.repository.EmpresaRepository;
 import com.example.ColaborandoApplication.repository.PersonaRepository;
-import com.example.ColaborandoApplication.repository.UsuarioRepository2;
+import com.example.ColaborandoApplication.repository.UsuarioRepository;
+import org.hibernate.HibernateException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ import java.util.Date;
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRepository2 usuarioRepository;
+    private UsuarioRepository usuarioRepository;
     @Autowired
     private PersonaRepository personaRepository;
 
@@ -28,39 +30,39 @@ public class UsuarioService {
     private EmpresaRepository empresaRepository;
 
     @Transactional(rollbackOn = Exception.class)
-    public Usuario2 crearUsuarioYPersona(PersonaDTO personaDTO) {
-        Usuario2 usuario2 = null;
+    public Usuario crearUsuarioYPersona(ColaboradorDTO colaboradorDTO) {
+        Usuario usuario = null;
         try {
-            usuario2 = getUserFromEntity(personaDTO.getEmail(), personaDTO.getPassword(), "Persona");
-            usuario2 = usuarioRepository.save(usuario2);
+            usuario = getUserFromEntity(colaboradorDTO.getEmail(), colaboradorDTO.getPassword(), "Colaborador");
+            usuario = usuarioRepository.save(usuario);
 
-            Persona persona = PersonaMapper.mapPersonaDTOtoPersona(personaDTO);
-            persona.setUsuario2(usuario2);
-            personaRepository.save(persona);
+            Colaborador colaborador = PersonaMapper.mapPersonaDTOtoPersona(colaboradorDTO);
+            colaborador.setUsuario(usuario);
+            personaRepository.save(colaborador);
         } catch (Exception e) {
-            System.out.println("Error al crear Usuario2 o Persona: {}"+ e.getMessage());
+            System.out.println("Error al crear Usuario2 o Colaborador: {}"+ e.getMessage()+"\n");
         }
-        return usuario2;
+        return usuario;
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public Usuario2 crearUsuarioYEmpresa(EmpresaDTO empresaDTO) {
-        Usuario2 usuario2 = null;
+    public Usuario crearUsuarioYEmpresa(EstablecimientoDTO establecimientoDTO) {
+        Usuario usuario = null;
         try {
-            usuario2 = getUserFromEntity(empresaDTO.getEmail(), empresaDTO.getPassword(), "Empresa");
-            usuario2 = usuarioRepository.save(usuario2);
+            usuario = getUserFromEntity(establecimientoDTO.getEmail(), establecimientoDTO.getPassword(), "Establecimiento");
+            usuario = usuarioRepository.save(usuario);
 
-            Empresa empresa = EmpresaMapper.mapPersonaDTOtoPersona(empresaDTO);
-            empresa.setUsuario2(usuario2);
-            empresaRepository.save(empresa);
+            Establecimiento establecimiento = EmpresaMapper.mapPersonaDTOtoPersona(establecimientoDTO);
+            establecimiento.setUsuario(usuario);
+            empresaRepository.save(establecimiento);
         } catch (Exception e) {
             System.out.println("Error al crear Usuario2 o Empresa: {}"+ e.getMessage());
         }
-        return usuario2;
+        return usuario;
     }
 
-    private Usuario2 getUserFromEntity(String email, String password, String tipoPersona) {
-        Usuario2 user = new Usuario2();
+    private Usuario getUserFromEntity(String email, String password, String tipoPersona) {
+        Usuario user = new Usuario();
             user.setEmail(email);
             user.setPassword(password);
             user.setTipoUsuario(tipoPersona);
