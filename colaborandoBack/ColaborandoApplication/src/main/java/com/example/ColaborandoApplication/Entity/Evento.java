@@ -11,7 +11,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "eventos")
-public class Usuario2 {
+public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_evento;
