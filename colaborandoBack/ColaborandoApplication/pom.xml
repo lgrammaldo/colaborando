@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>ClinicaOdontologicaApplication</artifactId>
+	<artifactId>ColaborandoApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ClinicaOdontologicaApplication</name>
-	<description>Aplicacion web para una Clinica Odontologica</description>
+	<name>ColaborandoApplication</name>
+	<description>Aplicacion web para una Colaborando</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -125,7 +125,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.26</version> <!-- Ajusta la versión según la más reciente -->
+			<version>1.18.30</version> <!-- Verifica que esta sea la última versión -->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -136,6 +136,11 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
