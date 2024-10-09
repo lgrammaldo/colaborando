@@ -16,8 +16,8 @@
 
 
 -- Volcando estructura de base de datos para colaborando_bd
-DROP DATABASE IF EXISTS `colaborando_bd`;
-CREATE DATABASE IF NOT EXISTS `colaborando_bd` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
+DROP DATABASE IF EXISTS `colaborando_db`;
+CREATE DATABASE IF NOT EXISTS `colaborando_db` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
 USE `colaborando_bd`;
 
 -- Volcando estructura para tabla colaborando_bd.empresas
