@@ -1,4 +1,4 @@
-package com.example.ClinicaOdontologicaApplication.Entity;
+package com.example.ColaborandoApplication.Entity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +18,8 @@ public class Turnos {
 
     @Column(nullable = false, unique = true)
     private String descripcion_turno;
+
+    @Column(nullable = false, unique = true)
+    private String horario;
 
 }

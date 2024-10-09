@@ -31,4 +31,11 @@ public class Establecimiento {
 
     @Column(nullable = false)
     private String codigo;
+
+    @Column(nullable = false)
+    private String ciudad;
+
+    @Column(nullable = false)
+    private String provincia;
+
 }

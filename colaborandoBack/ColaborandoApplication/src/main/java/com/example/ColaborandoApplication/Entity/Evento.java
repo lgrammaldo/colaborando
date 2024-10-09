@@ -1,5 +1,5 @@
-package com.example.ClinicaOdontologicaApplication.Entity;
-import lombok.Builder;
+package com.example.ColaborandoApplication.Entity;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @RequiredArgsConstructor
 @Entity
-@Table(name = "eventos")
+@Table(name = "evento")
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,18 +20,28 @@ public class Evento {
     private String nombre;
 
     @Column(nullable = false)
-    private Date fecha;
+    private Date fecha_publicacion;
 
     @Column(nullable = false)
-    private Integer Id_establecimiento;
+    private Date fecha_fin_busqueda;
 
     @Column(nullable = false)
-    private Integer Cantidad_personal;
+    private Date fecha_inicio;
 
     @Column(nullable = false)
-    private String Especificaciones;
+    private Date fecha_fin;
 
-    @Column(nullable = false)
-    private String Mensaje_predeterminado;
+    @OneToOne
+    @JoinColumn(name = "id_usuario", unique = true)
+    private Usuario usuario;
+
+    @OneToOne
+    @JoinColumn(name = "id_status", unique = true)
+    private Status status;
+
+    @OneToOne
+    @JoinColumn(name = "id_turno", unique = true)
+    private Turnos turnos;
+
 
 }
