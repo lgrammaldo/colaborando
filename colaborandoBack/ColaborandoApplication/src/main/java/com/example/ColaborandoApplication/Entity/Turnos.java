@@ -1,25 +1,25 @@
 package com.example.ColaborandoApplication.Entity;
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
-@Table(name = "empleos")
-public class Empleos {
+@Table(name = "turnos")
+public class Turnos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id_turno;
 
     @Column(nullable = false, unique = true)
-    private String nombre;
+    private String descripcion_turno;
 
     @Column(nullable = false, unique = true)
-    private String descripcion;
+    private String horario;
 
 }
