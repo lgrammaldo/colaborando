@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PREFIX_URL+"login").permitAll() // Permite que todos accedan a /login
                 .antMatchers(PREFIX_URL+"usuario/*").permitAll()
                 .antMatchers(PREFIX_URL+"get-empleos").permitAll()
+                .antMatchers(PREFIX_URL+"crearevento/*").permitAll()
                 .anyRequest().authenticated() // Todas las demás solicitudes requieren autenticación
                 .and()
                 //.addFilterBefore(new JwtAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
