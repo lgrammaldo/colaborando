@@ -66,7 +66,7 @@ public class UsuarioService {
             user.setEmail(email);
             user.setPassword(password);
             user.setTipoUsuario(tipoPersona);
-            user.setFechaCreacion(new Date());
+            /*user.setFechaCreacion(new Date());*/
         return user;
     }
 }
