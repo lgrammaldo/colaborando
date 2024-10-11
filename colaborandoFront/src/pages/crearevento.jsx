@@ -1,129 +1,141 @@
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import './Home.css';
-import React, { useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header.jsx';
+import NavBarWithLogo from '../components/NavBarWithLogo';
 
+const CrearEvento = () => {
+    const navigate = useNavigate();
 
-function Home() {
-  const [turnos] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const navigate = useNavigate();
+    const diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const intervalos = ['0-6hs', '6-12hs', '12-18hs', '18-24hs'];
 
-  useEffect(() => {
-    
-  }, []);
+    // Estado inicial para almacenar la disponibilidad
+    const [disponibilidad, setDisponibilidad] = useState(
+        diasSemana.reduce((acc, dia) => {
+            acc[dia] = intervalos.reduce((intAcc, intervalo) => {
+                intAcc[intervalo] = false;
+                return intAcc;
+            }, {});
+            return acc;
+        }, {})
+    );
 
-  const addTurno = () => {
-    navigate('/crear-turnos');
-  }
+    // Manejar cambios en los checkboxes individuales
+    const handleCheckboxChange = (dia, intervalo) => {
+        setDisponibilidad((prevDisponibilidad) => ({
+            ...prevDisponibilidad,
+            [dia]: {
+                ...prevDisponibilidad[dia],
+                [intervalo]: !prevDisponibilidad[dia][intervalo],
+            },
+        }));
+    };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  }
+    // Manejar el checkbox para seleccionar toda una fila (día completo)
+    const handleSelectDiaCompleto = (dia) => {
+        const diaSeleccionado = disponibilidad[dia];
+        const seleccionarTodo = !Object.values(diaSeleccionado).every((checked) => checked);
+        setDisponibilidad((prevDisponibilidad) => ({
+            ...prevDisponibilidad,
+            [dia]: intervalos.reduce((acc, intervalo) => {
+                acc[intervalo] = seleccionarTodo;
+                return acc;
+            }, {}),
+        }));
+    };
 
-  const tieneTurnos = (date) => {
-    // Aquí debes implementar la lógica para verificar si hay turnos en 'date'
-    return turnos.some(turno => new Date(turno.fechaTurno).toDateString() === date.toDateString());
-  }
+    // Manejar el checkbox para seleccionar o deseleccionar todos los días y horas
+    const handleSelectTodo = () => {
+        const seleccionarTodo = !diasSemana.every((dia) =>
+            Object.values(disponibilidad[dia]).every((checked) => checked)
+        );
+        setDisponibilidad(
+            diasSemana.reduce((acc, dia) => {
+                acc[dia] = intervalos.reduce((intAcc, intervalo) => {
+                    intAcc[intervalo] = seleccionarTodo;
+                    return intAcc;
+                }, {});
+                return acc;
+            }, {})
+        );
+    };
 
-  // Renderiza el punto si hay turnos en el día seleccionado
-  const renderDot = ({ date, view }) => {
-    if (view === 'month' && tieneTurnos(date)) {
-      return <div className="turno-dot"></div>;
-    }
-    return null;
-  };
+    // Manejar el botón de continuar y almacenar la disponibilidad en una variable fecha
+    const handleContinuar = () => {
+        const fechasSeleccionadas = diasSemana.reduce((acc, dia) => {
+            const horariosSeleccionados = intervalos.filter(
+                (intervalo) => disponibilidad[dia][intervalo]
+            );
+            if (horariosSeleccionados.length > 0) {
+                acc[dia] = horariosSeleccionados;
+            }
+            return acc;
+        }, {});
+        console.log('Disponibilidad seleccionada:', fechasSeleccionadas);
+        navigate('/resumen');
+    };
 
-  const editTurno = (id) => {
-    navigate(`/actualizar-turno/${id}`);
-  }
+    return (
+        <div>
+            <NavBarWithLogo />
+            <div className="container-sm">
+                <h1 className="text-center mt-3">Crear Evento</h1>
+                
+                <form className="mt-3">
+                    <table className="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label className="form-check-label" htmlFor="selectAll">
+                                        Nombre
+                                    </label>
+                                </th> 
+                            </tr>
+                            <tr>
+                                <th>
+                                    <textarea name="Nombre" id="Nombre"></textarea>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label>Fecha</label>
+                                </td>
+                                <td><textarea name="Fecha" id="Fecha"></textarea> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    {/* Checkbox para seleccionar o deseleccionar todo */}
+                    <div className="form-check text-center mt-3">
+                        <input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="selectAll"
+                            onChange={handleSelectTodo}
+                            checked={diasSemana.every((dia) =>
+                                Object.values(disponibilidad[dia]).every((checked) => checked)
+                            )}
+                        />
+                        <label className="form-check-label" htmlFor="selectAll">
+                            Seleccionar todo
+                        </label>
+                    </div>
+                </form>
 
-  const deleteTurno = (id) => {
-
-  };
-
-  // Filtrar los turnos para mostrar solo los de la fecha seleccionada
-  const filteredTurnos = turnos.filter(turno =>
-    new Date(turno.fechaTurno).toLocaleDateString() === selectedDate.toLocaleDateString()
-  );
-
-  // Filtrar los turnos para mostrar solo los del mes seleccionado
-  const filteredTurnosByMonth = turnos.filter(turno =>
-    new Date(turno.fechaTurno).getMonth() === selectedDate.getMonth()
-  );
-
-  return (
-    <div>
-      <Header />
-      <div className="container text-center">
-        <div className="row align-items-start" style={{ marginTop: "15px" }}>
-          <div className="col-3">
-            <h2 >Agenda</h2>
-          </div>
-          <div className="col-7">
-            <h2 >Lista de Turnos</h2>
-          </div>
-          <div className="col-2">
-            <button className='btn btn-primary' onClick={addTurno}> Dar Turno</button>
-          </div>
-        </div>
-        <div className="row align-items-start">
-          <div className='col-4'>
-            <div className="calendar-container">
-              <Calendar onChange={handleDateChange} value={selectedDate} tileContent={renderDot} />
+                <div className="text-center mt-4">
+                    <button 
+                        type="button" 
+                        className="btn btn-primary btn-lg" 
+                        style={{ width: '100%' }} 
+                        onClick={handleContinuar}
+                    >
+                        Continuar
+                    </button>
+                </div>
             </div>
-          </div>
-
-          <div className="col-8">
-            <div>
-              <table className='table table-striped' style={{ alignItems: "center" }}>
-                <thead>
-                  <tr>
-                    <th>Fecha y Hora</th>
-                    <th>Paciente</th>
-                    <th>Odontólogo</th>
-                    <th>Tratamiento</th>
-                    <th>Estado</th>
-                    <th>Opciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedDate.getDate() === 1 && selectedDate.getHours() === 0
-                    ? filteredTurnosByMonth.map(turno => (
-                      <tr key={turno.id}>
-                        <td>{format(new Date(turno.fechaTurno), 'yyyy-MM-dd HH:mm')}</td>
-                        <td>{turno.paciente.nombre} {turno.paciente.apellido} - {turno.paciente.telefono}</td>
-                        <td>{turno.odontologo.nombre}</td>
-                        <td>{turno.tratamiento}</td>
-                        <td>{turno.urgencia ? 'Urgente' : 'Normal'}</td>
-                      </tr>
-                    ))
-                    : filteredTurnos.map(turno => (
-                      <tr key={turno.id}>
-                        <td>{format(new Date(turno.fechaTurno), 'yyyy-MM-dd HH:mm')}</td>
-                        <td>{turno.paciente.nombre} {turno.paciente.apellido} - {turno.paciente.telefono}</td>
-                        <td>{turno.odontologo.nombre} {turno.odontologo.apellido}</td>
-                        <td>{turno.odontologo.especialidad}</td>
-                        <td>{turno.urgencia ? 'Urgente' : 'Normal'}</td>
-                        <td>
-                          <button onClick={() => editTurno(turno.id)} className='btn btn-info'>Actualizar</button>
-                          <button onClick={() => deleteTurno(turno.id)} className='btn btn-danger' style={{ marginTop: "10px" }}>Eliminar</button>
-                        </td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
+};
 
-}
-
-export default Home;
+export default CrearEvento;
