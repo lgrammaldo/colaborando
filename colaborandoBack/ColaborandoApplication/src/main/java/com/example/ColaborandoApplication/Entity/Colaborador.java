@@ -38,12 +38,7 @@ public class Colaborador {
     @Column(nullable = false)
     private String telefono;
 
-    /*Agregado 9-10*/
-    @Column(nullable = false, unique = true)
-    private Integer id_usuario;
-
     @Column(nullable = false, unique = true)
     private Integer id_turnos;
-    /**/
 
 }
