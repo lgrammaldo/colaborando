@@ -46,7 +46,6 @@ const Login = ({ history }) => {
       <div className="container h-100">
         <div className="row h-100 justify-content-center align-items-center">
           <div className="col-md-6">   
-
             <div className="card">
               <div className="card-body d-flex flex-column align-items-center"> {/* Added flexbox for centering */}
                 <h1 className="text-center mb-4">Bienvenido</h1>
