@@ -21,6 +21,14 @@ public class Colaborador {
     @Column(nullable = false, unique = true)
     private Integer dni;
 
+    /*Agregado 9-10*/
+    @Column(nullable = false, unique = true)
+    private String calificacion;
+
+    @Column(nullable = false, unique = true)
+    private String cuil;
+    /**/
+
     @Column(nullable = false)
     private String nombre;
 
@@ -29,4 +37,13 @@ public class Colaborador {
 
     @Column(nullable = false)
     private String telefono;
+
+    /*Agregado 9-10*/
+    @Column(nullable = false, unique = true)
+    private Integer id_usuario;
+
+    @Column(nullable = false, unique = true)
+    private Integer id_turnos;
+    /**/
+
 }
