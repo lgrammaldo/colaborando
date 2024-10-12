@@ -1,17 +1,17 @@
 package com.example.ColaborandoApplication.Entity;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@RequiredArgsConstructor
 @Entity
+@Builder
 @Table(name = "evento")
 public class Evento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_evento;
@@ -22,13 +22,13 @@ public class Evento {
     @Column(nullable = false)
     private Date fecha_publicacion;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date fecha_fin_busqueda;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date fecha_inicio;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date fecha_fin;
 
     @OneToOne
@@ -39,9 +39,16 @@ public class Evento {
     @JoinColumn(name = "id_status", unique = true)
     private Status status;
 
+    @Column(nullable = true)
+    private String especificaciones;
+
+    @Column(nullable = true)
+    private String mensaje_predeterminado;
+
+/*
     @OneToOne
     @JoinColumn(name = "id_turno", unique = true)
     private Turnos turnos;
-
+*/
 
 }

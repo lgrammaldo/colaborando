@@ -1,4 +1,4 @@
-package com.example.ClinicaOdontologicaApplication.DTO;
+package com.example.ColaborandoApplication.DTO;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -34,7 +34,7 @@ public class UsuarioService {
         Usuario usuario = null;
         try {
             usuario = getUserFromEntity(colaboradorDTO.getEmail(), colaboradorDTO.getPassword(), "Colaborador");
-            usuario = usuarioRepository.save(usuario);
+
 
             Colaborador colaborador = PersonaMapper.mapPersonaDTOtoPersona(colaboradorDTO);
             colaborador.setUsuario(usuario);
