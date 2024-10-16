@@ -83,15 +83,13 @@ function Home() {
                 <thead>
                   <tr>
                     <th>Fecha y Hora</th>
-                    <th>Paciente</th>
-                    <th>Odontólogo</th>
-                    <th>Tratamiento</th>
+                    <th>Evento</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedDate.getDate() === 1 && selectedDate.getHours() === 0
+                  { /*selectedDate.getDate() === 1 && selectedDate.getHours() === 0
                     ? filteredTurnosByMonth.map(turno => (
                       <tr key={turno.id}>
                         <td>{format(new Date(turno.fechaTurno), 'yyyy-MM-dd HH:mm')}</td>
@@ -114,7 +112,7 @@ function Home() {
                         </td>
                       </tr>
                     ))
-                  }
+                  */}
                 </tbody>
               </table>
             </div>

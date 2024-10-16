@@ -21,11 +21,11 @@ public class Usuario {
     @Column(nullable = false)
     private String tipoUsuario;
 
-    @OneToOne
+    /* @OneToOne
     @JoinColumn(name = "id_status", unique = true)
     private Status status;
 
-    /*
+
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_creacion", nullable = false)
     private Date fechaCreacion;

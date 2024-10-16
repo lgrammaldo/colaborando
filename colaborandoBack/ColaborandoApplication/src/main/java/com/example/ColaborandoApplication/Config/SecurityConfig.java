@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final String PREFIX_URL = "/colaborando/*";
+    private final String PREFIX_URL = "/colaborando";
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
@@ -48,12 +48,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //http.csrf().disable().authorizeRequests()
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
-/*                .antMatchers(PREFIX_URL+"login").permitAll() // Permite que todos accedan a /login
+                .antMatchers(PREFIX_URL+"/login").permitAll()  // Permite que todos accedan a /login
                 .antMatchers(PREFIX_URL+"usuario/*").permitAll()
                 .antMatchers(PREFIX_URL+"get-empleos").permitAll()
-                .antMatchers(PREFIX_URL+"crearevento").permitAll()*/
-                .antMatchers(PREFIX_URL).permitAll()
-                .anyRequest().authenticated() // Todas las demás solicitudes requieren autenticación
+                .antMatchers(PREFIX_URL+"crearevento").permitAll()
+                .antMatchers(PREFIX_URL+"/*").permitAll()
+               // .anyRequest().authenticated() // Todas las demás solicitudes requieren autenticación
                 .and()
                 //.addFilterBefore(new JwtAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
                 .exceptionHandling().and().sessionManagement()

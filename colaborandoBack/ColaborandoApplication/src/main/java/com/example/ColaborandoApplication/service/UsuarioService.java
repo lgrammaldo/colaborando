@@ -4,6 +4,7 @@ import com.example.ColaborandoApplication.DTO.EstablecimientoDTO;
 import com.example.ColaborandoApplication.DTO.ColaboradorDTO;
 import com.example.ColaborandoApplication.Entity.Establecimiento;
 import com.example.ColaborandoApplication.Entity.Colaborador;
+import com.example.ColaborandoApplication.Entity.Status;
 import com.example.ColaborandoApplication.Entity.Usuario;
 import com.example.ColaborandoApplication.mapper.EmpresaMapper;
 import com.example.ColaborandoApplication.mapper.PersonaMapper;
@@ -34,7 +35,7 @@ public class UsuarioService {
         Usuario usuario = null;
         try {
             usuario = getUserFromEntity(colaboradorDTO.getEmail(), colaboradorDTO.getPassword(), "Colaborador");
-
+            usuarioRepository.save(usuario);
 
             Colaborador colaborador = PersonaMapper.mapPersonaDTOtoPersona(colaboradorDTO);
             colaborador.setUsuario(usuario);
@@ -66,6 +67,7 @@ public class UsuarioService {
             user.setEmail(email);
             user.setPassword(password);
             user.setTipoUsuario(tipoPersona);
+           // user.setStatus(new Status());
             /*user.setFechaCreacion(new Date());*/
         return user;
     }

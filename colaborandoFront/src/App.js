@@ -6,7 +6,7 @@ import Login from './pages/Login';
 //import Associate from './pages/Associate';
 import SeleccionEmpleos from './pages/SeleccionEmpleos';
 import SeleccionDisponibilidad from './pages/SeleccionDisponibilidad';
-import CrearEvento from './pages/CrearEvento';
+import CrearEvento from './pages/CrearEvento2';
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
               {/* Route path="/associate" element={<Associate />} /> */}
               <Route path="/seleccion-empleos" element={<SeleccionEmpleos />} />
               <Route path="/seleccion-disponibilidad" element={<SeleccionDisponibilidad />} />
-              <Route path="/crearevento" element={<CrearEvento />} />
+            { /* <Route path="/crearevento" element={<CrearEvento />} /> */}  
               <Route path="/crear-evento" element={<CrearEvento />} />
               {/* Asegúrate de tener una ruta para las demás opciones */}
               <Route path="*" element={<Navigate to="/login" />} />
