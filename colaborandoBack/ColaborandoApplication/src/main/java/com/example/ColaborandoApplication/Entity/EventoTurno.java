@@ -7,15 +7,15 @@ import javax.persistence.*;
 @Data
 @Entity
 @Builder
-@Table(name = "relUsuarioTurno")
-public class RelUsuarioTurno {
+@Table(name = "EventoTurno")
+public class EventoTurno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_Relacion;
 
     @OneToOne
-    @JoinColumn(name = "id_Usuario", unique = false)
+    @JoinColumn(name = "id_Evento", unique = false)
     private Usuario usuario;
 
     @OneToOne
