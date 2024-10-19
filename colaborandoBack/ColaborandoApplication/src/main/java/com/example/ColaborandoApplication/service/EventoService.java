@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
+
 
 @Service
 public class EventoService {
@@ -23,17 +23,16 @@ public class EventoService {
         Evento evento = null;
         try {
             /*hay que ver como obtener el mail del que esta creando el evento*/
-            Usuario usuario = null;
+            Usuario usuario;// = null;
             usuario = getUserFromEntity("gavilan.lucas4@gmail.com");
 
             /*hay que ver como obtener el status del evento*/
-            Status status = null;
+            Status status;// = null;
             status = getStatusFromEntity("Activo");
 
-            /*evento = getEventoFromEntity(eventoDTO.getNombre(), eventoDTO.getFecha_publicacion());*/
             evento = EventoMapper.mapEventoaDTOtoEvento(eventoDTO);
-            evento.setUsuario(usuario);
-            evento.setStatus(status);
+            //evento.setUsuario(usuario);
+            //evento.setStatus(status);
             eventoRepository.save(evento);
 
 

@@ -19,7 +19,7 @@ public class Evento {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date fecha_publicacion;
 
     @Column(nullable = true)
@@ -29,7 +29,13 @@ public class Evento {
     private Date fecha_inicio;
 
     @Column(nullable = true)
+    private Date hora_inicio;
+
+    @Column(nullable = true)
     private Date fecha_fin;
+
+    @Column(nullable = true)
+    private Date hora_fin;
 
     @OneToOne
     @JoinColumn(name = "id_usuario", unique = true)

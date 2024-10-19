@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PREFIX_URL+"usuario/*").permitAll()
                 .antMatchers(PREFIX_URL+"get-empleos").permitAll()
                 .antMatchers(PREFIX_URL+"crearevento").permitAll()
+                .antMatchers(PREFIX_URL+"CrearEvento2").permitAll()
                 .antMatchers(PREFIX_URL+"/*").permitAll()
                // .anyRequest().authenticated() // Todas las demás solicitudes requieren autenticación
                 .and()

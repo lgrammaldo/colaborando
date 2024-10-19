@@ -7,7 +7,8 @@ import eventoService from '../services/EventoService';
 
 const CrearEvento = () => {
   const [nombre, setNombre] = useState('');
-  const [fecha, setFecha] = useState('');
+  const [fecha_inicio, setFechaInicio] = useState('');
+  const [fecha_fin, setFechaFin] = useState('');
   const [duracion, setDuracion] = useState('');
   const [especificaciones, setEspecificaciones] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -22,8 +23,12 @@ const CrearEvento = () => {
 
   const saveEvento = (e) => {
     e.preventDefault();
-    const evento = { nombre, fecha, duracion, especificaciones, descripcion, numero1, numero2, numero3, combo1, combo2, combo3 };
-    
+    //const evento = { nombre, fecha, duracion, especificaciones, descripcion, numero1, numero2, numero3, combo1, combo2, combo3 };
+    var usu = null;
+    var sta = null;
+    const evento = { nombre, fecha_inicio, fecha_fin, fecha_inicio, fecha_fin, usu, sta, especificaciones, descripcion};
+
+
     eventoService.createEvento(evento)
     .then(
         res => {
@@ -51,8 +56,12 @@ const CrearEvento = () => {
                     <input type="text" className="form-control" value={nombre} onChange={(e) => setNombre(e.target.value)} required/>
                   </div>
                   <div className='form-group'>
-                    <label>Fecha: </label>
-                    <input type="date" className="form-control" value={fecha} onChange={(e) => setFecha(e.target.value)} required/>
+                    <label>Fecha Inicio: </label>
+                    <input type="datetime-local" className="form-control" value={fecha_inicio} onChange={(e) => setFechaInicio(e.target.value)} required/>
+                  </div>
+                  <div className='form-group'>
+                    <label>Fecha Fin: </label>
+                    <input type="datetime-local" className="form-control" value={fecha_fin} onChange={(e) => setFechaFin(e.target.value)} required/>
                   </div>
                   <div className='form-group'>
                     <label>Duración:</label>

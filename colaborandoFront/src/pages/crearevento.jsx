@@ -22,7 +22,10 @@ const CrearEvento = () => {
 
   const saveEvento = (e) => {
     e.preventDefault();
-    const evento = { nombre, fecha, duracion, especificaciones, descripcion, numero1, numero2, numero3, combo1, combo2, combo3 };
+    //const evento = { nombre, fecha, duracion, especificaciones, descripcion, numero1, numero2, numero3, combo1, combo2, combo3 };
+    var usu = null;
+    var sta = null;
+    const evento = { nombre, fecha, fecha, fecha, fecha, usu, sta, especificaciones, descripcion};
     
     eventoService.createEvento(evento)
     .then(
