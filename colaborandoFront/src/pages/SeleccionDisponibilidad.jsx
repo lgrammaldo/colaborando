@@ -7,7 +7,7 @@ const SeleccionDisponibilidad = () => {
 
     const diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     const intervalos = ['0-6hs', '6-12hs', '12-18hs', '18-24hs'];
-
+    
     // Estado inicial para almacenar la disponibilidad
     const [disponibilidad, setDisponibilidad] = useState(
         diasSemana.reduce((acc, dia) => {

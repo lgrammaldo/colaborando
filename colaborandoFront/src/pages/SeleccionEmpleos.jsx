@@ -7,6 +7,7 @@ const SeleccionEmpleos = () => {
     const navigate = useNavigate();
     
     const [rol, setRol] = useState(localStorage.getItem("rol"));
+    const [userId, setUserId] = useState(localStorage.getItem("userID"));
 
     const [empleos, setEmpleos] = useState([]);
     
@@ -36,10 +37,20 @@ const SeleccionEmpleos = () => {
         }
     };
 
-    // Función para continuar con la selección
+
+
     const handleContinuar = () => {
-        console.log('Empleos seleccionados (IDs):', empleosSeleccionados);
-        navigate('/seleccion-disponibilidad');
+        const empleosSeleccionadosDTO = {userId, empleosSeleccionados};
+        
+    /*    colaboradorService.asignarRoles(empleosSeleccionadosDTO)
+         .then(
+             res => {
+                console.log('Empleos seleccionados (IDs):', empleosSeleccionados);
+                navigate('/seleccion-disponibilidad');          
+             }
+         ).catch(error => {
+             alert("Error al crear evento")
+         })    */ 
     };
 
     return (

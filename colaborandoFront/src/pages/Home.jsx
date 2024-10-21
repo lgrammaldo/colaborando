@@ -2,7 +2,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Home.css';
 import React, { useState, useEffect } from 'react';
-import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header.jsx';
 
@@ -17,7 +16,7 @@ function Home() {
   }, []);
 
   const addTurno = () => {
-    navigate('/crear-turnos');
+    navigate('/crear-evento');
   }
 
   const handleDateChange = (date) => {
@@ -64,10 +63,10 @@ function Home() {
             <h2 >Agenda</h2>
           </div>
           <div className="col-7">
-            <h2 >Lista de Turnos</h2>
+            <h2> Lista de Eventos </h2>
           </div>
           <div className="col-2">
-            <button className='btn btn-primary' onClick={addTurno}> Dar Turno</button>
+            <button className='btn btn-primary' onClick={addTurno}> Crear Evento </button>
           </div>
         </div>
         <div className="row align-items-start">
