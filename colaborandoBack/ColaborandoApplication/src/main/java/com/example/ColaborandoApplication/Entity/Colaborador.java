@@ -1,12 +1,11 @@
 package com.example.ColaborandoApplication.Entity;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Builder
+@NoArgsConstructor
 @Table(name = "colaboradores")
 public class Colaborador {
 
@@ -21,12 +20,12 @@ public class Colaborador {
     @Column(nullable = false, unique = true)
     private Integer dni;
 
-    /*Agregado 9-10*/
-    @Column(nullable = true, unique = true)
+  /*  /*Agregado 9-10*/
+  /*  @Column(nullable = true, unique = true)
     private String calificacion;
 
     @Column(nullable = true, unique = true)
-    private String cuil;
+    private String cuil; */
     /**/
 
     @Column(nullable = false)

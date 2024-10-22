@@ -12,6 +12,9 @@ class EmpleosService {
         })
     }
 
+    asociarEmpleosAColaborador(asociarEmpleosDTO){
+      return axios.post(PERSONA_API_BASE_URL + "/asociar-empleos", asociarEmpleosDTO, {})
+    }
 }
 
 const empleosService = new EmpleosService();

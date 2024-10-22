@@ -17,15 +17,15 @@ public class ColaboradoresEmpleos {
     private Integer id_colaboradoresEmpleos;
 
     @OneToOne
-    @JoinColumn(name = "id_colaborador", unique = true)
+    @JoinColumn(name = "id_colaborador")
     private Colaborador colaborador;
 
-    @OneToOne
-    @JoinColumn(name = "id_status", unique = true)
-    private Status status;
+   // @OneToOne
+    @JoinColumn(unique = true)
+    private String status;
 
     @OneToOne
-    @JoinColumn(name = "id_empleos", unique = true)
+    @JoinColumn(name = "id_empleos")
     private Empleos empleos;
 
 }

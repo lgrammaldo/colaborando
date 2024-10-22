@@ -5,11 +5,12 @@ import com.example.ColaborandoApplication.Entity.Colaborador;
 
 public class PersonaMapper {
     public static Colaborador mapPersonaDTOtoPersona(ColaboradorDTO colaboradorDTO) {
-        return Colaborador.builder()
-                .dni(colaboradorDTO.getDni())
-                .nombre(colaboradorDTO.getNombre())
-                .apellido(colaboradorDTO.getApellido())
-                .telefono(colaboradorDTO.getTelefono())
-                .build();
+        Colaborador colaborador =  new Colaborador();
+            colaborador.setDni(colaboradorDTO.getDni());
+            colaborador.setNombre(colaboradorDTO.getNombre());
+            colaborador.setApellido(colaboradorDTO.getApellido());
+            colaborador.setTelefono(colaboradorDTO.getTelefono());
+
+        return colaborador;
     }
 }

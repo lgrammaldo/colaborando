@@ -7,14 +7,14 @@ const SeleccionEmpleos = () => {
     const navigate = useNavigate();
     
     const [rol, setRol] = useState(localStorage.getItem("rol"));
+    const [userId, setUserId] = useState(localStorage.getItem("userId"));
 
     const [empleos, setEmpleos] = useState([]);
     
     const [empleosSeleccionados, setEmpleosSeleccionados] = useState([]);
 
     useEffect(() => {
-        setRol(localStorage.getItem("rol"));
-
+        console.log("userID:", userId);
         empleosService.getEmpleos()
         .then(
             res => {
@@ -29,17 +29,32 @@ const SeleccionEmpleos = () => {
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
         const id = parseInt(value);  // Convertir el valor del checkbox (id) a número
-        if (checked) {
-            setEmpleosSeleccionados([...empleosSeleccionados, id]);
-        } else {
-            setEmpleosSeleccionados(empleosSeleccionados.filter((empleoId) => empleoId !== id));
-        }
+    
+        setEmpleosSeleccionados((prevSeleccionados) => {
+            if (checked) {
+                return [...prevSeleccionados, id];  // Agrega el empleo seleccionado
+            } else {
+                return prevSeleccionados.filter((empleoId) => empleoId !== id);  // Elimina el empleo no seleccionado
+            }
+        });
     };
-
     // Función para continuar con la selección
     const handleContinuar = () => {
         console.log('Empleos seleccionados (IDs):', empleosSeleccionados);
-        navigate('/seleccion-disponibilidad');
+        const asociarEmpleosAColaborador = { empleosSeleccionados, userId }; 
+        empleosService.asociarEmpleosAColaborador(asociarEmpleosAColaborador)
+        .then(
+            res => {
+                navigate('/home')
+            }
+        ).catch(error => {
+            alert("Error al crear colaborador")
+        })
+       
+    };
+
+    const handleOmitir = () => {
+        navigate('/home');
     };
 
     return (
@@ -71,6 +86,7 @@ const SeleccionEmpleos = () => {
                         )}
                     </form>
 
+                    <h5 className="text-center mt-4">Si omites este paso puedes agregar tus roles luego.</h5>
                     <div className="text-center mt-4">
                         <button 
                             type="button" 
@@ -81,7 +97,17 @@ const SeleccionEmpleos = () => {
                             Continuar
                         </button>
                     </div>
+                   <div className="text-center mt-4">
+                    <button
+                        type="button"
+                        className="btn btn-secondary btn-lg"
+                        style={{ width: '100%' }}
+                        onClick={handleOmitir}
+                    >
+                        Omitir
+                    </button>
                 </div>
+            </div>
             ) : (
                 <h1>PÁGINA NO ENCONTRADA</h1>
             )}

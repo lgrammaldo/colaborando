@@ -28,6 +28,7 @@ const Login = ({ history }) => {
         const response = await LoginService.authenticateUser({ email, password });
         localStorage.setItem('token', response.data?.token);
         localStorage.setItem('rol', response.data?.rol);
+        localStorage.setItem('userId', response.data?.userId);
         navigate('/home');
       } catch (error) {
         const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

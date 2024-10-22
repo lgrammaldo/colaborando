@@ -42,6 +42,7 @@ public class AuthController {
         Map<String, String> data = new HashMap<>();
         data.put("token", jwtTokenUtil.generateToken(jwtRequest.getEmail()));
         data.put("rol", user.getTipoUsuario());
+        data.put("userId", String.valueOf(user.getId()));
         return data;
     }
 

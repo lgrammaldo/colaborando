@@ -4,20 +4,16 @@ import com.example.ColaborandoApplication.DTO.EstablecimientoDTO;
 import com.example.ColaborandoApplication.DTO.ColaboradorDTO;
 import com.example.ColaborandoApplication.Entity.Establecimiento;
 import com.example.ColaborandoApplication.Entity.Colaborador;
-import com.example.ColaborandoApplication.Entity.Status;
 import com.example.ColaborandoApplication.Entity.Usuario;
 import com.example.ColaborandoApplication.mapper.EmpresaMapper;
 import com.example.ColaborandoApplication.mapper.PersonaMapper;
 import com.example.ColaborandoApplication.repository.EmpresaRepository;
-import com.example.ColaborandoApplication.repository.PersonaRepository;
+import com.example.ColaborandoApplication.repository.ColaboradorRepository;
 import com.example.ColaborandoApplication.repository.UsuarioRepository;
-import org.hibernate.HibernateException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
 
 @Service
 public class UsuarioService {
@@ -25,7 +21,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
-    private PersonaRepository personaRepository;
+    private ColaboradorRepository colaboradorRepository;
 
     @Autowired
     private EmpresaRepository empresaRepository;
@@ -33,13 +29,15 @@ public class UsuarioService {
     @Transactional(rollbackOn = Exception.class)
     public Usuario crearUsuarioYPersona(ColaboradorDTO colaboradorDTO) {
         Usuario usuario = null;
+        Colaborador colaborador = null;
         try {
             usuario = getUserFromEntity(colaboradorDTO.getEmail(), colaboradorDTO.getPassword(), "Colaborador");
             usuarioRepository.save(usuario);
 
-            Colaborador colaborador = PersonaMapper.mapPersonaDTOtoPersona(colaboradorDTO);
+
+            colaborador = PersonaMapper.mapPersonaDTOtoPersona(colaboradorDTO);
             colaborador.setUsuario(usuario);
-            personaRepository.save(colaborador);
+            colaboradorRepository.save(colaborador);
         } catch (Exception e) {
             System.out.println("Error al crear Usuario2 o Colaborador: {}"+ e.getMessage()+"\n");
         }

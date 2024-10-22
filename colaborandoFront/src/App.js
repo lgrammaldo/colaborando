@@ -20,7 +20,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               {/* Route path="/associate" element={<Associate />} /> */}
               <Route path="/seleccion-empleos" element={<SeleccionEmpleos />} />
-              <Route path="/seleccion-disponibilidad" element={<SeleccionDisponibilidad />} />
+            { /*  <Route path="/seleccion-disponibilidad" element={<SeleccionDisponibilidad />} /> */}  
             { /* <Route path="/crearevento" element={<CrearEvento />} /> */}  
               <Route path="/crear-evento" element={<CrearEvento />} />
               {/* Asegúrate de tener una ruta para las demás opciones */}
