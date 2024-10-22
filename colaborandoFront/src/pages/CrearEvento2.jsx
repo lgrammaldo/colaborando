@@ -9,7 +9,6 @@ const CrearEvento = () => {
   const [nombre, setNombre] = useState('');
   const [fecha_inicio, setFechaInicio] = useState('');
   const [fecha_fin, setFechaFin] = useState('');
-  const [duracion, setDuracion] = useState('');
   const [especificaciones, setEspecificaciones] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [numero1, setNumero1] = useState('');
@@ -21,12 +20,24 @@ const CrearEvento = () => {
 
   const navigate = useNavigate();
 
+  function addHoursToDate(objDate, intHours) {
+    var numberOfMlSeconds = objDate.getTime();
+    var addMlSeconds = (intHours * 60) * 60000;
+    var newDateObj = new Date(numberOfMlSeconds - addMlSeconds);
+    return newDateObj;
+  }
+
   const saveEvento = (e) => {
     e.preventDefault();
-    //const evento = { nombre, fecha, duracion, especificaciones, descripcion, numero1, numero2, numero3, combo1, combo2, combo3 };
+    
+    const fecha_publicacion = new Date();
+
+    //var fecha_f_b = new Date(fecha_inicio);
+    //fecha_f_b.setDate(fecha_f_b.getHours(), -2);
+
     var usu = null;
     var sta = null;
-    const evento = { nombre, fecha_inicio, fecha_fin, fecha_inicio, fecha_fin, usu, sta, especificaciones, descripcion};
+    const evento = { nombre, fecha_publicacion, fecha_publicacion, fecha_inicio, fecha_fin, usu, sta, especificaciones, descripcion};
 
 
     eventoService.createEvento(evento)
@@ -62,10 +73,6 @@ const CrearEvento = () => {
                   <div className='form-group'>
                     <label>Fecha Fin: </label>
                     <input type="datetime-local" className="form-control" value={fecha_fin} onChange={(e) => setFechaFin(e.target.value)} required/>
-                  </div>
-                  <div className='form-group'>
-                    <label>Duración:</label>
-                    <input type="text" className="form-control" value={duracion} onChange={(e) => setDuracion(e.target.value)} required/>
                   </div>
                   <div className='form-group'>
                     <label>Especificaciones:</label>

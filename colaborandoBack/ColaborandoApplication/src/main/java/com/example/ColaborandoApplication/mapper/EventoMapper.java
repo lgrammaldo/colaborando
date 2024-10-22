@@ -14,7 +14,7 @@ public class EventoMapper {
                 /*.usuario(eventoDTO.getId_usuario())
                 .id_status(eventoDTO.getId_status())*/
                 .especificaciones(eventoDTO.getEspecificaciones())
-                .mensaje_predeterminado(eventoDTO.getMensaje_predeterminado())
+                .descripcion(eventoDTO.getDescripcion())
                 .build();
     }
 }

@@ -25,4 +25,7 @@ public class Asistencias {
     @JoinColumn(name = "id_status", unique = true)
     private Status status;
 
+
+
+
 }

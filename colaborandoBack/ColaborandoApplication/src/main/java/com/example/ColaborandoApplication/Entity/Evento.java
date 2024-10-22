@@ -29,13 +29,7 @@ public class Evento {
     private Date fecha_inicio;
 
     @Column(nullable = true)
-    private Date hora_inicio;
-
-    @Column(nullable = true)
     private Date fecha_fin;
-
-    @Column(nullable = true)
-    private Date hora_fin;
 
     @OneToOne
     @JoinColumn(name = "id_usuario", unique = true)
@@ -49,7 +43,7 @@ public class Evento {
     private String especificaciones;
 
     @Column(nullable = true)
-    private String mensaje_predeterminado;
+    private String descripcion;
 
 /*
     @OneToOne
