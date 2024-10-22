@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ColaborandoBack" />
         <module name="ClinicaOdontologicaApplication" />
+        <module name="ColaborandoApplication" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ClinicaOdontologicaApplication" options="-parameters" />
+      <module name="ColaborandoApplication" options="-parameters" />
       <module name="ColaborandoBack" options="-parameters" />
     </option>
   </component>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import NavBar from '../components/NavBar';
-import logo from '../imagenes/logoColab.png'
+import logo from '../imagenes/logoColab.png';
 import './Login.css';
 import LoginService from '../services/LoginService';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,6 @@ const Login = ({ history }) => {
   };
 
   const navigate = useNavigate();
-  
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -46,12 +45,13 @@ const Login = ({ history }) => {
       <NavBar />
       <div className="container h-100">
         <div className="row h-100 justify-content-center align-items-center">
-          <div className="col-md-6">   
-            <div className="card">
-              <div className="card-body d-flex flex-column align-items-center"> {/* Added flexbox for centering */}
-                <h1 className="text-center mb-4">Bienvenido</h1>
-                <img src={logo} alt="Logo CoLaborando" className="img-fluid" /> {/* Added img-fluid for responsiveness */}
-                <br/>
+          <div className="col-md-6">
+            <div className="card shadow" style={{ borderColor: '#CB6665' }}> {/* Borde coral oscuro */}
+              <div className="card-body d-flex flex-column align-items-center">
+                <h1 className="text-center mb-4" style={{ color: '#CB6665' }}> {/* Texto coral oscuro */}
+                  Bienvenido
+                </h1>
+                <img src={logo} alt="Logo CoLaborando" className="img-fluid mb-4" />
                 <form onSubmit={handleLogin}>
                   <div className="mb-3">
                     <input
@@ -61,50 +61,47 @@ const Login = ({ history }) => {
                       name="email"
                       placeholder="Email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}   
-
+                      onChange={(e) => setEmail(e.target.value)}
                       required
+                      style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
                     />
                   </div>
                   <div className="mb-3">
                     <input
                       type="password"
-                      className="form-control"   
-
+                      className="form-control"
                       id="password"
                       name="password"
                       placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
+                      style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
                     />
-                  </div>   
-
+                  </div>
                   <div className="text-center">
                     <button
-                      type="submit"   
-
-                      className="btn btn-primary"
+                      type="submit"
+                      className="btn"
                       disabled={loading}
-                      style={{ background: '#334fff' }}
+                      style={{ backgroundColor: '#CB6665', color: '#fff', width: '100%' }}
                     >
                       {loading && (
-                        <span className="spinner-border spinner-border-sm"></span>   
+                        <span className="spinner-border spinner-border-sm"></span>
                       )}
                       Ingresar
                     </button>
                   </div>
                   <div className="text-center mt-2">
-                    <a href="/register" className="text-decoration-none">
+                    <a href="/register" className="text-decoration-none" style={{ color: '#CB6665' }}>
                       ¿Olvidaste tu contraseña?
                     </a>
                   </div>
                 </form>
-                <br/>
                 <footer>
                   <div className="text-center mt-2">
                     <span>¿Aún no tienes cuenta? </span>
-                    <a href="/crear-colaborador" className="text-decoration-none">
+                    <a href="/crear-colaborador" className="text-decoration-none" style={{ color: '#CB6665' }}>
                       Registrarse.
                     </a>
                   </div>
@@ -123,7 +120,6 @@ const Login = ({ history }) => {
       </div>
     </div>
   );
-}
-
+};
 
 export default Login;
