@@ -114,7 +114,7 @@
     
     /* Estilos para el botón Dar Turno */
     .dar-turno-button {
-      background-color: #007bff;
+      background-color: #fff;
       color: #fff;
       padding: 10px 20px;
       border: none;
@@ -128,7 +128,7 @@
     
     
     .dar-turno-button:hover {
-      background-color: #0056b3;
+      background-color: #fff;
     }
     
    
@@ -142,7 +142,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Agrega una sombra sutile alrededor del calendario */
   }
   .react-calendar__month-view__weekdays {
-    background-color: #3498db; /* Cambia el fondo de los días de la semana */
+    background-color: #fff; /* Cambia el fondo de los días de la semana */
     color: #fff; /* Cambia el color del texto de los días de la semana a blanco */
   }
   /* Estilo para los números de los sábados y domingos */
@@ -157,17 +157,17 @@
   }
   
   .react-calendar__tile--active {
-    background-color: #3498db; /* Cambia el fondo del día seleccionado */
+    background-color: #fff; /* Cambia el fondo del día seleccionado */
     color: #fff; /* Cambia el color del número en el día seleccionado */
   }
   
   .react-calendar__navigation {
-    background-color: #3498db; /* Cambia el fondo de la barra de navegación del calendario */
+    background-color: #fff; /* Cambia el fondo de la barra de navegación del calendario */
     color: #fff; /* Cambia el color del texto en la barra de navegación */
   }
   /* Estilo para el botón de navegación deshabilitado */
   .react-calendar__navigation button:disabled {
-    background-color: #3498db; /* Usa el mismo fondo que la barra de navegación */
+    background-color: #fff; /* Usa el mismo fondo que la barra de navegación */
     color: #fff; /* Usa el mismo color de texto que la barra de navegación */
     cursor: not-allowed; /* Cambia el cursor al pasar por encima del botón deshabilitado */
     border: none; /* Elimina el borde del botón deshabilitado si lo deseas */
@@ -189,7 +189,7 @@
   
   /* Estilo para 'No Asistió' */
   .no-asistio {
-    background-color:#FF9999;
+    background-color:#fff;
   }
   
   /* Estilo para 'Pendiente' */

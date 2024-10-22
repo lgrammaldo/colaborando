@@ -25,7 +25,7 @@ const Header = () => {
 
     return (
         <>
-            <header className='flex-container' style={{ background: '#334fff' }}>
+            <header className='flex-container' style={{ background: '#fff' }}>
                 <div className='box1' >
                     <nav className="navbar navbar-expand-lg navbar-dark" >
                     <img src={logo} alt="Logo Colaborando" />
@@ -47,36 +47,7 @@ const Header = () => {
 
             <div id="navegador">
                 <Nav className="ml-auto" variant="tabs">
-                    <Nav.Item>
-                        <Link to="/turnos" className="nav-link">
-                            EVENTOS <FontAwesomeIcon icon={faCalendar} />
-                        </Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Link to="/paciente" className="nav-link">
-                            BASE DE PERSONAL <FontAwesomeIcon icon={faUser} />
-                        </Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Link to="/paciente" className="nav-link">
-                            AGENDA <FontAwesomeIcon icon={faCalendar} />
-                        </Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Link to="/paciente" className="nav-link">
-                            BÚSQUEDA EXTERNA <FontAwesomeIcon icon={faUser} />
-                        </Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Link to="/paciente" className="nav-link">
-                            REPORTES <FontAwesomeIcon icon={faDigitalTachograph} />
-                        </Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Link to="/paciente" className="nav-link">
-                            NOTIFICACIONES <FontAwesomeIcon icon={faBell} />
-                        </Link>
-                    </Nav.Item>
+                    
                 {rol === 'ODONTOLOGO' && (
                     <>
                         <Nav.Item>
