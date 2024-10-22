@@ -17,6 +17,6 @@ public class EventoDTO {
     private Integer id_usuario;
     private Integer id_status;
     private String especificaciones;
-    private String mensaje_predeterminado;
+    private String descripcion;
 
 }
