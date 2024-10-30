@@ -35,9 +35,11 @@ public class Evento {
     @JoinColumn(name = "id_usuario", unique = true)
     private Usuario usuario;
 
-    @OneToOne
+   /* @OneToOne
     @JoinColumn(name = "id_status", unique = true)
-    private Status status;
+    private Status status;*/
+   @JoinColumn(unique = true)
+   private String status;
 
     @Column(nullable = true)
     private String especificaciones;
