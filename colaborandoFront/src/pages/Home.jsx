@@ -2,6 +2,7 @@ import React from 'react';
 import './Home.css';
 import Header from './Header.jsx';
 import { useNavigate } from 'react-router-dom';
+import NavBarWithLogo from '../components/NavBarWithLogo';
 
 function Home() {
   const navigate = useNavigate();

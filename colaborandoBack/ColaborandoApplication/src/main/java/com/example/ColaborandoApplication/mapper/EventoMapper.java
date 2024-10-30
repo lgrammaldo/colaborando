@@ -11,6 +11,7 @@ public class EventoMapper {
                 .fecha_fin_busqueda(eventoDTO.getFecha_fin_busqueda())
                 .fecha_inicio(eventoDTO.getFecha_inicio())
                 .fecha_fin(eventoDTO.getFecha_fin())
+                .status("Active")
                 /*.usuario(eventoDTO.getId_usuario())
                 .id_status(eventoDTO.getId_status())*/
                 .especificaciones(eventoDTO.getEspecificaciones())

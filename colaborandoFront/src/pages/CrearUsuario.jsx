@@ -20,7 +20,7 @@ const CrearUsuario = () => {
     const saveUsuario = (e) => {
         e.preventDefault();
         const colaborador = { nombre, apellido, email, telefono, dni, password, codEstablecimiento };
-
+    
         usuariosService.createUsuarioPersona(colaborador)
             .then(res => {
                 console.log('Persona registrada:', colaborador);
@@ -28,7 +28,13 @@ const CrearUsuario = () => {
                 handleLogin(e);
             })
             .catch(error => {
-                alert("Error al crear colaborador");
+                // Verificar si el servidor devolvió un mensaje de error específico
+                if (error.response && error.response.status === 400 && error.response.data) {
+                    // Mostrar el mensaje de error específico desde el backend
+                    alert(error.response.data);
+                } else {
+                    alert("Error al crear colaborador");
+                }
             });
     };
 

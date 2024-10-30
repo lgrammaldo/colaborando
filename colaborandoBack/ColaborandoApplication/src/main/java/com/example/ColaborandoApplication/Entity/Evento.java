@@ -16,7 +16,7 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_evento;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nombre;
 
     @Column(nullable = true)
@@ -35,9 +35,11 @@ public class Evento {
     @JoinColumn(name = "id_usuario", unique = true)
     private Usuario usuario;
 
-    @OneToOne
+   /* @OneToOne
     @JoinColumn(name = "id_status", unique = true)
-    private Status status;
+    private Status status;*/
+   @Column(nullable = false)
+   private String status;
 
     @Column(nullable = true)
     private String especificaciones;

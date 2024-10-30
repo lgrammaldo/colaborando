@@ -21,7 +21,7 @@ public class ColaboradoresEmpleos {
     private Colaborador colaborador;
 
    // @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(nullable = true)
     private String status;
 
     @OneToOne

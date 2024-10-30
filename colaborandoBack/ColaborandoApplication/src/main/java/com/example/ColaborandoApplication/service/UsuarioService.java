@@ -7,7 +7,7 @@ import com.example.ColaborandoApplication.Entity.Colaborador;
 import com.example.ColaborandoApplication.Entity.Usuario;
 import com.example.ColaborandoApplication.mapper.EmpresaMapper;
 import com.example.ColaborandoApplication.mapper.PersonaMapper;
-import com.example.ColaborandoApplication.repository.EmpresaRepository;
+import com.example.ColaborandoApplication.repository.EstablecimientoRepository;
 import com.example.ColaborandoApplication.repository.ColaboradorRepository;
 import com.example.ColaborandoApplication.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +24,28 @@ public class UsuarioService {
     private ColaboradorRepository colaboradorRepository;
 
     @Autowired
-    private EmpresaRepository empresaRepository;
+    private EstablecimientoRepository establecimientoRepository;
 
     @Transactional(rollbackOn = Exception.class)
-    public Usuario crearUsuarioYPersona(ColaboradorDTO colaboradorDTO) {
+    public Usuario crearUsuarioYPersona(ColaboradorDTO colaboradorDTO) throws CodigoEstablecimientoInvalidoException {
+        // Logica de verificar el codigo de establecimiento
+      /*  var establecimiento = establecimientoRepository.findByCodigo(colaboradorDTO.getCodEstablecimiento());
+        if (establecimiento.isEmpty()){
+            throw new CodigoEstablecimientoInvalidoException("Por favor ingresa un código de Establecimiento válido.");
+        } */
+
         Usuario usuario = null;
         Colaborador colaborador = null;
         try {
             usuario = getUserFromEntity(colaboradorDTO.getEmail(), colaboradorDTO.getPassword(), "Colaborador");
             usuarioRepository.save(usuario);
 
+            // Logica de verificar el codigo de establecimiento
+        /*    var establecimiento = establecimientoRepository.findByCodigo(colaboradorDTO.getCodEstablecimiento());
+
+            if (establecimiento.isEmpty()){
+                throw new CodigoEstablecimientoInvalidoException("Por favor ingresa un código de Establecimiento válido.");
+            } */
 
             colaborador = PersonaMapper.mapPersonaDTOtoPersona(colaboradorDTO);
             colaborador.setUsuario(usuario);
@@ -53,7 +65,7 @@ public class UsuarioService {
 
             Establecimiento establecimiento = EmpresaMapper.mapPersonaDTOtoPersona(establecimientoDTO);
             establecimiento.setUsuario(usuario);
-            empresaRepository.save(establecimiento);
+            establecimientoRepository.save(establecimiento);
         } catch (Exception e) {
             System.out.println("Error al crear Usuario2 o Empresa: {}"+ e.getMessage());
         }

@@ -1,8 +1,6 @@
 package com.example.ColaborandoApplication.service;
 
-import com.example.ColaborandoApplication.Entity.Evento;
-import com.example.ColaborandoApplication.Entity.Usuario;
-import com.example.ColaborandoApplication.Entity.Status;
+import com.example.ColaborandoApplication.Entity.*;
 import com.example.ColaborandoApplication.mapper.EventoMapper;
 import com.example.ColaborandoApplication.repository.EventoRepository;
 import com.example.ColaborandoApplication.DTO.EventoDTO;
@@ -26,15 +24,23 @@ public class EventoService {
             Usuario usuario;// = null;
             usuario = getUserFromEntity("gavilan.lucas4@gmail.com");
 
-            /*hay que ver como obtener el status del evento*/
+            /*hay que ver como obtener el status del evento
             Status status;// = null;
-            status = getStatusFromEntity("Activo");
+            status = getStatusFromEntity("Activo"); */
 
             evento = EventoMapper.mapEventoaDTOtoEvento(eventoDTO);
             //evento.setUsuario(usuario);
             //evento.setStatus(status);
             eventoRepository.save(evento);
 
+            Listas lista = new Listas();
+            lista.setEvento(evento);
+            lista.setCantidad(0); // Establece un valor inicial para cantidad, o según necesites
+            // Asigna un Empleos si es necesario, o déjalo nulo si se establecerá más tarde
+          /*  Empleos empleos = getEmpleoFromEntity("Nombre del empleo"); // Modifica según tu lógica
+            lista.setEmpleos(empleos);
+
+            listasRepository.save(lista);*/
 
         } catch (Exception e) {
             System.out.println("Error al crear el Evento: {}"+ e.getMessage()+"\n");
