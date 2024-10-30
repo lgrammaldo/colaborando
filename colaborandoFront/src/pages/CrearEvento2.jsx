@@ -18,12 +18,22 @@ const CrearEvento = () => {
 
   const navigate = useNavigate();
 
+  function addHoursToDate(objDate, intHours) {
+    var numberOfMlSeconds = objDate.getTime();
+    var addMlSeconds = (intHours * 60) * 60000;
+    var newDateObj = new Date(numberOfMlSeconds - addMlSeconds);
+    return newDateObj;
+  }
+
   const saveEvento = (e) => {
     e.preventDefault();
     const fecha_publicacion = new Date();
+    const fecha_aux = new Date(fecha_inicio);
+    const fecha_fin_busqueda = addHoursToDate(fecha_aux,2)
+
     var usu = null;
     var sta = null;
-    const evento = { nombre, fecha_publicacion, fecha_inicio, fecha_fin, usu, sta, especificaciones, descripcion };
+    const evento = { nombre, fecha_publicacion, fecha_fin_busqueda, fecha_inicio, fecha_fin, usu, sta, especificaciones, descripcion };
 
     eventoService.createEvento(evento)
       .then(res => {

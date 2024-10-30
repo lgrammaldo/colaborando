@@ -7,7 +7,7 @@ function Home() {
   const navigate = useNavigate();
 
   const addTurno = () => {
-    navigate('/crear-turnos');
+    navigate('/crear-evento');
   };
 
   return (
@@ -26,7 +26,7 @@ function Home() {
                 <h5 className="card-title"><i className="fas fa-calendar-alt"></i> Próximos Eventos</h5>
                 <p className="card-text">Aquí puedes ver los próximos eventos programados.</p>
                 <button className="btn" style={{ backgroundColor: 'white', border: '1px solid #cb6665', width: '100%' }} onClick={addTurno}>
-                  Crear Turno
+                  Crear Evento
                 </button>
               </div>
             </div>
