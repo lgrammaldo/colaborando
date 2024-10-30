@@ -12,12 +12,6 @@ const CrearEvento = () => {
   const [fecha_fin, setFechaFin] = useState('');
   const [especificaciones, setEspecificaciones] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [numero1, setNumero1] = useState('');
-  const [numero2, setNumero2] = useState('');
-  const [numero3, setNumero3] = useState('');
-  const [combo1, setCombo1] = useState('');
-  const [combo2, setCombo2] = useState('');
-  const [combo3, setCombo3] = useState('');
 
   const [empleos, setEmpleos] = useState([]);
   const [puestos, setPuestos] = useState([{ empleo: "", cantidad: "" }]);

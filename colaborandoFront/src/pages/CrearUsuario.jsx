@@ -41,10 +41,12 @@ const CrearUsuario = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await LoginService.authenticateUser({ email, password });
-            localStorage.setItem('token', response.data?.token);
-            localStorage.setItem('rol', response.data?.rol);
-            localStorage.setItem('userId', response.data?.userId);
+            const response = await LoginService.authenticateUser({ email, password }).then(res=>{
+                localStorage.setItem('token', res.data?.token);
+                localStorage.setItem('rol', res.data?.rol);
+                localStorage.setItem('userId', res.data?.userId);
+            })
+
 
             navigate('/seleccion-empleos');
         } catch (error) {

@@ -38,8 +38,8 @@ public class Evento {
    /* @OneToOne
     @JoinColumn(name = "id_status", unique = true)
     private Status status;*/
-   @Column(nullable = false)
-   private String status;
+    @Column(nullable = false)
+    private String status;
 
     @Column(nullable = true)
     private String especificaciones;

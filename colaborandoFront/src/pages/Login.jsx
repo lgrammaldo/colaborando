@@ -24,10 +24,12 @@ const Login = ({ history }) => {
 
     if (validateForm()) {
       try {
-        const response = await LoginService.authenticateUser({ email, password });
-        localStorage.setItem('token', response.data?.token);
-        localStorage.setItem('rol', response.data?.rol);
-        localStorage.setItem('userId', response.data?.userId);
+        const response = await LoginService.authenticateUser({ email, password }).then(res=>{
+          localStorage.setItem('token', res.data?.token);
+          localStorage.setItem('rol', res.data?.rol);
+          localStorage.setItem('userId', res.data?.userId);
+        });
+
         navigate('/home');
       } catch (error) {
         const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
