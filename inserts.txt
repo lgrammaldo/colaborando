@@ -14,7 +14,13 @@ select * from colaboradores;
 select * from colaboradores_empleos;
 select * from establecimientos;
 
+SELECT * FROM notificaciones;
+SELECT * FROM detalle_evento; 
+Select * from empleos;
+SELECT * FROM COLABORADORES_EMPLEOS; 
+select * from evento;
+
 INSERT INTO USUARIO (email, password, tipo_usuario) VALUES ('empresa@gmail.com','123','Establecimiento');
-INSERT INTO ESTABLECIMIENTOS (CIUDAD,CODIGO,CUIT,DIRECCION,PROVINCIA ,RAZON_SOCIAL ,TELEFONO,USUARIO_ID) VALUES ('Ciudad de Buenos Aires', 'cod-123','20-90123123-1','Buenos Aires','Avenida de Mayo 600','Empresa S.A.', '4778-0000', 2);
+INSERT INTO ESTABLECIMIENTOS (CIUDAD,CODIGO,CUIT,DIRECCION,PROVINCIA ,RAZON_SOCIAL ,TELEFONO,USUARIO_ID) VALUES ('Ciudad de Buenos Aires', 'cod-123','20-90123123-1','Buenos Aires','Avenida de Mayo 600','Empresa S.A.', '4778-0000', 1);
 
 

@@ -1,10 +1,10 @@
 package com.example.ColaborandoApplication.repository;
 
-import com.example.ColaborandoApplication.Entity.Listas;
+import com.example.ColaborandoApplication.Entity.DetalleEvento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ListasRepository extends JpaRepository<Listas, Integer> {
+public interface DetalleEventoRepository extends JpaRepository<DetalleEvento, Integer> {
 }

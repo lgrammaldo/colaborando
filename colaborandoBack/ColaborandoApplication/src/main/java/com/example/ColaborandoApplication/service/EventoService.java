@@ -2,16 +2,13 @@ package com.example.ColaborandoApplication.service;
 
 import com.example.ColaborandoApplication.Entity.*;
 import com.example.ColaborandoApplication.mapper.EventoMapper;
-import com.example.ColaborandoApplication.repository.EmpleosRepository;
-import com.example.ColaborandoApplication.repository.EventoRepository;
+import com.example.ColaborandoApplication.repository.*;
 import com.example.ColaborandoApplication.DTO.EventoDTO;
-import com.example.ColaborandoApplication.repository.UsuarioRepository;
-import com.example.ColaborandoApplication.repository.ListasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -25,10 +22,17 @@ public class EventoService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private ListasRepository listasRepository;
+    private DetalleEventoRepository detalleEventoRepository;
 
     @Autowired
     private EmpleosRepository empleosRepository;
+
+    @Autowired
+    private NotificacionesRepository notificacionesRepository;
+
+    @Autowired
+    private ColaboradoresEmpleosRepository colaboradoresEmpleosRepository;
+
 
     @Transactional(rollbackOn = Exception.class)
     public Evento crearEvento(EventoDTO eventoDTO) {
@@ -49,41 +53,32 @@ public class EventoService {
                 Integer empleo = entry.getKey();
                 Integer cantidad = entry.getValue();
 
-                Listas listas = new Listas();
-                listas.setEvento(evento);
-                listas.setCantidad(cantidad);
+                DetalleEvento detalleEvento = new DetalleEvento();
+                detalleEvento.setEvento(evento);
+                detalleEvento.setCantidad(cantidad);
 
                 Empleos empleos = empleosRepository.findById(empleo)
                         .orElseThrow(() -> new IllegalArgumentException("Empleo no encontrado"));
-                listas.setEmpleos(empleos);//Crear variable empleo recuperada del map
-                listasRepository.save(listas);
+                detalleEvento.setEmpleos(empleos);//Crear variable empleo recuperada del map
+                detalleEventoRepository.save(detalleEvento);
 
+                // Llenar tabla asistencias para los colaboradores relacionados con este empleo en la lista
+                List<ColaboradoresEmpleos> colaboradoresEnLista = colaboradoresEmpleosRepository.findByEmpleosId(empleo);
+
+                for (ColaboradoresEmpleos colaboradorEmpleo : colaboradoresEnLista) {
+                    Notificaciones notificaciones = new Notificaciones();
+                    notificaciones.setColaboradoresEmpleos(colaboradorEmpleo);
+                    notificaciones.setNotificacion(0);
+                    notificaciones.setStatus("Active");
+                    notificaciones.setEvento(evento); // Relacionar con la lista actual
+                    notificacionesRepository.save(notificaciones);
+                }
             }
-
-
-            // Establece un valor inicial para cantidad, o según necesites
-            // Asigna un Empleos si es necesario, o déjalo nulo si se establecerá más tarde
-          /*  Empleos empleos = getEmpleoFromEntity("Nombre del empleo"); // Modifica según tu lógica
-            lista.setEmpleos(empleos);*/
-
-
 
         } catch (Exception e) {
             System.out.println("Error al crear el Evento: {}"+ e.getMessage()+"\n");
         }
         return evento;
-    }
-
-    private Usuario getUserFromEntity(String email) {
-        Usuario user = new Usuario();
-        user.setEmail(email);
-        return user;
-    }
-
-    private Status getStatusFromEntity(String nombre){
-        Status status = new Status();
-        status.setNombre(nombre);
-        return status;
     }
 
 }

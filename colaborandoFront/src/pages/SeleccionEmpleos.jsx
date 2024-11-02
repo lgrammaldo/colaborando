@@ -12,6 +12,7 @@ const SeleccionEmpleos = () => {
     const [empleosSeleccionados, setEmpleosSeleccionados] = useState([]);
 
     useEffect(() => {
+        console.log(rol + " " +userId)
         empleosService.getEmpleos()
         .then(res => {
             setEmpleos(res.data);             

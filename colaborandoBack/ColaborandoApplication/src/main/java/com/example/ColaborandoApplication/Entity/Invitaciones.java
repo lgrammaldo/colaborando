@@ -1,11 +1,9 @@
 package com.example.ColaborandoApplication.Entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @RequiredArgsConstructor
@@ -25,6 +23,6 @@ public class Invitaciones {
 
     @OneToOne
     @JoinColumn(name = "id_listas", unique = true)
-    private Listas listas;
+    private DetalleEvento detalleEvento;
 
 }

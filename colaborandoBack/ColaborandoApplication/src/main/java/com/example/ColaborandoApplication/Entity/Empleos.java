@@ -21,5 +21,4 @@ public class Empleos {
 
     @Column(nullable = false, unique = true)
     private String descripcion;
-
 }

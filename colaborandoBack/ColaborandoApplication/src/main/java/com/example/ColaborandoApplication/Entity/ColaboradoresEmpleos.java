@@ -21,11 +21,10 @@ public class ColaboradoresEmpleos {
     private Colaborador colaborador;
 
    // @OneToOne
-    @JoinColumn(nullable = true)
+    @Column(nullable = true)
     private String status;
 
     @OneToOne
     @JoinColumn(name = "id_empleos")
     private Empleos empleos;
-
 }

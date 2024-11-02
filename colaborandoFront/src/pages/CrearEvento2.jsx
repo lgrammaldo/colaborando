@@ -60,7 +60,7 @@ const CrearEvento = () => {
     var empleosYcantidad = {};
     puestos.forEach((puesto, index) => {
       if (puesto.empleo && puesto.cantidad) {
-        empleosYcantidad[index + 1] = puesto.cantidad; // Usamos `index + 1` como clave
+        empleosYcantidad[puesto.empleo] = puesto.cantidad; // Usamos `puesto.empleo` (el id) como clave
       }
     });
 
@@ -70,6 +70,7 @@ const CrearEvento = () => {
       .then(res => {
         console.log('Evento registrado:', evento);
         alert("Evento creado exitosamente.");
+        navigate('/home');
       })
       .catch(error => {
         alert("Error al crear evento");
@@ -126,7 +127,7 @@ const CrearEvento = () => {
                               <option value="">Seleccionar</option>
                               {empleos.map((empleo) => (   
                                 /* <option key={empleo.id} value={empleo.nombre}> */
-                                <option key={empleo.nombre} value={empleo.id}>
+                                <option key={empleo.id} value={empleo.id}>
                                   {empleo.nombre}
                                 </option>
                               ))}
