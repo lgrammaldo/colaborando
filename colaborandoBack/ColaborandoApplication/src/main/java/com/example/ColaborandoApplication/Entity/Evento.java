@@ -32,7 +32,7 @@ public class Evento {
     private Date fecha_fin;
 
     @OneToOne
-    @JoinColumn(name = "id_usuario", unique = true)
+    @JoinColumn(name = "id_usuario", unique = false)
     private Usuario usuario;
 
    /* @OneToOne

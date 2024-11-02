@@ -1,5 +1,6 @@
 package com.example.ColaborandoApplication.Entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,15 @@ public class Listas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_listas;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private Integer cantidad;
 
     @OneToOne
-    @JoinColumn(name = "id_evento", unique = true)
+    @JoinColumn(name = "id_evento", unique = false)
     private Evento evento;
 
     @OneToOne
-    @JoinColumn(name = "id_empleos", unique = true)
+    @JoinColumn(name = "id_empleos", unique = false)
     private Empleos empleos;
 
 }
