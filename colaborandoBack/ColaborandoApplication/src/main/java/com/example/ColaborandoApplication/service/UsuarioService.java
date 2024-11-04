@@ -27,7 +27,7 @@ public class UsuarioService {
     private EstablecimientoRepository establecimientoRepository;
 
     @Transactional(rollbackOn = Exception.class)
-    public Usuario crearUsuarioYPersona(ColaboradorDTO colaboradorDTO) throws CodigoEstablecimientoInvalidoException {
+    public Usuario crearUsuarioYPersona(ColaboradorDTO colaboradorDTO) /*throws CodigoEstablecimientoInvalidoException */{
         // Logica de verificar el codigo de establecimiento
       /*  var establecimiento = establecimientoRepository.findByCodigo(colaboradorDTO.getCodEstablecimiento());
         if (establecimiento.isEmpty()){

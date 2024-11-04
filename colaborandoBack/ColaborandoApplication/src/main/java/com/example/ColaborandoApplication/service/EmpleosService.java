@@ -4,9 +4,11 @@ import com.example.ColaborandoApplication.DTO.AsociarEmpleosDTO;
 import com.example.ColaborandoApplication.Entity.Colaborador;
 import com.example.ColaborandoApplication.Entity.ColaboradoresEmpleos;
 import com.example.ColaborandoApplication.Entity.Empleos;
+import com.example.ColaborandoApplication.Entity.Usuario;
 import com.example.ColaborandoApplication.repository.ColaboradoresEmpleosRepository;
 import com.example.ColaborandoApplication.repository.EmpleosRepository;
 import com.example.ColaborandoApplication.repository.ColaboradorRepository;
+import com.example.ColaborandoApplication.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ public class EmpleosService {
     private ColaboradorRepository colaboradorRepository;
     @Autowired
     private ColaboradoresEmpleosRepository colaboradoresEmpleosRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public List<Empleos> getEmpleos() {
         List<Empleos> empleos = List.of();
@@ -33,8 +37,13 @@ public class EmpleosService {
     }
 
     public void asociarEmpleos(AsociarEmpleosDTO asociarEmpleosDTO) {
-        Colaborador colaborador = colaboradorRepository.findById(asociarEmpleosDTO.getUserId())
+
+        Usuario usuario = usuarioRepository.findById(asociarEmpleosDTO.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("Colaborador no encontrado"));
+
+
+
+        Colaborador colaborador = colaboradorRepository.findByUsuario(usuario);
 
         // Itera sobre la lista de IDs de empleos
         for (Integer empleoId : asociarEmpleosDTO.getEmpleosSeleccionados()) {
