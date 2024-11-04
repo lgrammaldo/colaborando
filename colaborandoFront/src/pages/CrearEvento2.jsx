@@ -15,7 +15,7 @@ const CrearEvento = () => {
 
   const [empleos, setEmpleos] = useState([]);
   const [puestos, setPuestos] = useState([{ empleo: "", cantidad: "" }]);
-
+  const [errorMessage, setErrorMessage] = useState('');
   useEffect(() => {
     empleosService.getEmpleos()
     .then(res => {
@@ -24,8 +24,6 @@ const CrearEvento = () => {
     .catch(err => console.error("Error obteniendo empleos:", err));
 }, []);
 
-
-  
 
     // Función para agregar un nuevo puesto a la tabla
     const handleAddPuesto = () => {
@@ -53,8 +51,35 @@ const CrearEvento = () => {
     return newDateObj;
   }
 
+  const handleFechaInicioChange = (e) => {
+    const nuevaFechaInicio = e.target.value;
+    setFechaInicio(nuevaFechaInicio);
+
+    // Validar que fecha_fin no sea menor que fecha_inicio
+    if (fecha_fin && new Date(nuevaFechaInicio) >= new Date(fecha_fin)) {
+      alert("La fecha de fin debe ser mayor que la fecha de inicio.");
+    }
+  };
+
+  const handleFechaFinChange = (e) => {
+    const nuevaFechaFin = e.target.value;
+    setFechaFin(nuevaFechaFin);
+
+    // Validar que fecha_fin no sea menor que fecha_inicio
+    if (nuevaFechaFin && new Date(nuevaFechaFin) <= new Date(fecha_inicio)) {
+      alert("La fecha de fin debe ser mayor que la fecha de inicio.");
+    }
+  };  
   const saveEvento = (e) => {
     e.preventDefault();
+
+    setErrorMessage(''); // Reiniciar el mensaje de error
+    // Validar que la fecha de inicio no sea mayor que la fecha de fin
+    if (new Date(fecha_inicio) >= new Date(fecha_fin)) {
+      alert("La fecha de fin debe ser mayor que la fecha de inicio.");
+      return;
+    }
+
     const fecha_publicacion = new Date();
 
     var empleosYcantidad = {};
@@ -93,11 +118,11 @@ const CrearEvento = () => {
                   </div>
                   <div className="form-group">
                     <label>Fecha Inicio: </label>
-                    <input type="datetime-local" className="form-control" value={fecha_inicio} onChange={(e) => setFechaInicio(e.target.value)} required />
+                    <input type="datetime-local" className="form-control" value={fecha_inicio} onChange={handleFechaInicioChange} required />
                   </div>
                   <div className="form-group">
                     <label>Fecha Fin: </label>
-                    <input type="datetime-local" className="form-control" value={fecha_fin} onChange={(e) => setFechaFin(e.target.value)} required />
+                    <input type="datetime-local" className="form-control" value={fecha_fin} onChange={handleFechaFinChange} required />
                   </div>
                   <div className="form-group">
                     <label>Especificaciones:</label>
