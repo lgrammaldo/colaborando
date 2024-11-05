@@ -26,7 +26,7 @@ const Header = () => {
 
   
     const handleEditRol = () => {
-    navigate('/Seleccion-empleos', { state: { fromEditRoles: true } });
+    navigate('/edita-roles', { state: { fromEditRoles: true } });
 };
      const handleNotification = () => {
     navigate('/Seleccion-empleos', { state: { fromEditRoles: true } });

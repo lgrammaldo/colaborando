@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import empleosService from '../services/EmpleosService';
 import LogoComponente from '../components/LogoComponente-deprecado';
-import './SeleccionEmpleos.css';
+import './EditaRoles.css';
 import Header from './Header';
 
-const SeleccionEmpleos = () => {
+const EditaRoles = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const fromEditRoles = location.state?.fromEditRoles || false;
@@ -51,7 +51,7 @@ const SeleccionEmpleos = () => {
          
             {rol === 'Colaborador' ? (
                 <>
-                    <h1 className="text-center mt-3 title-color">Seleccioná tus roles</h1>
+                    <h1 className="text-center mt-3 title-color">Editá tus roles</h1>
                     
                     <form className="mt-3">
                         {empleos.length > 0 ? (
@@ -109,4 +109,4 @@ const SeleccionEmpleos = () => {
     );
 };
 
-export default SeleccionEmpleos;
+export default EditaRoles;

@@ -15,7 +15,7 @@ function Home() {
 
     return (
         <div>
-            <Header />
+           
             <div className="container text-center">
                 <div className="row align-items-center box3">
                     <div className="col-md-4">
