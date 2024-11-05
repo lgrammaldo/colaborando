@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import empleosService from '../services/EmpleosService';
-import LogoComponente from '../components/LogoComponente-deprecado';
+import LogoComponente from '../components/LogoComponente';
 import './EditaRoles.css';
 import Header from './Header';
 

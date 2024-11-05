@@ -1,7 +1,7 @@
 // SeleccionDisponibilidad.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavBarWithLogo from '../components/NavBarWithLogo';
+import NavBarWithLogo from '../trash/NavBarWithLogo';
 import './SeleccionDisponibilidad.css';
 
 const SeleccionDisponibilidad = () => {

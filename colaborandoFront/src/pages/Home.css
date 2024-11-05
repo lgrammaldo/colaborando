@@ -11,11 +11,14 @@
 }
 
 .row {
-  justify-content: center;
+  justify-content: space-between;
+  /* Distribuye el espacio entre las tarjetas */
+  gap: 20px;
+  /* Agrega espacio entre las tarjetas */
 }
 
 .card {
-  width:auto;
+  width: 200px;
   height: auto;
   border: none;
   border-radius: 10px;
@@ -26,10 +29,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
+  /* Añade un margen inferior para evitar superposición vertical */
 }
 
 .card:hover {
- 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -62,6 +66,13 @@
 .box3 {
   background-color: transparent;
   border: none;
+  display: flex;
+  flex-wrap: wrap;
+  /* Permite que las tarjetas bajen a la siguiente fila si el espacio es insuficiente */
+  justify-content: space-evenly;
+  /* Distribuye uniformemente las tarjetas en la fila */
+  gap: 20px;
+  /* Añade espacio entre tarjetas */
 }
 
 .icon-user {

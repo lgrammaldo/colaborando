@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import usuariosService from '../services/UsuariosService';
 import LoginService from '../services/LoginService';
 import { useNavigate } from 'react-router-dom';
-import NavBarWithLogo from '../components/NavBarWithLogo';
-import LogoComponente from '../components/LogoComponente-deprecado';
-
+import LogoComponente from '../components/LogoComponente';
+import './CrearUsuario.css';
 
 const CrearUsuario = () => {
     const [nombre, setNombre] = useState('');
@@ -23,14 +22,11 @@ const CrearUsuario = () => {
     
         usuariosService.createUsuarioPersona(colaborador)
             .then(res => {
-                console.log('Persona registrada:', colaborador);
                 alert("Registro exitoso.");
                 handleLogin(e);
             })
             .catch(error => {
-                // Verificar si el servidor devolvió un mensaje de error específico
                 if (error.response && error.response.status === 400 && error.response.data) {
-                    // Mostrar el mensaje de error específico desde el backend
                     alert(error.response.data);
                 } else {
                     alert("Error al crear colaborador");
@@ -41,129 +37,51 @@ const CrearUsuario = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await LoginService.authenticateUser({ email, password }).then(res=>{
+            await LoginService.authenticateUser({ email, password }).then(res => {
                 localStorage.setItem('token', res.data?.token);
                 localStorage.setItem('rol', res.data?.rol);
                 localStorage.setItem('userId', res.data?.userId);
-            })
-
-
+            });
             navigate('/seleccion-empleos');
         } catch (error) {
-            const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-            console.log(resMessage);
+            console.log(error.toString());
         }
     };
 
     return (
-        <div>
-           
-            <br />
-            <h2 className="text-center" style={{ color: '#CB6665' }}>Registrarse</h2> {/* Título con color coral oscuro */}
-            <div className="container">
-                <div className='row justify-content-center'>
-                    <div className='card col-md-6 shadow-lg' style={{ borderColor: '#CB6665' }}> {/* Tarjeta con borde coral oscuro */}
-                        <div className="card-body">
-                            <form>
-                                <div className='form-group mb-3'>
-                                    <label>Nombre: </label>
+        <div className="crear-usuario-container">
+            <h2 className="title">Registrarse</h2>
+            <div className="form-container">
+                <div className="card">
+                    <div className="card-body">
+                        <form>
+                            {[
+                                { label: 'Nombre', value: nombre, onChange: setNombre },
+                                { label: 'Apellido', value: apellido, onChange: setApellido },
+                                { label: 'DNI', value: dni, onChange: setDNI },
+                                { label: 'Teléfono', value: telefono, onChange: setTelefono },
+                                { label: 'Email', value: email, onChange: setEmail, type: 'email' },
+                                { label: 'Contraseña', value: password, onChange: setPassword, type: 'password' },
+                                { label: 'Código de Establecimiento', value: codEstablecimiento, onChange: setCodEstablecimiento, type: 'password' }
+                            ].map((input, index) => (
+                                <div className="form-group" key={index}>
+                                    <label>{input.label}:</label>
                                     <input
-                                        type="text"
-                                        className='form-control'
-                                        value={nombre}
-                                        onChange={(e) => setNombre(e.target.value)}
+                                        type={input.type || 'text'}
+                                        className="form-control"
+                                        value={input.value}
+                                        onChange={(e) => input.onChange(e.target.value)}
                                         required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
                                     />
                                 </div>
-                                <div className='form-group mb-3'>
-                                    <label>Apellido: </label>
-                                    <input
-                                        type="text"
-                                        className='form-control'
-                                        value={apellido}
-                                        onChange={(e) => setApellido(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>DNI: </label>
-                                    <input
-                                        type="text"
-                                        className='form-control'
-                                        value={dni}
-                                        onChange={(e) => setDNI(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Teléfono: </label>
-                                    <input
-                                        type="text"
-                                        className='form-control'
-                                        value={telefono}
-                                        onChange={(e) => setTelefono(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Email: </label>
-                                    <input
-                                        type="email"
-                                        className='form-control'
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Contraseña: </label>
-                                    <input
-                                        type="password"
-                                        className='form-control'
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Código de Establecimiento: </label>
-                                    <input
-                                        type="password"
-                                        className='form-control'
-                                        value={codEstablecimiento}
-                                        onChange={(e) => setCodEstablecimiento(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <button
-                                    className='btn btn-block'
-                                    onClick={(e) => saveUsuario(e)}
-                                    style={{ backgroundColor: '#CB6665', color: '#fff', width: '100%' }} // Botón coral oscuro
-                                >
-                                    Guardar
-                                </button>
-                            </form>
-                            <footer>
-                                <div className="text-center mt-2">
-                                    <span>¿Ya tienes cuenta? </span>
-                                    <a href="/login" className="text-decoration-none" style={{ color: '#CB6665' }}>
-                                        Ingresar.
-                                    </a>
-                        
-                                </div>
-                                <LogoComponente/>
-                                <div>
-                                  
-                                </div>
-                            </footer>
-                        </div>
+                            ))}
+                            <button className="submit-button" onClick={saveUsuario}>Guardar</button>
+                        </form>
+                        <footer className="footer">
+                            <span>¿Ya tienes cuenta? </span>
+                            <a href="/login" className="login-link">Ingresar.</a>
+                            <LogoComponente />
+                        </footer>
                     </div>
                 </div>
             </div>

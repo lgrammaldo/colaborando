@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import usuariosService from '../services/UsuariosService';
 import LoginService from '../services/LoginService';
 import { useNavigate } from 'react-router-dom';
-import LogoComponente from '../components/LogoComponente-deprecado';
+import LogoComponente from '../components/LogoComponente';
 import colaboradorService from '../services/ColaboradorService';
 import './MiPerfil.css';
 import Header from './Header';
