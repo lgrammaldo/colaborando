@@ -1,61 +1,39 @@
-header.css
-:root{
-    --primary-color:  #376992e5 ;
-    --secondary-color: #b6ccdfb9;;
-}
-*{
-    margin:0;
-}body{
-    margin:0;
-}
-.flex-container{
-    background-color: #376992e5;
-    width: 100%;
-    color: white;
+/* Header.css */
+
+.flex-container {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    align-content: center;
-    padding: 10px;
-    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+    background: #fff;
+
 }
 
-.box1{
-    display: flex;
+.box1 img {
+    height: 50px;
 }
 
-.box3{
+.box3 {
+   
     display: flex;
-}
-.box4{
-}
-header>h1{
-    margin: 20px 0 20px 20px;
-    font-family: cursive;
-    width: 20%;
-    height: auto;
-    
+    align-items: center;
+    background: #fff;
 }
 
-.container{
-    width: 100%
+#dropdown-avatar {
+    margin: 10px;
+    padding-top: 10px;
+    color: rgb(156, 129, 129);
+    /* Color gris estándar para el ícono */
+    background: #fff;
 }
-/*estilos para navbar*/
-#navegador{
-    width: 100%;
-    background-color: #abb3e2;
-    display: flex;
+
+#select-usuario {
+
+    height: 50px;
+    width: 160px;
+    margin: 10px;
 }
-.navbar-nav>li{
-    width: auto;
-    margin: 0 20px;
-}
-.contenedor{
-    width: 300px; /* Ancho deseado del contenedor */
-  height: 300px; /* Altura deseada del contenedor */
-  border: 1px solid #ccc; /* Solo para visualización */
-  overflow: hidden; /* Oculta cualquier parte de la imagen que se salga del contenedor */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+#navegador {
+    margin-top: 20px;
 }

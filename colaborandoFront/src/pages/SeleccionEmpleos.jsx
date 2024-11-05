@@ -8,9 +8,11 @@ const SeleccionEmpleos = () => {
     
     const [rol, setRol] = useState(localStorage.getItem("rol"));
     const [userId, setUserId] = useState(localStorage.getItem("userId"));
+    
     const [empleos, setEmpleos] = useState([]);
     const [empleosSeleccionados, setEmpleosSeleccionados] = useState([]);
 
+   
     useEffect(() => {
         console.log(rol + " " +userId)
         empleosService.getEmpleos()
