@@ -16,12 +16,20 @@ const MiPerfil = () => {
     const [dni, setDNI] = useState('');
     const [password, setPassword] = useState('');
     const [codEstablecimiento, setCodEstablecimiento] = useState('');
-    const [colaborador, setColaborador] = useState();
     const navigate = useNavigate();
 
     useEffect(() => {
         colaboradorService.getColaborador(userId)
-            .then(res => setColaborador(res.data))
+            .then(res => {
+                const { nombre, apellido, email, telefono, dni, password, codEstablecimiento } = res.data;
+                setNombre(nombre);
+                setApellido(apellido);
+                setEmail(email);
+                setTelefono(telefono);
+                setDNI(dni);
+                setPassword(password);
+                setCodEstablecimiento(codEstablecimiento);
+            })
             .catch(err => console.error("Error obteniendo colaborador:", err));
     }, [userId]);
 
@@ -30,24 +38,10 @@ const MiPerfil = () => {
         const colaboradorData = { nombre, apellido, email, telefono, dni, password, codEstablecimiento };
         usuariosService.createUsuarioPersona(colaboradorData)
             .then(() => {
-                alert("Registro exitoso.");
-                handleLogin(e);
+                alert("Cambios guardados exitosamente.");
+                navigate('/');
             })
             .catch(error => alert(error.response?.data || "Error al crear colaborador"));
-    };
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            await LoginService.authenticateUser({ email, password }).then(res => {
-                localStorage.setItem('token', res.data?.token);
-                localStorage.setItem('rol', res.data?.rol);
-                localStorage.setItem('userId', res.data?.userId);
-                navigate('/seleccion-empleos');
-            });
-        } catch (error) {
-            console.log(error.message || "Error en autenticación");
-        }
     };
 
     const handleCancel = () => {
@@ -55,7 +49,6 @@ const MiPerfil = () => {
     };
 
     return (
-        
         <div className="mi-perfil">
             <h2 className="titulo">Actualizá tus datos</h2>
             <div className="container">
@@ -148,7 +141,6 @@ const MiPerfil = () => {
                 </div>
             </div>
         </div>
-       
     );
 };
 

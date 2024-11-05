@@ -1,12 +1,8 @@
 package com.example.ColaborandoApplication.controller;
 
 import com.example.ColaborandoApplication.DTO.AsociarEmpleosDTO;
-import com.example.ColaborandoApplication.DTO.ColaboradorDTO;
-import com.example.ColaborandoApplication.DTO.EstablecimientoDTO;
 import com.example.ColaborandoApplication.Entity.Empleos;
-import com.example.ColaborandoApplication.Entity.Usuario;
 import com.example.ColaborandoApplication.service.EmpleosService;
-import com.example.ColaborandoApplication.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

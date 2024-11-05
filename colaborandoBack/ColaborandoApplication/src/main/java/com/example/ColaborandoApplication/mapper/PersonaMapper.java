@@ -10,7 +10,7 @@ public class PersonaMapper {
             colaborador.setNombre(colaboradorDTO.getNombre());
             colaborador.setApellido(colaboradorDTO.getApellido());
             colaborador.setTelefono(colaboradorDTO.getTelefono());
-
+            colaborador.setCodigoEstablecimiento(colaboradorDTO.getCodEstablecimiento());
         return colaborador;
     }
 }

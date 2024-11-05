@@ -2,13 +2,14 @@ package com.example.ColaborandoApplication.Entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
 @Entity
-@Builder
+@NoArgsConstructor
 @Table(name = "evento")
 public class Evento {
 

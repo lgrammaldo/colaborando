@@ -41,8 +41,6 @@ public class EmpleosService {
         Usuario usuario = usuarioRepository.findById(asociarEmpleosDTO.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("Colaborador no encontrado"));
 
-
-
         Colaborador colaborador = colaboradorRepository.findByUsuario(usuario);
 
         // Itera sobre la lista de IDs de empleos

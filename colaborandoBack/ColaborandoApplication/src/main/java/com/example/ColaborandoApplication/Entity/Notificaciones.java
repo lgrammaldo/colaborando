@@ -14,7 +14,7 @@ public class Notificaciones {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer notificacion;
 
     @OneToOne
