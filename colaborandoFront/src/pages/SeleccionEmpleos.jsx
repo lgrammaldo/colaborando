@@ -1,49 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import empleosService from '../services/EmpleosService';  // Importa tu servicio correctamente
-import LogoComponente from '../components/LogoComponente';
+import { useNavigate, useLocation } from 'react-router-dom';
+import empleosService from '../services/EmpleosService';
+import LogoComponente from '../components/LogoComponente-deprecado';
+import './SeleccionEmpleos.css';
+import Header from './Header';
 
 const SeleccionEmpleos = () => {
     const navigate = useNavigate();
-    
+    const location = useLocation();
+    const fromEditRoles = location.state?.fromEditRoles || false;
+
     const [rol, setRol] = useState(localStorage.getItem("rol"));
     const [userId, setUserId] = useState(localStorage.getItem("userId"));
-    
     const [empleos, setEmpleos] = useState([]);
     const [empleosSeleccionados, setEmpleosSeleccionados] = useState([]);
 
-   
     useEffect(() => {
-        console.log(rol + " " +userId)
         empleosService.getEmpleos()
-        .then(res => {
-            setEmpleos(res.data);             
-        })
-        .catch(err => console.error("Error obteniendo empleos:", err));
+            .then(res => {
+                setEmpleos(res.data);
+            })
+            .catch(err => console.error("Error obteniendo empleos:", err));
     }, []);
-    
+
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
-        const id = parseInt(value); 
-    
+        const id = parseInt(value);
+
         setEmpleosSeleccionados((prevSeleccionados) => {
-            if (checked) {
-                return [...prevSeleccionados, id];
-            } else {
-                return prevSeleccionados.filter((empleoId) => empleoId !== id);
-            }
+            return checked ? [...prevSeleccionados, id] : prevSeleccionados.filter((empleoId) => empleoId !== id);
         });
     };
 
     const handleContinuar = () => {
-        const asociarEmpleosAColaborador = { empleosSeleccionados, userId }; 
+        const asociarEmpleosAColaborador = { empleosSeleccionados, userId };
         empleosService.asociarEmpleosAColaborador(asociarEmpleosAColaborador)
-        .then(() => {
-            navigate('/home');
-        })
-        .catch(error => {
-            alert("Error al crear colaborador");
-        });
+            .then(() => navigate('/home'))
+            .catch(() => alert("Error al crear colaborador"));
     };
 
     const handleOmitir = () => {
@@ -51,11 +44,14 @@ const SeleccionEmpleos = () => {
     };
 
     return (
-        <div>
-           
+     
+        
+        
+        <div className="container-sm">
+         <Header />
             {rol === 'Colaborador' ? (
-                <div className="container-sm">
-                    <h1 className="text-center mt-3" style={{ color: 'rgb(203, 102, 101)' }}>Seleccioná tus roles</h1>
+                <>
+                    <h1 className="text-center mt-3 title-color">Seleccioná tus roles</h1>
                     
                     <form className="mt-3">
                         {empleos.length > 0 ? (
@@ -78,45 +74,34 @@ const SeleccionEmpleos = () => {
                         )}
                     </form>
 
-                    <h5 className="text-center mt-4" style={{ color: 'rgb(203, 102, 101)' }}>
-                        Si omites este paso puedes agregar tus roles luego.
+                    <h5 className="text-center mt-4 subtitle-color">
+                        {fromEditRoles ? "Actualiza tus roles" : "Si omites este paso puedes agregar tus roles luego."}
                     </h5>
 
                     <div className="text-center mt-4">
                         <button
                             type="button"
-                            className="btn btn-lg"
-                            style={{
-                                width: '100%',
-                                backgroundColor: 'rgb(203, 102, 101)',
-                                color: 'white',
-                                border: 'none',
-                            }}
+                            className="btn btn-lg primary-button"
                             onClick={handleContinuar}
                         >
-                            Continuar
+                            {fromEditRoles ? "Guardar" : "Continuar"}
                         </button>
                     </div>
 
                     <div className="text-center mt-4">
                         <button
                             type="button"
-                            className="btn btn-lg"
-                            style={{
-                                width: '100%',
-                                backgroundColor: 'white',
-                                color: 'rgb(203, 102, 101)',
-                                borderColor: 'rgb(203, 102, 101)',
-                            }}
+                            className="btn btn-lg secondary-button"
                             onClick={handleOmitir}
                         >
-                            Omitir
+                            {fromEditRoles ? "Cancelar" : "Omitir"}
                         </button>
                     </div>
-                    <div> 
-                      <LogoComponente/>
+
+                    <div>
+                        <LogoComponente />
                     </div>
-                </div>
+                </>
             ) : (
                 <h1>PÁGINA NO ENCONTRADA</h1>
             )}

@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import SeleccionEmpleos from './pages/SeleccionEmpleos';
 import SeleccionDisponibilidad from './pages/SeleccionDisponibilidad';
 import CrearEvento from './pages/CrearEvento2';
+import MiPerfil from './pages/MiPerfil';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
             { /*  <Route path="/seleccion-disponibilidad" element={<SeleccionDisponibilidad />} /> */}  
             { /* <Route path="/crearevento" element={<CrearEvento />} /> */}  
               <Route path="/crear-evento" element={<CrearEvento />} />
+               <Route path="/editar-perfil" element={<MiPerfil />} />
               {/* Asegúrate de tener una ruta para las demás opciones */}
               <Route path="*" element={<Navigate to="/login" />} />
           </Routes>

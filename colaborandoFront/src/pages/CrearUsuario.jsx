@@ -3,7 +3,7 @@ import usuariosService from '../services/UsuariosService';
 import LoginService from '../services/LoginService';
 import { useNavigate } from 'react-router-dom';
 import NavBarWithLogo from '../components/NavBarWithLogo';
-import LogoComponente from '../components/LogoComponente';
+import LogoComponente from '../components/LogoComponente-deprecado';
 
 
 const CrearUsuario = () => {

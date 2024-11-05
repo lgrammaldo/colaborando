@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import usuariosService from '../services/UsuariosService';
 import LoginService from '../services/LoginService';
 import { useNavigate } from 'react-router-dom';
-import NavBarWithLogo from '../components/NavBarWithLogo';
-import LogoComponente from '../components/LogoComponente';
+import LogoComponente from '../components/LogoComponente-deprecado';
 import colaboradorService from '../services/ColaboradorService';
+import './MiPerfil.css';
+import Header from './Header';
 
-
-const CrearUsuario = () => {
-    const [userId, setUserId] = useState(localStorage.getItem("userId"));
+const MiPerfil = () => {
+    const [userId] = useState(localStorage.getItem("userId"));
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [email, setEmail] = useState('');
@@ -16,172 +16,140 @@ const CrearUsuario = () => {
     const [dni, setDNI] = useState('');
     const [password, setPassword] = useState('');
     const [codEstablecimiento, setCodEstablecimiento] = useState('');
-    const [colaborador, setColaborador] = useState();   
-
+    const [colaborador, setColaborador] = useState();
     const navigate = useNavigate();
-    
-     // cuando carga por pimera vez llama a colaboradorService que trae datos el back
-      useEffect(() => {
+
+    useEffect(() => {
         colaboradorService.getColaborador(userId)
-        .then(res => {
-            setColaborador(res.data);             
-        })
-        .catch(err => console.error("Error obteniendo empleos:", err));
-    }, []);
-    
+            .then(res => setColaborador(res.data))
+            .catch(err => console.error("Error obteniendo colaborador:", err));
+    }, [userId]);
 
     const saveUsuario = (e) => {
         e.preventDefault();
-        const colaborador = { nombre, apellido, email, telefono, dni, password, codEstablecimiento };
-    
-        usuariosService.createUsuarioPersona(colaborador)
-            .then(res => {
-                console.log('Persona registrada:', colaborador);
+        const colaboradorData = { nombre, apellido, email, telefono, dni, password, codEstablecimiento };
+        usuariosService.createUsuarioPersona(colaboradorData)
+            .then(() => {
                 alert("Registro exitoso.");
                 handleLogin(e);
             })
-            .catch(error => {
-                // Verificar si el servidor devolvió un mensaje de error específico
-                if (error.response && error.response.status === 400 && error.response.data) {
-                    // Mostrar el mensaje de error específico desde el backend
-                    alert(error.response.data);
-                } else {
-                    alert("Error al crear colaborador");
-                }
-            });
+            .catch(error => alert(error.response?.data || "Error al crear colaborador"));
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await LoginService.authenticateUser({ email, password }).then(res=>{
+            await LoginService.authenticateUser({ email, password }).then(res => {
                 localStorage.setItem('token', res.data?.token);
                 localStorage.setItem('rol', res.data?.rol);
                 localStorage.setItem('userId', res.data?.userId);
-            })
-
-
-            navigate('/seleccion-empleos');
+                navigate('/seleccion-empleos');
+            });
         } catch (error) {
-            const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-            console.log(resMessage);
+            console.log(error.message || "Error en autenticación");
         }
     };
 
+    const handleCancel = () => {
+        navigate('/');
+    };
+
     return (
-        <div>
-           
-            <br />
-            <h2 className="text-center" style={{ color: '#CB6665' }}>Registrarse</h2> {/* Título con color coral oscuro */}
+        
+        <div className="mi-perfil">
+            <h2 className="titulo">Actualizá tus datos</h2>
             <div className="container">
-                <div className='row justify-content-center'>
-                    <div className='card col-md-6 shadow-lg' style={{ borderColor: '#CB6665' }}> {/* Tarjeta con borde coral oscuro */}
-                        <div className="card-body">
-                            <form>
-                                <div className='form-group mb-3'>
-                                    <label>Nombre: </label>
-                                    <input
-                                        type="text"
-                                        className='form-control'
-                                        value={nombre}
-                                        onChange={(e) => setNombre(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Apellido: </label>
-                                    <input
-                                        type="text"
-                                        className='form-control'
-                                        value={apellido}
-                                        onChange={(e) => setApellido(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>DNI: </label>
-                                    <input
-                                        type="text"
-                                        className='form-control'
-                                        value={dni}
-                                        onChange={(e) => setDNI(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Teléfono: </label>
-                                    <input
-                                        type="text"
-                                        className='form-control'
-                                        value={telefono}
-                                        onChange={(e) => setTelefono(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Email: </label>
-                                    <input
-                                        type="email"
-                                        className='form-control'
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Contraseña: </label>
-                                    <input
-                                        type="password"
-                                        className='form-control'
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <div className='form-group mb-3'>
-                                    <label>Código de Establecimiento: </label>
-                                    <input
-                                        type="password"
-                                        className='form-control'
-                                        value={codEstablecimiento}
-                                        onChange={(e) => setCodEstablecimiento(e.target.value)}
-                                        required
-                                        style={{ borderColor: '#CB6665' }} // Borde input coral oscuro
-                                    />
-                                </div>
-                                <button
-                                    className='btn btn-block'
-                                    onClick={(e) => saveUsuario(e)}
-                                    style={{ backgroundColor: '#CB6665', color: '#fff', width: '100%' }} // Botón coral oscuro
-                                >
+                <div className="card">
+                    <div className="card-body">
+                        <form>
+                            <div className="form-group">
+                                <label>Nombre: </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={nombre}
+                                    onChange={(e) => setNombre(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Apellido: </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={apellido}
+                                    onChange={(e) => setApellido(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>DNI: </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={dni}
+                                    onChange={(e) => setDNI(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Teléfono: </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={telefono}
+                                    onChange={(e) => setTelefono(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Email: </label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Contraseña: </label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Código de Establecimiento: </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={codEstablecimiento}
+                                    onChange={(e) => setCodEstablecimiento(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="button-group">
+                                <button className="btn guardar-btn" onClick={saveUsuario}>
                                     Guardar
                                 </button>
-                            </form>
-                            <footer>
-                                <div className="text-center mt-2">
-                                    <span>¿Ya tienes cuenta? </span>
-                                    <a href="/login" className="text-decoration-none" style={{ color: '#CB6665' }}>
-                                        Ingresar.
-                                    </a>
-                        
-                                </div>
-                                <LogoComponente/>
-                                <div>
-                                  
-                                </div>
-                            </footer>
-                        </div>
+                                <button className="btn cancelar-btn" onClick={handleCancel}>
+                                    Cancelar
+                                </button>
+                            </div>
+                        </form>
+                        <footer className="footer">
+                            <LogoComponente />
+                        </footer>
                     </div>
                 </div>
             </div>
         </div>
+       
     );
 };
 
-export default CrearUsuario;
+export default MiPerfil;

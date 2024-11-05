@@ -21,15 +21,19 @@ const Header = () => {
     };
 
     const handleProfile = () => {
-        navigate('/mi-perfil'); // Redirige a la página de perfil
+        navigate('/editar-perfil'); // Redirige a la página de perfil
     };
 
   
+    const handleEditRol = () => {
+    navigate('/Seleccion-empleos', { state: { fromEditRoles: true } });
+};
+     const handleNotification = () => {
+    navigate('/Seleccion-empleos', { state: { fromEditRoles: true } });
+};
+
     
-    
-     const handleEditRol = () => {
-        navigate('/SeleccionEmpleos'); // Redirige a la página de editar roles
-    };
+  
     useEffect(() => {
         setRol(localStorage.getItem("rol"));
     }, []);
@@ -52,6 +56,7 @@ const Header = () => {
                         <Dropdown.Menu align="end">
                             <Dropdown.Item onClick={handleProfile}>Mi Perfil</Dropdown.Item>
                             <Dropdown.Item onClick={handleEditRol}>Modificar Roles</Dropdown.Item>
+                             <Dropdown.Item onClick={handleNotification}>Notificaciones</Dropdown.Item>
                             <Dropdown.Divider />
                             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                         </Dropdown.Menu>
