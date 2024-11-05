@@ -27,9 +27,21 @@ const MisNotificaciones = () => {
     }, [userId]);
 
     const handleAceptar = (notificacion) => {
-        setModalMessage(`¿Deseas aceptar el puesto de ${notificacion.empleo} para el evento ${notificacion.nombreEvento}?`);
-        setCurrentNotificacion(notificacion);
-        setShowModal(true);
+        const confirmacion = window.confirm(`¿Deseas aceptar el puesto de ${notificacion.empleo} para el evento ${notificacion.nombreEvento}?`);
+        if (confirmacion) {
+            try {
+                notificacionService.aceptarNotificacion(notificacion.notificacionId, notificacion.fechaEvento)  // Enviamos el notificacionId y fechaEvento
+                    .then(() => {
+                        alert("¡¡Felicitaciones!! ¡¡Has aceptado el empleo!");
+                        navigate('/home');
+                    })
+                    .catch(error => {
+                        alert(error.response?.data || "Ocurrió un error al aceptar el empleo.");
+                    });
+            } catch (error) {
+                console.error("Error al aceptar la notificación", error);
+            }
+        }
     };
 
     const handleRechazar = (notificacion) => {

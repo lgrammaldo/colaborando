@@ -14,6 +14,7 @@ select * from colaboradores;
 select * from colaboradores_empleos;
 select * from establecimientos;
 
+SELECT * FROM ASISTENCIAS ;
 SELECT * FROM notificaciones;
 SELECT * FROM detalle_evento; 
 Select * from empleos;

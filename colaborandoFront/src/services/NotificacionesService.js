@@ -12,6 +12,11 @@ class NotificacionesService {
         return axios.put(`${NOTIFICACIONES_API_BASE_URL}/rechazar/${notificacionId}`);
     }
 
+    aceptarNotificacion(notificacionId, fechaEvento) {
+        const aceptarNotificacionDTO = {notificacionId, fechaEvento}
+        return axios.post(`${NOTIFICACIONES_API_BASE_URL}/aceptar`, aceptarNotificacionDTO);
+    }
+
 }
 
 const notificacionesService = new NotificacionesService();

@@ -15,7 +15,10 @@ public class DetalleEvento {
     private Integer id_listas;
 
     @Column(nullable = false, unique = false)
-    private Integer cantidad;
+    private Integer cantidadSolicitada;
+
+    @Column(nullable = false, unique = false)
+    private Integer cantidadDisponible;
 
     @OneToOne
     @JoinColumn(name = "id_evento", unique = false)
