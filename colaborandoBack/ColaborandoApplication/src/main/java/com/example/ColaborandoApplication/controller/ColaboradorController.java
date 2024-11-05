@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/colaborando/colaborador")
 public class ColaboradorController {
@@ -18,5 +19,13 @@ public class ColaboradorController {
     public ResponseEntity<ColaboradorDTO> crearPersona(@RequestParam Integer userId) throws CodigoEstablecimientoInvalidoException {
         ColaboradorDTO colaboradorDTO = colaboradorService.obtenerColaborador(userId);
         return ResponseEntity.ok(colaboradorDTO);
+    }
+
+    @PutMapping("/update-colaborador/{id}")
+    public ResponseEntity<String> updateColaborador(
+            @PathVariable Integer id,
+            @RequestBody ColaboradorDTO updatedColaborador) {
+            colaboradorService.updateColaborador(id, updatedColaborador);
+        return ResponseEntity.ok("Modificación exitosa.");
     }
 }

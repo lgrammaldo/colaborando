@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHome } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 import { Link, useNavigate } from 'react-router-dom';
@@ -27,10 +27,13 @@ const Header = () => {
   
     const handleEditRol = () => {
     navigate('/edita-roles', { state: { fromEditRoles: true } });
-};
-     const handleNotification = () => {
-    navigate('/Seleccion-empleos', { state: { fromEditRoles: true } });
-};
+    };
+        const handleNotification = () => {
+        navigate('/notificaciones', { state: { fromEditRoles: true } });
+    };
+    const handleNavigateHome = () => {
+        navigate("/home"); // Navega a la página de inicio
+    };
 
     
   
@@ -48,6 +51,11 @@ const Header = () => {
                 </div>
 
                 <div className="box3">
+                <FontAwesomeIcon 
+                    icon={faHome} 
+                    style={{ height: "30px", width: "30px", cursor: "pointer" }} 
+                    onClick={handleNavigateHome} // Llama a la función de navegación al hacer clic
+                />
                     <Dropdown>
                         <Dropdown.Toggle variant="link" id="dropdown-avatar">
                             <FontAwesomeIcon icon={faUser} style={{ height: "30px", width: "30px" }} />

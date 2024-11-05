@@ -11,4 +11,5 @@ public class NotificacionResponseDTO {
     private String nombreEvento;
     private Date fechaEvento;
     private String empleo;
+    private Integer notificacionId;
 }

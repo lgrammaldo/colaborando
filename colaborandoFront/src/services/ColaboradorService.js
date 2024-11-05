@@ -8,6 +8,10 @@ class ColaboradorService {
         return axios.get(`${PERSONA_API_BASE_URL}/get-colaborador`, { params: { userId } });
     }
 
+    updateColaborador(userId, colaboradorData) {
+        return axios.put(`${PERSONA_API_BASE_URL}/update-colaborador/${userId}`, colaboradorData);
+    };
+
     /* Método para crear un usuario empresa (comentar si no es necesario)
     createUsuarioEmpresa(empresa) {
         return axios.post(`${PERSONA_API_BASE_URL}/crear-establecimiento`, empresa, {});

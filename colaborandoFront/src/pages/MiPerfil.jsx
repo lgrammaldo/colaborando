@@ -34,14 +34,16 @@ const MiPerfil = () => {
     }, [userId]);
 
     const saveUsuario = (e) => {
-        e.preventDefault();
         const colaboradorData = { nombre, apellido, email, telefono, dni, password, codEstablecimiento };
-        usuariosService.createUsuarioPersona(colaboradorData)
+
+        colaboradorService.updateColaborador(userId, colaboradorData)
             .then(() => {
                 alert("Cambios guardados exitosamente.");
-                navigate('/');
+                
             })
-            .catch(error => alert(error.response?.data || "Error al crear colaborador"));
+            .catch(error => alert(error.response?.data || "Error al actualizar colaborador"));
+        
+        navigate('/home');
     };
 
     const handleCancel = () => {

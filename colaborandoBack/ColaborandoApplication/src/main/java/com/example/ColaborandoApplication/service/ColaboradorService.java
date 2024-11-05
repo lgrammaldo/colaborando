@@ -33,6 +33,25 @@ public class ColaboradorService {
 
     }
 
+    public void updateColaborador(Integer id, ColaboradorDTO updatedColaborador) {
+        colaboradorRepository.findById(id).map(colaborador -> {
+            colaborador.setNombre(updatedColaborador.getNombre());
+            colaborador.setApellido(updatedColaborador.getApellido());
+            colaborador.setTelefono(updatedColaborador.getTelefono());
+            colaborador.setDni(updatedColaborador.getDni());
+            colaborador.setCodigoEstablecimiento(updatedColaborador.getCodEstablecimiento());
+
+            // Actualizar datos en el objeto Usuario
+            Usuario usuario = colaborador.getUsuario();
+            usuario.setEmail(updatedColaborador.getEmail());
+            usuario.setPassword(updatedColaborador.getPassword());
+            usuarioRepository.save(usuario);
+
+            colaboradorRepository.save(colaborador);
+            return null;
+        });
+    }
+
     public static ColaboradorDTO buildColaboradorDTO(Usuario usuario, Colaborador colaborador){
         ColaboradorDTO colaboradorDTO = new ColaboradorDTO();
             colaboradorDTO.setNombre(colaborador.getNombre());
