@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import empleosService from '../services/EmpleosService';
-import LogoComponente from '../components/LogoComponente-deprecado';
+import LogoComponente from '../components/LogoComponente';
 import './SeleccionEmpleos.css';
-import Header from './Header';
 
 const SeleccionEmpleos = () => {
     const navigate = useNavigate();
@@ -44,11 +43,7 @@ const SeleccionEmpleos = () => {
     };
 
     return (
-     
-        
-        
         <div className="container-sm">
-         
             {rol === 'Colaborador' ? (
                 <>
                     <h1 className="text-center mt-3 title-color">Seleccioná tus roles</h1>

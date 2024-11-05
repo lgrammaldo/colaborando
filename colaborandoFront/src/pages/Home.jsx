@@ -1,7 +1,7 @@
 // Home.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavBarWithLogo from '../components/NavBarWithLogo.jsx';
+import NavBarWithLogo from '../trash/NavBarWithLogo.jsx';
 import Header from './Header.jsx';
 import './Home.css';
 

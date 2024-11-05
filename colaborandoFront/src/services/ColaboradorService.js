@@ -18,7 +18,15 @@ class ColaboradorService {
     } */
     
     // Puedes añadir otros métodos según sea necesario
+    
+     getRoles(userId) {
+        return axios.get(`${PERSONA_API_BASE_URL}/get-roles`, { params: { userId } });
+    }
+ 
+    
 }
+
+
 
 const colaboradorService = new ColaboradorService();
 
