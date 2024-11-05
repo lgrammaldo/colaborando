@@ -19,4 +19,12 @@ public class ColaboradorController {
         ColaboradorDTO colaboradorDTO = colaboradorService.obtenerColaborador(userId);
         return ResponseEntity.ok(colaboradorDTO);
     }
+
+    @PutMapping("/update-colaborador/{id}")
+    public ResponseEntity<String> updateColaborador(
+            @PathVariable Integer id,
+            @RequestBody ColaboradorDTO updatedColaborador) {
+            colaboradorService.updateColaborador(id, updatedColaborador);
+        return ResponseEntity.ok("Modificación exitosa.");
+    }
 }
