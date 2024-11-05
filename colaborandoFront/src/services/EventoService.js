@@ -8,6 +8,10 @@ class EventoService {
         return axios.post(EVENTO_API_BASE_URL + "/crear-evento", evento, {})
     }
 
+    getProximosEventos(){
+        return axios.post(EVENTO_API_BASE_URL + "/get-eventos", {})
+    }    
+
 }
 
 const eventoService = new EventoService();

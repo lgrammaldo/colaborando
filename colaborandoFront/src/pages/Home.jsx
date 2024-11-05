@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import './Home.css';
 import Header from './Header.jsx';
 import { useNavigate } from 'react-router-dom';
 import NavBarWithLogo from '../components/NavBarWithLogo';
-import { useState } from 'react';
+//import { useState } from 'react';
+import eventoService from '../services/EventoService';
 
 function Home() {
   const navigate = useNavigate();
 
   const [rol, setRol] = useState(localStorage.getItem("rol"));
-
+  const [proximosEventos, setProximosEventos] = useState([]);
   const addTurno = () => {
     navigate('/crear-evento');
   };
 
+  // Cargar próximos eventos al montar el componente
+  useEffect(() => {
+    eventoService.getProximosEventos() // Asegúrate de que esta función esté definida en tu servicio
+      .then(res => {
+        setProximosEventos(res.data);
+      })
+      .catch(err => {
+        console.error("Error cargando próximos eventos:", err);
+      });
+  }, []);
+  
   return (
     <div>
       <Header />
@@ -30,6 +42,13 @@ function Home() {
                 <div className="card mb-3" style={{  border: '1px solid #cb6665' }}>
                   <div className="card-body text-center">
                     <h5 className="card-title"><i className="fas fa-calendar-alt"></i> Próximos Eventos</h5>
+                    <ul className="list-group">
+                      {proximosEventos.map((evento, index) => (
+                        <li className="list-group-item" key={index}>
+                          <strong>{evento.descripcion}</strong> - {new Date(evento.fecha).toLocaleString()}
+                        </li>
+                      ))}
+                    </ul>                    
                     <p className="card-text">Aquí puedes ver los próximos eventos programados.</p>
                     <button className="btn" style={{ backgroundColor: 'white', border: '1px solid #cb6665', width: '100%' }} onClick={addTurno}>
                       Crear Turno

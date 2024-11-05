@@ -81,4 +81,13 @@ public class EventoService {
         return evento;
     }
 
+    public List<Evento> getEventos(){
+        try{
+            List<Evento> eventos = eventoRepository.findAll();
+            return eventos;
+        } catch (Exception e) {
+            System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
+        }
+        return  null;
+    }
 }
