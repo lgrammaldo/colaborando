@@ -1,0 +1,44 @@
+/* SeleccionDisponibilidad.css */
+
+.container-sm {
+    max-width: 600px;
+    margin: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.table {
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+
+.form-check {
+    margin-top: 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-lg {
+    padding: 10px 20px;
+    font-size: 1.25rem;
+}

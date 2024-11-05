@@ -55,7 +55,9 @@ public class EventoService {
 
                 DetalleEvento detalleEvento = new DetalleEvento();
                 detalleEvento.setEvento(evento);
-                detalleEvento.setCantidad(cantidad);
+                // La cantidad solicitada es la inicial y la disponible se irá actualizando a medida que se acepten trabajos
+                detalleEvento.setCantidadSolicitada(cantidad);
+                detalleEvento.setCantidadDisponible(cantidad);
 
                 Empleos empleos = empleosRepository.findById(empleo)
                         .orElseThrow(() -> new IllegalArgumentException("Empleo no encontrado"));

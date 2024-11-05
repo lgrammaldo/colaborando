@@ -1,11 +1,13 @@
+// Header.jsx
 import React, { useState, useEffect } from 'react';
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faUser, faUserDoctor, faDigitalTachograph, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHome } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../imagenes/logoColab.png'
+import Dropdown from 'react-bootstrap/Dropdown';
+import logo from '../imagenes/logoColab.png';
 
 const Header = () => {
     const [rol, setRol] = useState(localStorage.getItem("rol"));
@@ -14,49 +16,68 @@ const Header = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('rol');
-        // Redirige al usuario a la página de inicio de sesión o a donde sea apropiado
         alert('Usted ha terminado la sesión');
         navigate('/login');
     };
 
+    const handleProfile = () => {
+        navigate('/editar-perfil'); // Redirige a la página de perfil
+    };
+
+  
+    const handleEditRol = () => {
+    navigate('/edita-roles', { state: { fromEditRoles: true } });
+    };
+        const handleNotification = () => {
+        navigate('/notificaciones', { state: { fromEditRoles: true } });
+    };
+    const handleNavigateHome = () => {
+        navigate("/home"); // Navega a la página de inicio
+    };
+
+    
+  
     useEffect(() => {
         setRol(localStorage.getItem("rol"));
     }, []);
 
     return (
         <>
-            <header className='flex-container' style={{ background: '#fff' }}>
-                <div className='box1' >
-                    <nav className="navbar navbar-expand-lg navbar-dark" >
-                    <img src={logo} alt="Logo Colaborando" />
+            <header className="flex-container">
+                <div className="box1">
+                    <nav className="navbar navbar-expand-lg navbar-dark">
+                        <img src={logo} alt="Logo Colaborando" />
                     </nav>
                 </div>
-              
-                <div className='box3'>
-                    <FontAwesomeIcon icon={faUser} style={{ height: "30px", width: "30px", margin: "10px", paddingTop:"10px"}} />
-                    <select id="select-usuario" value={rol} style={{ height: "50px", width: "160px", margin:"10px"}}>
-                        <option>{rol}</option>
-                    </select>
-                </div>
-                <div className='box4'>
-                    <button type="button" className="btn btn-secondary" onClick={handleLogout} style={{ height: "50px", width: "100px", margin:"10px"}}>
-                        Logout
-                    </button>
+
+                <div className="box3">
+                <FontAwesomeIcon 
+                    icon={faHome} 
+                    style={{ height: "30px", width: "30px", cursor: "pointer" }} 
+                    onClick={handleNavigateHome} // Llama a la función de navegación al hacer clic
+                />
+                    <Dropdown>
+                        <Dropdown.Toggle variant="link" id="dropdown-avatar">
+                            <FontAwesomeIcon icon={faUser} style={{ height: "30px", width: "30px" }} />
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu align="end">
+                            <Dropdown.Item onClick={handleProfile}>Mi Perfil</Dropdown.Item>
+                            <Dropdown.Item onClick={handleEditRol}>Modificar Roles</Dropdown.Item>
+                             <Dropdown.Item onClick={handleNotification}>Notificaciones</Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                   
                 </div>
             </header>
 
             <div id="navegador">
                 <Nav className="ml-auto" variant="tabs">
-                    
-                {rol === 'ODONTOLOGO' && (
-                    <>
-                        <Nav.Item>
-                            <Link to="/odontologo" className="nav-link">
-                                Odontologos <FontAwesomeIcon icon={faUserDoctor} />
-                            </Link>
-                        </Nav.Item>
-                    </>
-                )}
+                    <Nav.Item>
+                        {/* Aquí puedes agregar otros elementos de navegación si es necesario */}
+                    </Nav.Item>
                 </Nav>
             </div>
         </>

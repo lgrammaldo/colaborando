@@ -1,0 +1,25 @@
+.container-sm {
+    padding: 20px;
+}
+
+.title-color {
+    color: rgb(203, 102, 101);
+}
+
+.subtitle-color {
+    color: rgb(203, 102, 101);
+}
+
+.primary-button {
+    width: 100%;
+    background-color: rgb(203, 102, 101);
+    color: white;
+    border: none;
+}
+
+.secondary-button {
+    width: 100%;
+    background-color: white;
+    color: rgb(203, 102, 101);
+    border-color: rgb(203, 102, 101);
+}

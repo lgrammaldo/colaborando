@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import eventoService from '../services/EventoService';
-import LogoComponente from '../components/LogoComponente';
+import LogoComponente from '../components/LogoComponente.jsx';
 import Header from './Header.jsx';
 import empleosService from '../services/EmpleosService';  // Importa tu servicio correctamente
 

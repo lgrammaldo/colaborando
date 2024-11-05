@@ -1,0 +1,66 @@
+.crear-usuario-container {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.title {
+    color: #CB6665;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    width: 100%;
+    max-width: 500px;
+    border-color: #CB6665;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    border-color: #CB6665;
+}
+
+.submit-button {
+    background-color: #CB6665;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #b75554;
+}
+
+.footer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.login-link {
+    color: #CB6665;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    color: #b75554;
+    text-decoration: underline;
+}

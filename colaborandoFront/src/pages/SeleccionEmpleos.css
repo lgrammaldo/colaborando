@@ -1,0 +1,50 @@
+.container-sm {
+    padding: 20px;
+}
+
+.title-color {
+    color: #4A4A4A;
+}
+
+.subtitle-color {
+    color: #6c757d;
+}
+
+.primary-button {
+    width: 100%;
+    background-color: #CB6665;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+}
+
+.primary-button:hover {
+    background-color: #a55252;
+}
+
+.secondary-button {
+    width: 100%;
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+}
+
+.secondary-button:hover {
+    background-color: #cccccc;
+}
+
+.form-check-label {
+    font-size: 1rem;
+    color: #333;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}

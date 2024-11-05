@@ -1,31 +1,28 @@
 package com.example.ColaborandoApplication.Entity;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "notificaciones")
-public class Notificaciones {
-
+@Table(name = "asistencias")
+public class Asistencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = true)
-    private Integer notificacion;
-
-    @OneToOne
-    @JoinColumn(name = "id_colaboradoresEmpleos")
+    @ManyToOne
+    @JoinColumn(name = "id_colaboradorEmpleos")
     private ColaboradoresEmpleos colaboradoresEmpleos;
 
-    @Column
-    private String status;
-
     @ManyToOne
-    @JoinColumn(name = "id_evento", nullable = false)
-    private Evento evento;
+    @JoinColumn(name = "id_detalleEvento")
+    private DetalleEvento detalleEvento;
 
+    @Column
+    private Date fechaEvento;
 }

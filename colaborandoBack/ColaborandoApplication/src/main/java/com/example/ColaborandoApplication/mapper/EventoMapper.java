@@ -5,15 +5,15 @@ import com.example.ColaborandoApplication.Entity.Evento;
 
 public class EventoMapper {
     public static Evento mapEventoaDTOtoEvento(EventoDTO eventoDTO) {
-        return Evento.builder()
-                .nombre(eventoDTO.getNombre())
-                .fecha_publicacion(eventoDTO.getFecha_publicacion())
-                .fecha_fin_busqueda(eventoDTO.getFecha_fin_busqueda())
-                .fecha_inicio(eventoDTO.getFecha_inicio())
-                .fecha_fin(eventoDTO.getFecha_fin())
-                .status("Active")
-                .especificaciones(eventoDTO.getEspecificaciones())
-                .descripcion(eventoDTO.getDescripcion())
-                .build();
+         Evento evento = new Evento();
+            evento.setNombre(eventoDTO.getNombre());
+            evento.setFecha_publicacion(eventoDTO.getFecha_publicacion());
+            evento.setFecha_fin_busqueda(eventoDTO.getFecha_fin_busqueda());
+            evento.setFecha_inicio(eventoDTO.getFecha_inicio());
+            evento.setFecha_fin(eventoDTO.getFecha_fin());
+            evento.setStatus("Active");
+            evento.setEspecificaciones(eventoDTO.getEspecificaciones());
+            evento.setDescripcion(eventoDTO.getDescripcion());
+        return evento;
     }
 }

@@ -20,13 +20,6 @@ public class Colaborador {
     @Column(nullable = false, unique = true)
     private Integer dni;
 
-  /*  /*Agregado 9-10*/
-  /*  @Column(nullable = true, unique = true)
-    private String calificacion;
-
-    @Column(nullable = true, unique = true)
-    private String cuil; */
-    /**/
 
     @Column(nullable = false)
     private String nombre;
@@ -37,7 +30,6 @@ public class Colaborador {
     @Column(nullable = false)
     private String telefono;
 
-/*    @Column(nullable = false, unique = true)
-    private Integer id_turnos;
-*/
+    @Column(nullable = false)
+    private String codigoEstablecimiento;
 }
