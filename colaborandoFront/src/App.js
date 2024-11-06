@@ -8,6 +8,7 @@ import MiPerfil from './pages/MiPerfil';
 import Header from './pages/Header';
 import EditaRoles from './pages/EditaRoles';
 import MisNotificaciones from './pages/MisNotificaciones';
+import ProximosEventos from './pages/ProximosEventos';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function ContentWithHeader() {
         <Route path="/crear-evento" element={<CrearEvento />} />
         <Route path="/editar-perfil" element={<MiPerfil />} />
         <Route path="/notificaciones" element={<MisNotificaciones />} />
+        <Route path="/proxEventos" element={<ProximosEventos />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>

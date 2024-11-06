@@ -7,21 +7,21 @@ import eventoService from '../services/EventoService';
 function Home() {
     const navigate = useNavigate();
     const [rol, setRol] = useState(localStorage.getItem("rol"));
-    const [proximosEventos, setProximosEventos] = useState([]);
+    
 
     const addTurno = () => {
-        navigate('/crear-evento');
+        navigate('/editar-perfil');
     };
 
-    useEffect(() => {
-      eventoService.getProximosEventos() // Asegúrate de que esta función esté definida en tu servicio
-        .then(res => {
-          setProximosEventos(res.data);
-        })
-        .catch(err => {
-          console.error("Error cargando próximos eventos:", err);
-        });
-    }, []);    
+    const addEvento = () => {
+      navigate('/crear-evento');
+    };    
+
+    const proxEventos = () => {
+      navigate('/proxEventos');
+    };        
+
+
 
     return (
         <div>
@@ -32,18 +32,14 @@ function Home() {
                         <div className="card mb-3">
                             <div className="card-body">
                                 <h5 className="card-title icon-user">
-                                    <i className="fas fa-calendar-alt"></i> <br></br>Agenda Eventos
-                                </h5>
-                                <ul className="list-group">
-                                {proximosEventos.map((evento, index) => (
-                                  <li className="list-group-item" key={index}>
-                                    <strong>{evento.nombre}</strong> - {new Date(evento.fecha).toLocaleString()}
-                                  </li>
-                                ))}
-                                </ul>                                     
-                                <p className="card-text">Accede a tu grilla de eventos confirmados</p>
-                                <button className="btn" onClick={addTurno}>
-                                    {rol === 'Colaborador' ? 'Ver Grilla' : 'Crear Evento'}
+                                    <i className="fas fa-calendar-alt"></i> <br></br>
+                                    {rol === 'Colaborador' ? 'Perfil' : 'Evento'}
+                                </h5>                                  
+                                <p className="card-text">
+                                {rol === 'Colaborador' ? 'Edita tu perfil' : 'Aqui podras crear tus Eventos'}
+                                </p>
+                                <button className="btn" onClick={rol === 'Colaborador' ? addTurno : addEvento}>
+                                    {rol === 'Colaborador' ? 'Editar Perfil' : 'Crear Evento'}
                                 </button>
                             </div>
                         </div>
@@ -52,10 +48,12 @@ function Home() {
                         <div className="card mb-3">
                             <div className="card-body">
                                 <h5 className="card-title icon-user">
-                                    <i className="fas fa-history"></i> <br></br>Horas Trabajadas 
+                                    <i className="fas fa-history"></i> <br></br>Proximos Eventos
                                 </h5>
-                                <p className="card-text">Podrás ver el acumulado de horas trabajadas en el mes.</p>
-                                <button className="btn">Ver Total horas</button>
+                                <p className="card-text">Podrás ver los eventos confirmados que tienes proximamente.</p>
+                                <button className="btn" onClick={proxEventos}>
+                                  {rol === 'Colaborador' ? 'Ver Eventos Confirmados' : 'Ver Eventos Creados'}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -63,9 +61,24 @@ function Home() {
                         <div className="card mb-3">
                             <div className="card-body">
                                 <h5 className="card-title icon-user">
+                                    <i className="fas fa-history"></i> <br></br>Eventos Pasados
+                                </h5>
+                                <p className="card-text">Podrás ver los eventos pasados.</p>
+                                <button className="btn" onClick={proxEventos}>
+                                  {rol === 'Colaborador' ? 'Ver Eventos Trabajados' : 'Ver Eventos Realizados'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div className="col-md-4">
+                        <div className="card mb-3">
+                            <div className="card-body">
+                                <h5 className="card-title icon-user">
                                     <i className="fas fa-clock"></i> <br></br>Reportes Históricos
                                 </h5>
-                                <p className="card-text">Consulta el reporte de horas y Eventos.</p>
+                                <p className="card-text">
+                                  {rol === 'Colaborador' ? 'Detalle de horas trabajadas.' : 'Detalle de horas a liquidar.'}
+                                </p>
                                 <button className="btn">Ver Reporte</button>
                             </div>
                         </div>
