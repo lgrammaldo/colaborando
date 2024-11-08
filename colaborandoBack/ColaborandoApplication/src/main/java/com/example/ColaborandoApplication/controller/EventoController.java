@@ -23,8 +23,13 @@ public class EventoController {
         return ResponseEntity.ok(evento);
     }
 
-    @PostMapping("/get-eventos")
-    public ResponseEntity<List<Evento>> getEventos() {
-        return ResponseEntity.ok(eventoService.getEventos());
+    @GetMapping("/get-eventos/{status}")
+    public ResponseEntity<List<Evento>> getEventos(@PathVariable String status) {
+        return ResponseEntity.ok(eventoService.getEventos(status));
+    }
+
+    @PostMapping("/update-evento")
+    public ResponseEntity<Evento> updateEventos(Integer idEvento) {
+        return ResponseEntity.ok(eventoService.updateEvento(idEvento));
     }
 }

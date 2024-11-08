@@ -8,9 +8,13 @@ class EventoService {
         return axios.post(EVENTO_API_BASE_URL + "/crear-evento", evento, {})
     }
 
-    getProximosEventos(){
-        return axios.post(EVENTO_API_BASE_URL + "/get-eventos", {})
+    getProximosEventos(status){
+        return axios.get(`${EVENTO_API_BASE_URL}/get-eventos/${status}`, {});
     }    
+
+    updateEvento(eventoId){
+        return axios.post(EVENTO_API_BASE_URL + "/update-eventos", eventoId, {})
+    }       
 
 }
 

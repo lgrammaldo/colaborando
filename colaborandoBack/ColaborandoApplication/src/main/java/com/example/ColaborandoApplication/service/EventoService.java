@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
+import java.lang.Integer;
 
 
 @Service
@@ -83,10 +84,24 @@ public class EventoService {
         return evento;
     }
 
-    public List<Evento> getEventos(){
+    @Transactional(rollbackOn = Exception.class)
+    public List<Evento> getEventos(String status){
         try{
-            List<Evento> eventos = eventoRepository.findAll();
+            //List<Evento> eventos = eventoRepository.findByStatus("Active");
+            List<Evento> eventos = eventoRepository.findByStatus(status);
             return eventos;
+        } catch (Exception e) {
+            System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
+        }
+        return  null;
+    }
+
+    public Evento updateEvento(Integer idEvento){
+        try{
+            Evento evento = eventoRepository.findById(idEvento)
+                    .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
+            evento.setStatus("Inactive");
+            return evento;
         } catch (Exception e) {
             System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
         }

@@ -13,8 +13,7 @@ function Home() {
     const [eventoId, setEventoId] = useState(null);
 
     useEffect(() => {
-        const status = 'Active'
-        eventoService.getProximosEventos(status) // Asegúrate de que esta función esté definida en tu servicio
+      eventoService.getProximosEventos() // Asegúrate de que esta función esté definida en tu servicio
         .then(res => {
           setProximosEventos(res.data);
         })
@@ -37,7 +36,7 @@ function Home() {
     // Función para actualizar el evento
     const handleUpdate = () => {
         // Llama a la función que actualiza el evento
-        eventoService.updateEvento(eventoId, { /* Aquí pasas los nuevos datos del evento */ })
+        eventoService.updateEvento(eventoId)
             .then(res => {
                 console.log('Evento actualizado exitosamente:', res);
                 // Actualizar los eventos después del update, si es necesario
@@ -64,7 +63,7 @@ function Home() {
                                 <strong>{evento.nombre}</strong> - {moment(evento.fecha).format('DD/MM/YYYY')}
                                 <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
                                         onClick={() => handleShowModal(evento.id_evento)}>
-                                        Cancelar Evento
+                                        Editar Evento
                                     </button>                                
                             </li>
                             ))}
@@ -76,11 +75,11 @@ function Home() {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Confirmar cancelación</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Confirmar Edición</h5>
                             <button type="button" className="btn-close" onClick={handleCloseModal} aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            ¿Estás seguro de que deseas cancelar este evento?
+                            ¿Estás seguro de que deseas editar este evento?
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cancelar</button>
