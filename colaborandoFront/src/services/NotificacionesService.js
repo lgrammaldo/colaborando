@@ -4,8 +4,13 @@ const NOTIFICACIONES_API_BASE_URL = "http://localhost:8080/colaborando/notificac
 
 class NotificacionesService { 
     // Método para obtener un colaborador enviando el userId como parámetro
-    getNotificaciones(userId) {
-        return axios.get(`${NOTIFICACIONES_API_BASE_URL}/get-notificaciones/${userId}`);
+    getNotificaciones(userId, rol) {
+        if (rol === 'Colaborador'){
+            return axios.get(`${NOTIFICACIONES_API_BASE_URL}/colaborador/get-notificaciones/${userId}`);
+        } else {
+            return axios.get(`${NOTIFICACIONES_API_BASE_URL}/establecimiento/get-notificaciones/${userId}`);
+        }
+        
     }
 
     rechazarNotificacion(notificacionId) {
@@ -15,6 +20,10 @@ class NotificacionesService {
     aceptarNotificacion(notificacionId, fechaEvento) {
         const aceptarNotificacionDTO = {notificacionId, fechaEvento}
         return axios.post(`${NOTIFICACIONES_API_BASE_URL}/aceptar`, aceptarNotificacionDTO);
+    }
+
+    confirmarColaborador(detalleColaborador) {
+        return axios.post(`${NOTIFICACIONES_API_BASE_URL}/confirmar_colaborador`, detalleColaborador);
     }
 
 }

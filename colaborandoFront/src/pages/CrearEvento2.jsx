@@ -104,7 +104,6 @@ const CrearEvento = () => {
 
   return (
     <div>
-      <Header />
       <div className="container h-100">
         <div className="row h-100 justify-content-center align-items-center">
           <div className="col-md-8">

@@ -46,7 +46,9 @@ const Header = () => {
             <header className="flex-container">
                 <div className="box1">
                     <nav className="navbar navbar-expand-lg navbar-dark">
-                        <img src={logo} alt="Logo Colaborando" />
+                        <div onClick={handleNavigateHome} style={{ cursor: 'pointer' }}>
+                            <img src={logo} alt="Logo Colaborando" />
+                        </div>
                     </nav>
                 </div>
 

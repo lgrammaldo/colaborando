@@ -36,9 +36,6 @@ public class Evento {
     @JoinColumn(name = "id_usuario", unique = false)
     private Usuario usuario;
 
-   /* @OneToOne
-    @JoinColumn(name = "id_status", unique = true)
-    private Status status;*/
     @Column(nullable = false)
     private String status;
 
@@ -47,11 +44,5 @@ public class Evento {
 
     @Column(nullable = true)
     private String descripcion;
-
-/*
-    @OneToOne
-    @JoinColumn(name = "id_turno", unique = true)
-    private Turnos turnos;
-*/
 
 }

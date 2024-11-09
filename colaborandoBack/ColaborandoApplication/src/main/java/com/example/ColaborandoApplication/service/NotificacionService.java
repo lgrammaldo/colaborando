@@ -1,7 +1,7 @@
 package com.example.ColaborandoApplication.service;
 
 import com.example.ColaborandoApplication.DTO.AceptarNotificacionDTO;
-import com.example.ColaborandoApplication.DTO.AsociarEmpleosDTO;
+import com.example.ColaborandoApplication.DTO.AsistenciasConfirmadasDTO;
 import com.example.ColaborandoApplication.DTO.NotificacionResponseDTO;
 import com.example.ColaborandoApplication.Entity.*;
 import com.example.ColaborandoApplication.repository.*;
@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,8 @@ public class NotificacionService {
 
     @Autowired
     private EmpleosRepository empleosRepository;
+    @Autowired
+    private EstablecimientoRepository establecimientoRepository;
     @Autowired
     private ColaboradorRepository colaboradorRepository;
     @Autowired
@@ -33,9 +36,11 @@ public class NotificacionService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
-    private AsistenciaRepository asistenciaRepository;
+    private SolicitudesRepository solicitudesRepository;
+    @Autowired
+    private AsistenciasConfirmadasRepository asistenciasConfirmadasRepository;
 
-    public List<NotificacionResponseDTO> getNotificaciones(Integer userId) {
+    public List<NotificacionResponseDTO> getNotificacionesColaborador(Integer userId) {
         Usuario usuario = usuarioRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
@@ -44,8 +49,6 @@ public class NotificacionService {
 
 
         List<Notificaciones> notificaciones = notificacionesRepository.findByColaboradoresEmpleosInAndStatus(colaboradoresEmpleos, "Active");
-
-         ;
 
         return notificaciones.stream()
             .filter(notificacion -> {
@@ -63,7 +66,12 @@ public class NotificacionService {
                 dto.setEventoId(notificacion.getEvento().getId_evento());
                 return dto;
         }).collect(Collectors.toList());
+    }
 
+    public List<Solicitudes> getNotificacionesEstablecimiento(Integer userId) {
+        return solicitudesRepository.findAll().stream()
+                .filter(solicitud -> "Active".equals(solicitud.getStatus()))
+                .collect(Collectors.toList());
     }
 
     public void actualizarEstadoNotificacion(Integer notificacionId) {
@@ -74,57 +82,75 @@ public class NotificacionService {
     }
 
     @Transactional
-    public String aceptarPuesto(AceptarNotificacionDTO aceptarNotificacionDTO) {
+    public String aceptarPosiblePuesto(AceptarNotificacionDTO aceptarNotificacionDTO) {
         // Obtener la notificación
         Notificaciones notificacion = notificacionesRepository.findById(aceptarNotificacionDTO.getNotificacionId())
                 .orElseThrow(() -> new IllegalArgumentException("Notificación no encontrada"));
 
-        // Obtener el detalle del evento correspondiente a la notificación
         DetalleEvento detalleEvento = detalleEventoRepository.findByEventoAndEmpleos(
                 notificacion.getEvento(), notificacion.getColaboradoresEmpleos().getEmpleos());
 
-        // Obtener el ColaboradoresEmpleos
         ColaboradoresEmpleos colaboradorEmpleo = notificacion.getColaboradoresEmpleos();
 
-        // Verificar si el colaborador ya tiene un evento el mismo día
-        LocalDate fechaEventoSinHora = aceptarNotificacionDTO.getFechaEvento().toInstant()
+            Solicitudes solicitudes = new Solicitudes();
+            solicitudes.setColaboradoresEmpleos(colaboradorEmpleo);
+            solicitudes.setDetalleEvento(detalleEvento);
+            solicitudes.setFechaEvento(aceptarNotificacionDTO.getFechaEvento());
+            solicitudes.setStatus("Active");
+
+            // Guardar asistencia
+            solicitudesRepository.save(solicitudes);
+
+            // Actualizar el estado de la notificación
+            notificacion.setStatus("Inactive"); // O lo que necesites
+            notificacionesRepository.save(notificacion);
+        return "Ok";
+    }
+
+    public void confirmarAsistenciaDeColaborador(AsistenciasConfirmadasDTO asistenciasConfirmadasDTO){
+        DetalleEvento detalleEvento = asistenciasConfirmadasDTO.getDetalleEvento();
+        ColaboradoresEmpleos colaboradorEmpleo = asistenciasConfirmadasDTO.getColaboradoresEmpleos();
+
+        LocalDate fechaEventoSinHora = asistenciasConfirmadasDTO.getDetalleEvento().getEvento().getFecha_inicio().toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
+
         // Obtener asistencias existentes del colaborador para la fecha
-        List<Asistencia> asistenciasEnFecha = asistenciaRepository.findByColaboradoresEmpleos(colaboradorEmpleo);
+        List<AsistenciasConfirmadas> asistenciasEnFecha = asistenciasConfirmadasRepository.findByColaborador(asistenciasConfirmadasDTO.getColaborador());
 
         boolean tieneEventoEseDia = asistenciasEnFecha.stream()
-                .anyMatch(asistencia -> asistencia.getFechaEvento().toInstant()
+                .anyMatch(asistencia -> asistencia.getEvento().getFecha_inicio().toInstant()
                         .atZone(ZoneId.systemDefault())
                         .toLocalDate()
                         .equals(fechaEventoSinHora));
         // Retorno el error que ya tiene un evento
         if (tieneEventoEseDia) {
-            throw new CustomException("¡Ya tienes un empleo ese día! No puedes aceptarlo.");
+            String mensaje = String.format("¡El colaborador %s %s ya tiene ocupado ese día! No puedes aceptarlo",
+                    colaboradorEmpleo.getColaborador().getNombre(),
+                    colaboradorEmpleo.getColaborador().getApellido());
+            throw new CustomException(mensaje);
         }
 
-        // Verificar disponibilidad
         if (detalleEvento.getCantidadDisponible() > 0) {
-            // Crear nueva asistencia
-            Asistencia asistencia = new Asistencia();
-            asistencia.setColaboradoresEmpleos(colaboradorEmpleo);
-            asistencia.setDetalleEvento(detalleEvento);
-            asistencia.setFechaEvento(aceptarNotificacionDTO.getFechaEvento());
+            // Crear nueva asistenciaConfirmada
+            AsistenciasConfirmadas asistenciaConfirmada = new AsistenciasConfirmadas();
+            asistenciaConfirmada.setColaboradoresEmpleos(colaboradorEmpleo);
+            asistenciaConfirmada.setColaborador(asistenciasConfirmadasDTO.getColaborador());
+            asistenciaConfirmada.setEvento(detalleEvento.getEvento());
+            asistenciasConfirmadasRepository.save(asistenciaConfirmada);
 
-            // Guardar asistencia
-            asistenciaRepository.save(asistencia);
+            // TODO: Actualizar cantidad disponible MOVER A LA ASISTENCIA REAL CUANDO CONFIRMA EL ESTABLECIMIENTO
+             detalleEvento.setCantidadDisponible(detalleEvento.getCantidadDisponible() - 1);
+             detalleEventoRepository.save(detalleEvento);
 
-            // Actualizar cantidad disponible
-            detalleEvento.setCantidadDisponible(detalleEvento.getCantidadDisponible() - 1);
-            detalleEventoRepository.save(detalleEvento);
-
-            // Actualizar el estado de la notificación
-            notificacion.setStatus("Inactive"); // O lo que necesites
-            notificacionesRepository.save(notificacion);
+            // Actualizar el estado de la solicitud
+            Solicitudes solicitud = solicitudesRepository.findById(asistenciasConfirmadasDTO.getSolicitudId())
+                    .orElseThrow(() -> new IllegalArgumentException("Solicitud no encontrada"));
+            solicitud.setStatus("Inactive"); // O lo que necesites
+            solicitudesRepository.save(solicitud);
         } else {
-            throw new IllegalArgumentException("No hay disponibilidad para este puesto.");
+            throw new CustomException(String.format("¡Ya ocupaste el cupo para %s", detalleEvento.getEmpleos().getNombre()));
         }
-        return "Ok";
     }
 
 }
