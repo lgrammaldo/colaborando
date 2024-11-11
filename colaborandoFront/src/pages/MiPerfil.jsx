@@ -47,7 +47,7 @@ const MiPerfil = () => {
     };
 
     const handleCancel = () => {
-        navigate('/');
+        navigate('/home');
     };
 
     return (

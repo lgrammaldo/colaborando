@@ -100,11 +100,49 @@ public class EventoService {
         try{
             Evento evento = eventoRepository.findById(idEvento)
                     .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
-            evento.setStatus("Inactive");
+            evento.setStatus("Canceled");
+            eventoRepository.save(evento);
             return evento;
         } catch (Exception e) {
             System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
         }
         return  null;
     }
+
+    public Evento getEvento(Integer idEvento){
+        try{
+            Evento evento = eventoRepository.findById(idEvento)
+                    .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
+            return evento;
+        } catch (Exception e) {
+            System.out.println("Error al buscar el Evento: {}"+ e.getMessage()+"\n");
+        }
+        return  null;
+    }
+
+    public List<Evento> getEventosColaborador(String status, String colaborador){
+        try{
+            List<Evento> eventos = eventoRepository.findByStatusAndColaborador(status,colaborador);
+            return eventos;
+        } catch (Exception e) {
+            System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
+        }
+        return  null;
+    }
+
+    public Evento updateEventoColaborador(String status, Integer colaborador){
+        try{
+            //Falta ver como cancelar correctamente la asistencia del colaborador
+            Evento evento = eventoRepository.findById(colaborador)
+                    .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
+            evento.setStatus("Canceled");
+            eventoRepository.save(evento);
+            return evento;
+        } catch (Exception e) {
+            System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
+        }
+        return  null;
+    }
+
+
 }

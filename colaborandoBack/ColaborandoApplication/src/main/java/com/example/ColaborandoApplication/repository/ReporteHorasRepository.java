@@ -8,15 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Repository
-public interface EventoRepository extends JpaRepository<Evento, Integer> {
-    List<Evento> findByStatus(String status);
+public interface ReporteHorasRepository extends JpaRepository<ReporteHoras, Integer> {
 
-    @Query("SELECT e FROM Evento e WHERE e.status = :status AND e.status = :colaborador")
-    List<Evento> findByStatusAndColaborador(@Param("status") String status, @Param("colaborador") String colaborador);
+    @Query("SELECT e FROM ReporteHoras e WHERE e.idColaborador = :colaborador")
+    List<ReporteHoras> findByHorasColaborador(@Param("colaborador") Integer colaborador);
 
 }
 

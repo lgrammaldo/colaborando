@@ -21,6 +21,14 @@ function Home() {
       navigate('/proxEventos');
     };        
 
+    const eventosPasados = () => {
+        navigate('/eventos-inactive');
+    };      
+
+    const reporteHoras = () => {
+        navigate('/reporte-horas');
+    };        
+
 
 
     return (
@@ -64,7 +72,7 @@ function Home() {
                                     <i className="fas fa-history"></i> <br></br>Eventos Pasados
                                 </h5>
                                 <p className="card-text">Podrás ver los eventos pasados.</p>
-                                <button className="btn" onClick={proxEventos}>
+                                <button className="btn" onClick={eventosPasados}>
                                   {rol === 'Colaborador' ? 'Ver Eventos Trabajados' : 'Ver Eventos Realizados'}
                                 </button>
                             </div>
@@ -79,7 +87,7 @@ function Home() {
                                 <p className="card-text">
                                   {rol === 'Colaborador' ? 'Detalle de horas trabajadas.' : 'Detalle de horas a liquidar.'}
                                 </p>
-                                <button className="btn">Ver Reporte</button>
+                                <button className="btn" onClick={reporteHoras}>Ver Reporte</button>
                             </div>
                         </div>
                     </div>

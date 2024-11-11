@@ -10,46 +10,105 @@ function Home() {
     const [rol, setRol] = useState(localStorage.getItem("rol"));
     const [proximosEventos, setProximosEventos] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [eventoId, setEventoId] = useState(null);
+    const [idEvento, setEventoId] = useState(null);
+    const [successMessage, setSuccessMessage] = useState("");
+    const [userId] = useState(localStorage.getItem("userId"));
 
     useEffect(() => {
         const status = 'Active'
-        eventoService.getProximosEventos(status) // Asegúrate de que esta función esté definida en tu servicio
-        .then(res => {
-          setProximosEventos(res.data);
-        })
-        .catch(err => {
-          console.error("Error cargando próximos eventos:", err);
-        });
+        {rol === 'Colaborador' ? eventoService.getEventosColaborador(status, userId) 
+            .then(res => {
+                setProximosEventos(res.data);
+              })
+              .catch(err => {
+                console.error("Error cargando próximos eventos:", err);
+              })
+            : 
+             eventoService.getEventos(status) // Asegúrate de que esta función esté definida en tu servicio
+             .then(res => {
+                setProximosEventos(res.data);
+              })
+              .catch(err => {
+                console.error("Error cargando próximos eventos:", err);
+              });
+        }
+
     }, []);   
 
     const handleShowModal = (id) => {
         setEventoId(id);
         setShowModal(true);
+        setSuccessMessage("");
     };
 
     // Función para cerrar el modal
     const handleCloseModal = () => {
         setShowModal(false);
         setEventoId(null);
+        setSuccessMessage("");
     };
+
+    const detalleEvento = (id) => {
+        setEventoId(id);
+        navigate(`/detalle-evento/${id}`);
+      };    
 
     // Función para actualizar el evento
     const handleUpdate = () => {
+        const status = 'Active'
         // Llama a la función que actualiza el evento
-        eventoService.updateEvento(eventoId, { /* Aquí pasas los nuevos datos del evento */ })
-            .then(res => {
+        {rol === 'Colaborador' ?
+        eventoService.updateEvento(idEvento)//, { /* Aquí pasas los nuevos datos del evento */ })
+            .then(eventoService.getEventosColaborador(status, userId)
+                .then(res => {
+                    setProximosEventos(res.data);
+                    setSuccessMessage("El evento fue cancelado exitosamente."); // Establecemos el mensaje de éxito
+                })
+                .catch(err => {
+                    console.error("Error cargando próximos eventos:", err);
+                })
+            ) 
+
+                /*res => {
                 console.log('Evento actualizado exitosamente:', res);
                 // Actualizar los eventos después del update, si es necesario
-                /*setProximosEventos(prevEventos =>
+                setProximosEventos(prevEventos =>
                     prevEventos.map(evento =>
-                        evento.id === eventoId ? { ...evento, ...res.data } : evento
+                        evento.id === idEvento ? { ...evento, ...res.data } : evento
                     )
-                );*/
-            })
+                );
+                setSuccessMessage("Su asistencia al evento fue cancelada exitosamente."); // Establecemos el mensaje de éxito
+            }*/
             .catch(err => {
                 console.error("Error actualizando el evento:", err);
-            });
+                setSuccessMessage("Hubo un error al cancelar la asistencia al evento. Intenta nuevamente."); // Establecemos un mensaje de error
+            })
+        :
+        eventoService.updateEvento(idEvento)//, { /* Aquí pasas los nuevos datos del evento */ })
+            .then(eventoService.getEventos(status)
+                .then(res => {
+                    setProximosEventos(res.data);
+                    setSuccessMessage("El evento fue cancelado exitosamente."); // Establecemos el mensaje de éxito
+                })
+                .catch(err => {
+                    console.error("Error cargando próximos eventos:", err);
+                })
+             )         
+            /*.then(res => {
+                console.log('Evento actualizado exitosamente:', res);
+                // Actualizar los eventos después del update, si es necesario
+                setProximosEventos(prevEventos =>
+                    prevEventos.map(evento =>
+                        evento.id === idEvento ? { ...evento, ...res.data } : evento
+                    )
+                );
+                setSuccessMessage("El evento fue cancelado exitosamente."); // Establecemos el mensaje de éxito
+            })*/
+            .catch(err => {
+                console.error("Error actualizando el evento:", err);
+                setSuccessMessage("Hubo un error al cancelar el evento. Intenta nuevamente."); // Establecemos un mensaje de error
+            });     
+        }   
     };     
 
     return (
@@ -65,7 +124,11 @@ function Home() {
                                 <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
                                         onClick={() => handleShowModal(evento.id_evento)}>
                                         Cancelar Evento
-                                    </button>                                
+                                </button>  
+                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
+                                        onClick={() => detalleEvento(evento.id_evento)}>
+                                        Ver Detalle
+                                </button>                                                                    
                             </li>
                             ))}
                         </ul>  
@@ -80,11 +143,17 @@ function Home() {
                             <button type="button" className="btn-close" onClick={handleCloseModal} aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            ¿Estás seguro de que deseas cancelar este evento?
+                            {successMessage ? successMessage : "¿Estás seguro de que deseas cancelar este evento?"}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cancelar</button>
-                            <button type="button" className="btn btn-primary" onClick={handleUpdate}>Confirmar</button>
+                            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+                                {successMessage ? 'Cerrar' : 'Cancelar'}
+                            </button>
+                            {!successMessage && (
+                                <button type="button" className="btn btn-danger" onClick={handleUpdate}>
+                                    Confirmar
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

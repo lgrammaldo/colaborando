@@ -8,12 +8,25 @@ class EventoService {
         return axios.post(EVENTO_API_BASE_URL + "/crear-evento", evento, {})
     }
 
-    getProximosEventos(status){
+    getEventos(status){
+        console.log(`${EVENTO_API_BASE_URL}/get-eventos/${status}`, {});
         return axios.get(`${EVENTO_API_BASE_URL}/get-eventos/${status}`, {});
     }    
 
-    updateEvento(eventoId){
-        return axios.post(EVENTO_API_BASE_URL + "/update-eventos", eventoId, {})
+    updateEvento(idEvento){
+        return axios.get(`${EVENTO_API_BASE_URL}/update-evento/${idEvento}`, {});
+    }       
+
+    getEvento(idEvento){
+        return axios.get(`${EVENTO_API_BASE_URL}/get-evento/${idEvento}`, {});
+    }       
+
+    getEventosColaborador(status, colaborador){
+        return axios.get(`${EVENTO_API_BASE_URL}/get-eventos-colaborador/${status}/${colaborador}`, {});
+    }     
+    
+    updateEventosColaborador(status, colaborador){
+        return axios.get(`${EVENTO_API_BASE_URL}/get-eventos-colaborador/${status}/${colaborador}`, {});
     }       
 
 }

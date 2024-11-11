@@ -9,6 +9,9 @@ import Header from './pages/Header';
 import EditaRoles from './pages/EditaRoles';
 import MisNotificaciones from './pages/MisNotificaciones';
 import ProximosEventos from './pages/ProximosEventos';
+import DetalleEvento from './pages/DetalleEvento';
+import EventosPasados from './pages/EventosPasados';
+import ReporteHoras from './pages/ReporteHoras';
 
 function App() {
   return (
@@ -38,6 +41,9 @@ function ContentWithHeader() {
         <Route path="/editar-perfil" element={<MiPerfil />} />
         <Route path="/notificaciones" element={<MisNotificaciones />} />
         <Route path="/proxEventos" element={<ProximosEventos />} />
+        <Route path="/eventos-inactive" element={<EventosPasados />} />
+        <Route path="/detalle-evento/:id" element={<DetalleEvento />} />
+        <Route path="/reporte-horas/" element={<ReporteHoras />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>

@@ -28,8 +28,24 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.getEventos(status));
     }
 
-    @PostMapping("/update-evento")
-    public ResponseEntity<Evento> updateEventos(Integer idEvento) {
+    @GetMapping("/update-evento/{idEvento}")
+    public ResponseEntity<Evento> updateEventos(@PathVariable Integer idEvento) {
         return ResponseEntity.ok(eventoService.updateEvento(idEvento));
     }
+
+    @GetMapping("/get-evento/{idEvento}")
+    public ResponseEntity<Evento> getEventos(@PathVariable Integer idEvento) {
+        return ResponseEntity.ok(eventoService.getEvento(idEvento));
+    }
+
+    @GetMapping("/get-eventos-colaborador/{status}/{colaborador}")
+    public ResponseEntity<List<Evento>> getEventos(@PathVariable String status, @PathVariable String colaborador) {
+        return ResponseEntity.ok(eventoService.getEventosColaborador(status, colaborador));
+    }
+
+    @GetMapping("/update-eventos-colaborador/{status}/{colaborador}")
+    public ResponseEntity<Evento> updateEventoColaborador(@PathVariable String status, @PathVariable Integer colaborador) {
+        return ResponseEntity.ok(eventoService.updateEventoColaborador(status, colaborador));
+    }
+
 }

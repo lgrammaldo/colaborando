@@ -13,13 +13,23 @@ function Home() {
     const [eventoId, setEventoId] = useState(null);
 
     useEffect(() => {
-      eventoService.getProximosEventos() // Asegúrate de que esta función esté definida en tu servicio
-        .then(res => {
-          setProximosEventos(res.data);
-        })
-        .catch(err => {
-          console.error("Error cargando próximos eventos:", err);
-        });
+        const status = 'Inactive'
+        {rol === 'Colaborador' ? eventoService.getEventosColaborador(status, status) 
+            .then(res => {
+                setProximosEventos(res.data);
+              })
+              .catch(err => {
+                console.error("Error cargando eventos pasados:", err);
+              })
+            : 
+             eventoService.getEventos(status) // Asegúrate de que esta función esté definida en tu servicio
+             .then(res => {
+                setProximosEventos(res.data);
+              })
+              .catch(err => {
+                console.error("Error cargando eventos pasados:", err);
+              });
+        }
     }, []);   
 
     const handleShowModal = (id) => {
@@ -32,6 +42,11 @@ function Home() {
         setShowModal(false);
         setEventoId(null);
     };
+
+    const detalleEvento = (id) => {
+        setEventoId(id);
+        navigate(`/detalle-evento/${id}`);
+      };        
 
     // Función para actualizar el evento
     const handleUpdate = () => {
@@ -62,9 +77,9 @@ function Home() {
                             <li className="list-group-item" key={index}>
                                 <strong>{evento.nombre}</strong> - {moment(evento.fecha).format('DD/MM/YYYY')}
                                 <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => handleShowModal(evento.id_evento)}>
-                                        Editar Evento
-                                    </button>                                
+                                        onClick={() => detalleEvento(evento.id_evento)}>
+                                        Ver Detalle
+                                </button>                                
                             </li>
                             ))}
                         </ul>  
