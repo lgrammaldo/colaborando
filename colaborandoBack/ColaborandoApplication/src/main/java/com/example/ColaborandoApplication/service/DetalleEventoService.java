@@ -1,21 +1,20 @@
 package com.example.ColaborandoApplication.service;
 
+import com.example.ColaborandoApplication.DTO.EventoDTO;
 import com.example.ColaborandoApplication.Entity.*;
 import com.example.ColaborandoApplication.mapper.EventoMapper;
 import com.example.ColaborandoApplication.repository.*;
-import com.example.ColaborandoApplication.DTO.EventoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
-import java.lang.Integer;
 import java.util.stream.Collectors;
 
 
 @Service
-public class EventoService {
+public class DetalleEventoService {
 
     @Autowired
     private EventoRepository eventoRepository;

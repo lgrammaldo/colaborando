@@ -46,7 +46,7 @@ function Home() {
 
     const detalleEvento = (id) => {
         setEventoId(id);
-        navigate(`/detalle-evento/${id}`);
+        navigate(`/detalle-evento-emp/${id}`);
       };        
 
     // Función para actualizar el evento

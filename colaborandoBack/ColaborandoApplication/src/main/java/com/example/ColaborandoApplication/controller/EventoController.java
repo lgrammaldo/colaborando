@@ -38,7 +38,12 @@ public class EventoController {
     public ResponseEntity<Evento> getEventos(@PathVariable Integer idEvento) {
         return ResponseEntity.ok(eventoService.getEvento(idEvento));
     }
-
+/*
+    @GetMapping("/get-evento-asistentes/{idEvento}")
+    public ResponseEntity<AsistenciasConfirmadas> getEventosAsistentes(@PathVariable Integer idEvento) {
+        return ResponseEntity.ok(eventoService.getEventoAsistentes(idEvento));
+    }
+*/
     @GetMapping("/get-eventos-colaborador/{status}/{colaborador}")
     public ResponseEntity<List<AsistenciasConfirmadas>> getEventosColaborador(@PathVariable String status, @PathVariable Integer colaborador) {
         return ResponseEntity.ok(eventoService.getEventosColaborador(status, colaborador));

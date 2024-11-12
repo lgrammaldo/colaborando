@@ -53,6 +53,16 @@ function Home() {
         navigate(`/detalle-evento/${id}`);
       };    
 
+    const detalleEventoEmp = (id) => {
+        setEventoId(id);
+        navigate(`/detalle-evento-emp/${id}`);
+      };     
+      
+    const updateEventoEmp = (id) => {
+        setEventoId(id);
+        navigate(`/update-evento/${id}`);
+      };           
+
     // Función para actualizar el evento
     const handleUpdate = () => {
         const status = 'Active'
@@ -143,9 +153,13 @@ function Home() {
                                         {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
                                 </button>  
                                 <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => detalleEvento(evento.id_evento)}>
+                                        onClick={() => detalleEventoEmp(evento.id_evento)}>
                                         Ver Detalle
-                                </button>                                                                    
+                                </button>  
+                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
+                                        onClick={() => updateEventoEmp(evento.id_evento)}>
+                                        Editar Evento
+                                </button>                                                                                                    
                             </li>
                             ))}
                         </ul>  }                        
