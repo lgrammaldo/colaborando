@@ -65,8 +65,11 @@ const Header = () => {
 
                         <Dropdown.Menu align="end">
                             <Dropdown.Item onClick={handleProfile}>Mi Perfil</Dropdown.Item>
-                            <Dropdown.Item onClick={handleEditRol}>Modificar Roles</Dropdown.Item>
-                             <Dropdown.Item onClick={handleNotification}>Notificaciones</Dropdown.Item>
+                            {rol === "Colaborador" ? 
+                                <Dropdown.Item onClick={handleEditRol}>Modificar Roles</Dropdown.Item>
+                                : null
+                            }   
+                            <Dropdown.Item onClick={handleNotification}>Notificaciones</Dropdown.Item>
                             <Dropdown.Divider />
                             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                         </Dropdown.Menu>

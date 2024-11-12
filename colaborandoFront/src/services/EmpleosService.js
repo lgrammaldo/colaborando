@@ -12,8 +12,17 @@ class EmpleosService {
         })
     }
 
+    getEmpleosColaborador(userId){
+      return axios.get(PERSONA_API_BASE_URL + `/get-empleos/colaborador/${userId}`, {
+      })
+    }
+
     asociarEmpleosAColaborador(asociarEmpleosDTO){
       return axios.post(PERSONA_API_BASE_URL + "/asociar-empleos", asociarEmpleosDTO, {})
+    }
+
+    actualizarEmpleosColaborador(asociarEmpleosDTO){
+      return axios.put(PERSONA_API_BASE_URL + "/modificar-empleos", asociarEmpleosDTO, {})
     }
 }
 
