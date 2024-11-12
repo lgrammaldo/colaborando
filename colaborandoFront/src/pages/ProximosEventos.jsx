@@ -117,13 +117,30 @@ function Home() {
             <div className="container text-center">
                 <div className="row align-items-center box3">
                     <div className="col-md-4">
+                        {rol === 'Colaborador' ?
+                        <ul className="list-group">
+                            {proximosEventos.map((evento, index) => (
+                            <li className="list-group-item" key={index}>
+                                <strong>{evento.evento.nombre}</strong> - {moment(evento.evento.fecha).format('DD/MM/YYYY')}
+                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
+                                        onClick={() => handleShowModal(evento.id_evento)}>
+                                        {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
+                                </button>  
+                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
+                                        onClick={() => detalleEvento(evento.evento.id_evento)}>
+                                        Ver Detalle
+                                </button>                                                                    
+                            </li>
+                            ))}
+                        </ul>  
+                        :
                         <ul className="list-group">
                             {proximosEventos.map((evento, index) => (
                             <li className="list-group-item" key={index}>
                                 <strong>{evento.nombre}</strong> - {moment(evento.fecha).format('DD/MM/YYYY')}
                                 <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
                                         onClick={() => handleShowModal(evento.id_evento)}>
-                                        Cancelar Evento
+                                        {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
                                 </button>  
                                 <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
                                         onClick={() => detalleEvento(evento.id_evento)}>
@@ -131,7 +148,7 @@ function Home() {
                                 </button>                                                                    
                             </li>
                             ))}
-                        </ul>  
+                        </ul>  }                        
                     </div>
                 </div>
             </div>

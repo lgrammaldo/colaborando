@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.lang.Integer;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -33,6 +34,12 @@ public class EventoService {
 
     @Autowired
     private ColaboradoresEmpleosRepository colaboradoresEmpleosRepository;
+
+    @Autowired
+    private AsistenciasConfirmadasRepository asistenciasConfirmadasRepository;
+
+    @Autowired
+    private ColaboradorRepository colaboradorRepository;
 
 
     @Transactional(rollbackOn = Exception.class)
@@ -86,9 +93,16 @@ public class EventoService {
 
     @Transactional(rollbackOn = Exception.class)
     public List<Evento> getEventos(String status){
+        List<Evento> eventos = null;
         try{
-            //List<Evento> eventos = eventoRepository.findByStatus("Active");
-            List<Evento> eventos = eventoRepository.findByStatus(status);
+            if ("Active".equals(status)){
+                eventos = eventoRepository.findByStatus(status);
+            }else {
+                eventos = eventoRepository.findByStatus(status);
+                List<Evento> eventosCancelados = eventoRepository.findByStatus("Canceled");
+                eventos.addAll(eventosCancelados);
+            }
+
             return eventos;
         } catch (Exception e) {
             System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
@@ -120,10 +134,33 @@ public class EventoService {
         return  null;
     }
 
-    public List<Evento> getEventosColaborador(String status, String colaborador){
+    public List<AsistenciasConfirmadas> getEventosColaborador(String status, Integer user_id){
         try{
-            List<Evento> eventos = eventoRepository.findByStatusAndColaborador(status,colaborador);
-            return eventos;
+            //Find user
+            //Buscar colaborador con el ID
+            Usuario usuario = usuarioRepository.findById(user_id)
+                    .orElseThrow(() -> new IllegalArgumentException("Colaborador no encontrado"));
+
+            Colaborador colaborador = colaboradorRepository.findByUsuario(usuario);
+
+            List<AsistenciasConfirmadas> asistenciasConfirmadas = asistenciasConfirmadasRepository.findByColaborador(colaborador);
+            //Filter status active
+            List<AsistenciasConfirmadas> asistenciasFiltradas = null;
+            if ("Active".equals(status)) {
+                asistenciasFiltradas = asistenciasConfirmadas.stream()
+                        .filter(asistencia -> status.equals(asistencia.getEvento().getStatus())) // Acceso al status de Evento
+                        .collect(Collectors.toList());
+            }else {
+                asistenciasFiltradas = asistenciasConfirmadas.stream()
+                        .filter(asistencia -> status.equals(asistencia.getEvento().getStatus())) // Acceso al status de Evento
+                        .collect(Collectors.toList());
+                List<AsistenciasConfirmadas> asistenciasCanceladas = asistenciasConfirmadas.stream()
+                        .filter(asistencia -> "Canceled".equals(asistencia.getEvento().getStatus())) // Acceso al status de Evento
+                        .collect(Collectors.toList());
+                asistenciasFiltradas.addAll(asistenciasCanceladas);
+            }
+
+            return asistenciasFiltradas;
         } catch (Exception e) {
             System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
         }

@@ -11,10 +11,11 @@ function Home() {
     const [proximosEventos, setProximosEventos] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [eventoId, setEventoId] = useState(null);
+    const [userId] = useState(localStorage.getItem("userId"));
 
     useEffect(() => {
         const status = 'Inactive'
-        {rol === 'Colaborador' ? eventoService.getEventosColaborador(status, status) 
+        {rol === 'Colaborador' ? eventoService.getEventosColaborador(status, userId) 
             .then(res => {
                 setProximosEventos(res.data);
               })
@@ -72,17 +73,30 @@ function Home() {
             <div className="container text-center">
                 <div className="row align-items-center box3">
                     <div className="col-md-4">
+                    {rol === 'Colaborador' ?
                         <ul className="list-group">
                             {proximosEventos.map((evento, index) => (
                             <li className="list-group-item" key={index}>
-                                <strong>{evento.nombre}</strong> - {moment(evento.fecha).format('DD/MM/YYYY')}
+                                <strong>{evento.evento.nombre}</strong> - {moment(evento.evento.fecha).format('DD/MM/YYYY')} - {evento.evento.status}
+                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
+                                        onClick={() => detalleEvento(evento.evento.id_evento)}>
+                                        Ver Detalle
+                                </button>                                
+                            </li>
+                            ))}
+                        </ul> 
+                        : 
+                        <ul className="list-group">
+                            {proximosEventos.map((evento, index) => (
+                            <li className="list-group-item" key={index}>
+                                <strong>{evento.nombre}</strong> - {moment(evento.fecha).format('DD/MM/YYYY')} - {evento.status}
                                 <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
                                         onClick={() => detalleEvento(evento.id_evento)}>
                                         Ver Detalle
                                 </button>                                
                             </li>
                             ))}
-                        </ul>  
+                        </ul> }                        
                     </div>
                 </div>
             </div>

@@ -69,11 +69,11 @@ function Home() {
                         <div className="card mb-3">
                             <div className="card-body">
                                 <h5 className="card-title icon-user">
-                                    <i className="fas fa-history"></i> <br></br>Eventos Pasados
+                                    <i className="fas fa-history"></i> <br></br>Eventos Pasados/Cancelados
                                 </h5>
                                 <p className="card-text">Podrás ver los eventos pasados.</p>
                                 <button className="btn" onClick={eventosPasados}>
-                                  {rol === 'Colaborador' ? 'Ver Eventos Trabajados' : 'Ver Eventos Realizados'}
+                                  {rol === 'Colaborador' ? 'Ver Eventos Trabajados' : 'Ver Eventos Realizados/Cancelados'}
                                 </button>
                             </div>
                         </div>

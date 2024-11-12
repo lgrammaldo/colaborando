@@ -1,6 +1,7 @@
 package com.example.ColaborandoApplication.controller;
 
 import com.example.ColaborandoApplication.DTO.EventoDTO;
+import com.example.ColaborandoApplication.Entity.AsistenciasConfirmadas;
 import com.example.ColaborandoApplication.Entity.Evento;
 import com.example.ColaborandoApplication.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class EventoController {
     }
 
     @GetMapping("/get-eventos-colaborador/{status}/{colaborador}")
-    public ResponseEntity<List<Evento>> getEventos(@PathVariable String status, @PathVariable String colaborador) {
+    public ResponseEntity<List<AsistenciasConfirmadas>> getEventosColaborador(@PathVariable String status, @PathVariable Integer colaborador) {
         return ResponseEntity.ok(eventoService.getEventosColaborador(status, colaborador));
     }
 

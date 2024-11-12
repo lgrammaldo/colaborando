@@ -14,13 +14,6 @@ import java.util.List;
 public interface AsistenciasConfirmadasRepository extends JpaRepository<AsistenciasConfirmadas, Integer> {
     boolean existsByColaboradoresEmpleosAndFechaEvento(ColaboradoresEmpleos colaboradoresEmpleos, Date fechaEvento);
 
-   /* @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Asistencia a " +
-            "WHERE a.colaboradoresEmpleos = :colaboradoresEmpleos AND " +
-            "DATE(a.fechaEvento) = :fechaEventoSinHora")
-    boolean existsByColaboradoresEmpleosAndFechaEvento(
-            @Param("colaboradoresEmpleos") ColaboradoresEmpleos colaboradoresEmpleos,
-            @Param("fechaEventoSinHora") LocalDate fechaEventoSinHora);*/
-
     List<AsistenciasConfirmadas> findByColaboradoresEmpleos(ColaboradoresEmpleos colaboradoresEmpleos);
 
     List<AsistenciasConfirmadas> findByColaborador (Colaborador colaborador);
