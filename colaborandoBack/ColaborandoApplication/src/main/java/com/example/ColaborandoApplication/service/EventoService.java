@@ -152,6 +152,58 @@ public class EventoService {
         return  null;
     }
 
+    public Evento updateEventoCompleto(EventoDTO eventoDTO){
+        Evento evento = null;
+        try{
+            Usuario usuario = usuarioRepository.findById(eventoDTO.getUserId())
+                    .orElseThrow(() -> new IllegalArgumentException("Colaborador no encontrado"));
+
+            evento = eventoRepository.findById(eventoDTO.getId_evento())
+                    .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
+
+            evento.setNombre(eventoDTO.getNombre());
+            evento.setFecha_fin(eventoDTO.getFecha_fin());
+            evento.setFecha_inicio(eventoDTO.getFecha_inicio());
+            evento.setEspecificaciones(eventoDTO.getEspecificaciones());
+            evento.setDescripcion(eventoDTO.getDescripcion());
+
+            eventoRepository.save(evento);
+
+            Map<Integer, Integer> map = eventoDTO.getEmpleosYcantidad();
+            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                Integer empleo = entry.getKey();
+                Integer cantidad = entry.getValue();
+
+                DetalleEvento detalleEvento = new DetalleEvento();
+                detalleEvento.setEvento(evento);
+                // La cantidad solicitada es la inicial y la disponible se irá actualizando a medida que se acepten trabajos
+                detalleEvento.setCantidadSolicitada(cantidad);
+                detalleEvento.setCantidadDisponible(cantidad);
+
+                Empleos empleos = empleosRepository.findById(empleo)
+                        .orElseThrow(() -> new IllegalArgumentException("Empleo no encontrado"));
+                detalleEvento.setEmpleos(empleos);//Crear variable empleo recuperada del map
+                detalleEventoRepository.save(detalleEvento);
+
+                // Llenar tabla asistencias para los colaboradores relacionados con este empleo en la lista
+                List<ColaboradoresEmpleos> colaboradoresEnLista = colaboradoresEmpleosRepository.findByEmpleosId(empleo);
+
+                for (ColaboradoresEmpleos colaboradorEmpleo : colaboradoresEnLista) {
+                    Notificaciones notificaciones = new Notificaciones();
+                    notificaciones.setColaboradoresEmpleos(colaboradorEmpleo);
+                    notificaciones.setNotificacion(0);
+                    notificaciones.setStatus("Active");
+                    notificaciones.setEvento(evento);
+                    notificacionesRepository.save(notificaciones);
+                }
+            }
+            return evento;
+        } catch (Exception e) {
+            System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
+        }
+        return  null;
+    }
+
     public Evento getEvento(Integer idEvento){
         try{
             Evento evento = eventoRepository.findById(idEvento)

@@ -24,6 +24,12 @@ public class EventoController {
         return ResponseEntity.ok(evento);
     }
 
+    @GetMapping("/update-evento-completo")
+    public ResponseEntity<Evento> updateEventos(@RequestBody EventoDTO eventoDTO) {
+        return ResponseEntity.ok(eventoService.updateEventoCompleto(eventoDTO));
+    }
+
+
     @GetMapping("/get-eventos/{status}")
     public ResponseEntity<List<Evento>> getEventos(@PathVariable String status) {
         return ResponseEntity.ok(eventoService.getEventos(status));

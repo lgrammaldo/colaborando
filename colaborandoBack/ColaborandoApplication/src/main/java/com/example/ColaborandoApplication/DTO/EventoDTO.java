@@ -10,6 +10,7 @@ import java.util.Map;
 @Data
 @RequiredArgsConstructor
 public class EventoDTO {
+    private Integer id_evento;
     private String nombre;
     private Date fecha_publicacion;
     private Date fecha_fin_busqueda;

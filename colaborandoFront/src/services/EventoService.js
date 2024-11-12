@@ -16,6 +16,10 @@ class EventoService {
 
     updateEvento(idEvento){
         return axios.get(`${EVENTO_API_BASE_URL}/update-evento/${idEvento}`, {});
+    }   
+    
+    updateEventoCompleto(evento){
+        return axios.get(`${EVENTO_API_BASE_URL}/update-evento-completo`, evento, {});
     }       
 
     getEvento(idEvento){
@@ -37,7 +41,7 @@ class EventoService {
     getAsistentesRequeridos(idEvento){
         return axios.get(`${EVENTO_API_BASE_URL_ASISTENCIAS}/get-evento-asistentes/${idEvento}`, {});
     }       
-
+    
 }
 
 const eventoService = new EventoService();

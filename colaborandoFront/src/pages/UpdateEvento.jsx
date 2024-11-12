@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import eventoService from '../services/EventoService';
+import eventoAsistenmtesService from '../services/EventoAsistentesService.js';
 import LogoComponente from '../components/LogoComponente.jsx';
 import Header from './Header.jsx';
 import empleosService from '../services/EmpleosService';  // Importa tu servicio correctamente
@@ -47,9 +48,15 @@ const getEvento = (eventId) => {
   };
 
   const getEventoAsistentes = (eventId) => {
-    eventoService.getEventoAsistentes(eventId)
+    //eventoService.getEventoAsistentes(eventId)
+    eventoAsistenmtesService.getEventoAsistentes(eventId)
     .then(res => {
-        setAsistentesEventos(res.data);
+      const asistentesData = res.data.map(asistente => ({
+        empleo: asistente.empleos.id, 
+        cantidad: asistente.cantidadSolicitada
+      }));      
+        //setAsistentesEventos(res.data);
+        setPuestos(asistentesData);
     })
     .catch(err => {
       console.error("Error cargando los asistentes del evento:", err);
@@ -113,9 +120,9 @@ const getEvento = (eventId) => {
       }
     });
 
-    const evento = { nombre, fecha_publicacion, fecha_inicio, fecha_fin, userId, especificaciones, descripcion, empleosYcantidad };
+    const evento = {id, nombre, fecha_publicacion, fecha_inicio, fecha_fin, userId, especificaciones, descripcion, empleosYcantidad };
     console.log(evento);
-    eventoService.createEvento(evento)
+    eventoService.updateEventoCompleto(evento)
       .then(res => {
         console.log('Evento registrado:', evento);
         alert("Evento creado exitosamente.");
@@ -167,7 +174,7 @@ const getEvento = (eventId) => {
 
                   <table className="table">
                     <tbody>
-                      {asistentesEventos.map((puesto, index) => (
+                      {puestos.map((puesto, index) => (
                         <tr key={index} style={{ padding: '10px 0' }}>
                           <td style={{ padding: '10px', verticalAlign: 'middle' }}>
                             <select
@@ -217,8 +224,6 @@ const getEvento = (eventId) => {
                       ))}
                     </tbody>
                   </table>
-
-                  
                   <button type="submit" className="btn btn-lg mt-4" style={{ width: '100%', backgroundColor: 'rgb(203, 102, 101)', color: 'white' }}>
                     Actualizar Evento
                   </button>
