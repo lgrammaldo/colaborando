@@ -125,10 +125,13 @@ public class NotificacionService {
         List<AsistenciasConfirmadas> asistenciasEnFecha = asistenciasConfirmadasRepository.findByColaborador(asistenciasConfirmadasDTO.getColaborador());
 
         boolean tieneEventoEseDia = asistenciasEnFecha.stream()
-                .anyMatch(asistencia -> asistencia.getEvento().getFecha_inicio().toInstant()
+                .anyMatch(asistencia -> asistencia.getEvento().getFecha_inicio()
+                        .toInstant()
                         .atZone(ZoneId.systemDefault())
                         .toLocalDate()
-                        .equals(fechaEventoSinHora));
+                        .equals(fechaEventoSinHora) &&
+                        "Active".equals(asistencia.getEvento().getStatus())); // Verifica que el evento esté activo
+
         // Retorno el error que ya tiene un evento
         if (tieneEventoEseDia) {
             String mensaje = String.format("¡El colaborador %s %s ya tiene ocupado ese día! No puedes aceptarlo",
