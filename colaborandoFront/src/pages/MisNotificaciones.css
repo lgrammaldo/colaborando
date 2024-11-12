@@ -54,6 +54,11 @@
     background-color: #F44336;
     color: white;
 }
+/*
+.entendido {
+    background-color: #271d7e;
+    color: white;
+}*/
 
 .modal-overlay {
     position: fixed;
@@ -92,4 +97,15 @@
 .cancelar {
     background-color: #F44336;
     color: white;
+}
+
+.entendido {
+    margin-top: 16px; /* Espacio superior para separar del texto */
+    padding: 8px 16px;
+    background-color: #271d7e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
 }
