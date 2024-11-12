@@ -13,4 +13,6 @@ public interface ColaboradoresEmpleosRepository extends JpaRepository<Colaborado
     List<ColaboradoresEmpleos> findByEmpleosId(Integer empleoId);
     List<ColaboradoresEmpleos> findByEmpleosIdInAndColaborador(List<Integer> idsEmpleos, Colaborador colaborador);
     List<ColaboradoresEmpleos> findByColaborador(Colaborador colaborador);
+
+    ColaboradoresEmpleos findFirstByColaboradorAndStatus(Colaborador colaborador, String active);
 }

@@ -14,4 +14,5 @@ public class NotificacionResponseDTO {
     private String empleo;
     private Integer notificacionId;
     private Integer colaboradoresEmpleosId;
+    private Integer tipoNotificacion;
 }

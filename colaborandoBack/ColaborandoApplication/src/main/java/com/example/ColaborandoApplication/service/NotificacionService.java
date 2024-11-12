@@ -48,7 +48,8 @@ public class NotificacionService {
         List<ColaboradoresEmpleos> colaboradoresEmpleos = colaboradoresEmpleosRepository.findByColaborador(colaborador);
 
         colaboradoresEmpleos = colaboradoresEmpleos.stream()
-                .filter(colaboradorEmpleos -> "Active".equals(colaboradorEmpleos.getStatus()))
+                .filter(colaboradorEmpleos -> "Active".equals(colaboradorEmpleos.getStatus())
+                        || "Canceled".equals(colaboradorEmpleos.getStatus()))
                 .collect(Collectors.toList());
 
 
@@ -68,6 +69,7 @@ public class NotificacionService {
                 dto.setColaboradoresEmpleosId(notificacion.getColaboradoresEmpleos().getId_colaboradoresEmpleos());
                 dto.setNotificacionId(notificacion.getId());
                 dto.setEventoId(notificacion.getEvento().getId_evento());
+                dto.setTipoNotificacion(notificacion.getNotificacion());
                 return dto;
         }).collect(Collectors.toList());
     }

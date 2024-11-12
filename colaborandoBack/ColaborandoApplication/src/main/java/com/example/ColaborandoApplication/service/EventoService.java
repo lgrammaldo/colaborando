@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.lang.Integer;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -80,7 +82,7 @@ public class EventoService {
                     notificaciones.setColaboradoresEmpleos(colaboradorEmpleo);
                     notificaciones.setNotificacion(0);
                     notificaciones.setStatus("Active");
-                    notificaciones.setEvento(evento); // Relacionar con la lista actual
+                    notificaciones.setEvento(evento);
                     notificacionesRepository.save(notificaciones);
                 }
             }
@@ -114,8 +116,35 @@ public class EventoService {
         try{
             Evento evento = eventoRepository.findById(idEvento)
                     .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
+            // Cancelo el evento
             evento.setStatus("Canceled");
             eventoRepository.save(evento);
+
+            // Modifico las notificaciones del evento a inactivo
+            List<Notificaciones> notificacionesDelEvento = notificacionesRepository.findByEvento(evento);
+            notificacionesDelEvento.forEach(notificacion -> notificacion.setStatus("Inactive"));
+            notificacionesRepository.saveAll(notificacionesDelEvento);
+
+            // Inactivar notificaciones de colaboradores para ese evento
+            Set<Colaborador> colaboradoresUnicos = new HashSet<>();
+            notificacionesDelEvento.forEach(notificacion ->
+                    colaboradoresUnicos.add(notificacion.getColaboradoresEmpleos().getColaborador())
+            );
+
+            // Enviar notificación de evento cancelado a cada colaborador único
+            colaboradoresUnicos.forEach(colaborador -> {
+                ColaboradoresEmpleos ce = colaboradoresEmpleosRepository.findFirstByColaboradorAndStatus(colaborador, "Active");
+
+                Notificaciones notificacionCancelacion = new Notificaciones();
+                notificacionCancelacion.setNotificacion(7); // estandarizamos "notificacion = 7" para eventos cancelados
+                notificacionCancelacion.setEvento(evento);
+                notificacionCancelacion.setColaboradoresEmpleos(ce); // Le paso el primer empleo activo que encuentre de la persona.
+                notificacionCancelacion.setStatus("Active");
+                notificacionesRepository.save(notificacionCancelacion);
+            });
+
+            //Falta Liberar Agenda del colaboradore
+
             return evento;
         } catch (Exception e) {
             System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
