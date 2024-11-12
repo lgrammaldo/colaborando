@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import empleosService from '../services/EmpleosService';
 import LogoComponente from '../components/LogoComponente';
 import './EditaRoles.css';
-import Header from './Header';
 
 const EditaRoles = () => {
     const navigate = useNavigate();
@@ -15,8 +14,8 @@ const EditaRoles = () => {
     useEffect(() => {
         empleosService.getEmpleosColaborador(userId)
             .then(res => {
-                const idsSeleccionados = res.data.map(empleoColab => empleoColab.empleos.id); // obtener los IDs de los empleos del colaborador
-                setEmpleosSeleccionados(idsSeleccionados); // Inicializar empleos seleccionados
+                const idsSeleccionados = res.data.map(empleoColab => empleoColab.empleos.id);
+                setEmpleosSeleccionados(idsSeleccionados);
             })
             .catch(err => console.error("Error obteniendo empleos del colaborador:", err));
 
@@ -37,10 +36,14 @@ const EditaRoles = () => {
     };
 
     const handleGuardar = () => {
-        const asociarEmpleosAColaborador = { empleosSeleccionados, userId };
-        empleosService.actualizarEmpleosColaborador(asociarEmpleosAColaborador)
-            .then(() => navigate('/home'))
-            .catch(() => alert("Error al actualizar roles"));
+        const confirmUpdate = window.confirm("Recordá que tus roles anteriores se mantienen para los eventos confirmados. ¿Estás seguro de editarlo?");
+        
+        if (confirmUpdate) {
+            const asociarEmpleosAColaborador = { empleosSeleccionados, userId };
+            empleosService.actualizarEmpleosColaborador(asociarEmpleosAColaborador)
+                .then(() => navigate('/home'))
+                .catch(() => alert("Error al actualizar roles"));
+        }
     };
 
     const handleCancelar = () => {
@@ -62,7 +65,7 @@ const EditaRoles = () => {
                                         type="checkbox"
                                         value={empleo.id}
                                         id={`empleo-${empleo.id}`}
-                                        checked={empleosSeleccionados.includes(empleo.id)} // Marcar como seleccionado si está en la lista
+                                        checked={empleosSeleccionados.includes(empleo.id)}
                                         onChange={handleCheckboxChange}
                                     />
                                     <label className="form-check-label" htmlFor={`empleo-${empleo.id}`}>

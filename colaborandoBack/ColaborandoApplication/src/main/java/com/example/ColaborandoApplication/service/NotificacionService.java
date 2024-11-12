@@ -47,6 +47,10 @@ public class NotificacionService {
         Colaborador colaborador = colaboradorRepository.findByUsuario(usuario);
         List<ColaboradoresEmpleos> colaboradoresEmpleos = colaboradoresEmpleosRepository.findByColaborador(colaborador);
 
+        colaboradoresEmpleos = colaboradoresEmpleos.stream()
+                .filter(colaboradorEmpleos -> "Active".equals(colaboradorEmpleos.getStatus()))
+                .collect(Collectors.toList());
+
 
         List<Notificaciones> notificaciones = notificacionesRepository.findByColaboradoresEmpleosInAndStatus(colaboradoresEmpleos, "Active");
 
