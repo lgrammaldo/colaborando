@@ -1,0 +1,39 @@
+/* Header.css */
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #fff;
+
+}
+
+.box1 img {
+    height: 50px;
+}
+
+.box3 {
+   
+    display: flex;
+    align-items: center;
+    background: #fff;
+}
+
+#dropdown-avatar {
+    margin: 10px;
+    padding-top: 10px;
+    color: rgb(156, 129, 129);
+    /* Color gris estándar para el ícono */
+    background: #fff;
+}
+
+#select-usuario {
+
+    height: 50px;
+    width: 160px;
+    margin: 10px;
+}
+
+#navegador {
+    margin-top: 20px;
+}

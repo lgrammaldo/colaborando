@@ -1,0 +1,36 @@
+import axios from 'axios';
+
+const EVENTO_API_BASE_URL = "http://localhost:8080/colaborando/evento";
+
+class EventoService { 
+
+    createEvento(evento){
+        return axios.post(EVENTO_API_BASE_URL + "/crear-evento", evento, {})
+    }
+
+    getEventos(status){
+        console.log(`${EVENTO_API_BASE_URL}/get-eventos/${status}`, {});
+        return axios.get(`${EVENTO_API_BASE_URL}/get-eventos/${status}`, {});
+    }    
+
+    updateEvento(idEvento){
+        return axios.get(`${EVENTO_API_BASE_URL}/update-evento/${idEvento}`, {});
+    }       
+
+    getEvento(idEvento){
+        return axios.get(`${EVENTO_API_BASE_URL}/get-evento/${idEvento}`, {});
+    }       
+
+    getEventosColaborador(status, colaborador){
+        return axios.get(`${EVENTO_API_BASE_URL}/get-eventos-colaborador/${status}/${colaborador}`, {});
+    }     
+    
+    updateEventosColaborador(status, colaborador){
+        return axios.get(`${EVENTO_API_BASE_URL}/get-eventos-colaborador/${status}/${colaborador}`, {});
+    }       
+
+}
+
+const eventoService = new EventoService();
+
+export default eventoService;

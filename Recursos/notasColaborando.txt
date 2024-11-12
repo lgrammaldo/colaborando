@@ -1,0 +1,35 @@
+Email: colaborandoproject@gmail.com
+pass: pass: C0l4b0r4nd02024
+
+Heroku 
+
+colaborandoproject@gmail.com
+C0l4b0r4nd0-2024
+
+
+BBDD NUBE
+https://api.clever-cloud.com/v2/sessions/login?fromAuthorize=true
+
+Crear la base
+1-ir a Personal Space, luego Create, luego en an add-on
+2- seleccionar MySql
+
+HOST:         b89e6fvhk3dxpvugodb3-mysql.services.clever-cloud.com
+databaseName: b89e6fvhk3dxpvugodb3
+user:         
+pass:         
+port:         3306
+
+
+En CPANEL
+DB : colaborando_db
+user: colaborando_app
+
+pass: C0l4b0r4nd0_2024
+
+
+
+helpdesk
+user:adminNt++
+pass: C4t4l1n4s-2024
+
