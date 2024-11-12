@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="754.91742"
+   height="147.20676"
+   viewBox="0 0 754.91742 147.20676"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="titulo.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview35301"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.74118967"
+     inkscape:cx="534.95079"
+     inkscape:cy="-68.133707"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer4"
+     inkscape:snap-grids="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs35296" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-13.137167,-225.05025)">
+    <rect
+       style="fill:#cb6665;fill-opacity:1;fill-rule:evenodd;stroke-width:0.29762;stroke-linejoin:round;paint-order:stroke fill markers"
+       id="rect846"
+       width="147.93373"
+       height="147.20676"
+       x="13.137167"
+       y="225.05025"
+       ry="14.53894" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Iniciales"
+     transform="translate(-13.137167,-225.05025)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:131.012px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.350925"
+       x="10.229384"
+       y="338.96606"
+       id="text19561"
+       transform="scale(0.98627003,1.0139211)"><tspan
+         sodipodi:role="line"
+         id="tspan19559"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:131.012px;font-family:Dubai;-inkscape-font-specification:'Dubai, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#fefdfd;fill-opacity:1;stroke-width:0.350925"
+         x="10.229384"
+         y="338.96606">C</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:131.012px;line-height:1.25;font-family:Dubai;-inkscape-font-specification:'Dubai, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.350925"
+       x="70.480736"
+       y="338.966"
+       id="text31311"
+       transform="scale(0.98627003,1.0139211)"><tspan
+         sodipodi:role="line"
+         id="tspan31309"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:131.012px;font-family:Dubai;-inkscape-font-specification:'Dubai, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.350925"
+         x="70.480736"
+         y="338.966">O</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="texto"
+     transform="translate(-13.137167,-225.05025)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:126.349px;line-height:1.25;font-family:sans-serif;letter-spacing:-4.92px;fill:#cb6665;fill-opacity:1;stroke:none;stroke-width:0.86147"
+       x="162.65218"
+       y="343.517"
+       id="text36539"><tspan
+         sodipodi:role="line"
+         id="tspan36537"
+         x="162.65218"
+         y="343.517"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:126.349px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#cb6665;fill-opacity:1;stroke-width:0.86147"
+         dx="0"
+         dy="0"
+         rotate="0 0 0 0 0 0 0 0 0 0">laborando</tspan></text>
+  </g>
+</svg>
