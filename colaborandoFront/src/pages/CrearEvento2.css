@@ -1,0 +1,71 @@
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Mejorar la apariencia del select */
+.custom-select {
+  padding: 10px;
+  font-size: 1rem;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Estilo de los inputs */
+.form-control {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+/* Botones */
+.btn {
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+}
+
+.btn-lg {
+  font-size: 1.2rem;
+}
+
+/* Tabla de puestos */
+.table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.table td {
+  padding: 10px;
+}
+
+.table input {
+  font-size: 1rem;
+  padding: 8px;
+}
+
+/* Contenedor y card */
+.container {
+  margin-top: 30px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 30px;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+/* Logo */
+.LogoComponente {
+  margin-top: 20px;
+}
