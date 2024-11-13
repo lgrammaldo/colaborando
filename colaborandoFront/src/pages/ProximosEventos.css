@@ -11,14 +11,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 30px;
-    /* Más espacio interno */
     border: 1px solid #dee2e6;
     background-color: #f8f9fa;
     border-radius: 8px;
     width: 100%;
-    /* Asegurar que ocupe todo el ancho del contenedor */
     min-width: 1600px;
-    /* Duplicar el ancho mínimo */
+    /* Asegura que la versión en pantalla grande tenga este ancho */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .event-name {
@@ -33,16 +32,69 @@
     display: flex;
     justify-content: flex-end;
     flex: 1;
+    gap: 10px;
 }
 
 .event-actions button {
-    margin-left: 10px;
-    white-space: nowrap;
     font-size: 1.5rem;
     /* Aumentar tamaño del texto de los botones */
+    white-space: nowrap;
 }
 
 .event-item:hover {
     transform: scale(1.03);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .event-item {
+        padding: 15px;
+        flex-direction: column;
+        /* Cambiar la dirección de los elementos para que los botones vayan debajo */
+    }
+
+    .event-name {
+        font-size: 1.2rem;
+        /* Ajuste para pantallas medianas */
+        margin-bottom: 10px;
+        /* Espacio adicional entre el nombre y los botones */
+    }
+
+    .event-actions {
+        display: flex;
+        flex-direction: column;
+        /* Apilar los botones en una columna */
+        align-items: center;
+        /* Centrar los botones */
+    }
+
+    .event-actions button {
+        font-size: 1rem;
+        /* Ajuste en el tamaño de los botones en pantallas medianas */
+        width: 100%;
+        /* Hacer los botones más grandes y adaptables */
+        margin-bottom: 10px;
+        /* Espacio entre los botones */
+    }
+
+    .event-actions button:last-child {
+        margin-bottom: 0;
+        /* El último botón no tiene margen */
+    }
+}
+
+@media (max-width: 480px) {
+    .event-item {
+        padding: 10px;
+    }
+
+    .event-name {
+        font-size: 1rem;
+        /* Ajuste para pantallas pequeñas */
+    }
+
+    .event-actions button {
+        font-size: 0.9rem;
+        /* Ajuste adicional para pantallas pequeñas */
+    }
 }
