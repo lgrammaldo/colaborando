@@ -1,0 +1,48 @@
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    width: 100%;
+}
+
+.event-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    /* Más espacio interno */
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    width: 100%;
+    /* Asegurar que ocupe todo el ancho del contenedor */
+    min-width: 1600px;
+    /* Duplicar el ancho mínimo */
+}
+
+.event-name {
+    font-size: 2rem;
+    /* Duplicar tamaño del texto */
+    font-weight: bold;
+    flex: 2;
+    /* Mantener mayor espacio para el nombre */
+}
+
+.event-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.event-actions button {
+    margin-left: 10px;
+    white-space: nowrap;
+    font-size: 1.5rem;
+    /* Aumentar tamaño del texto de los botones */
+}
+
+.event-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
