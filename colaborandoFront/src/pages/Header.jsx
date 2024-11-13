@@ -4,17 +4,22 @@ import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faHome, faBell } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Nav from 'react-bootstrap/Nav';
-import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useNavigate } from 'react-router-dom';
 import logo from '../imagenes/logoColab.png';
 import notificacionService from '../services/NotificacionesService';
 
 const Header = () => {
-    const [rol, setRol] = useState(localStorage.getItem("rol"));
-    const [userId, setUserId] = useState(localStorage.getItem("userId"));
-    const [hasNotificaciones, setHasNotificaciones] = useState();
+    const [rol] = useState(localStorage.getItem("rol"));
+    const [userId] = useState(localStorage.getItem("userId"));
+    const [hasNotificaciones, setHasNotificaciones] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        notificacionService.hasNotificaciones(userId)
+            .then(res => setHasNotificaciones(res.data)) // Aquí debes asegurarte que `res` sea booleano.
+            .catch(error => console.error(error));
+    }, [userId]);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -23,41 +28,18 @@ const Header = () => {
         navigate('/login');
     };
 
-    const handleProfile = () => {
-        navigate('/editar-perfil'); // Redirige a la página de perfil
-    };
-
-  
-    const handleEditRol = () => {
-    navigate('/edita-roles', { state: { fromEditRoles: true } });
-    };
-        const handleNotification = () => {
+    const handleNotification = () => {
+        // Cambia el estado para que desaparezca el punto rojo al abrir notificaciones
+        setHasNotificaciones(false);
         navigate('/notificaciones', { state: { fromEditRoles: true } });
     };
-    const handleNavigateHome = () => {
-        navigate("/home"); // Navega a la página de inicio
-    };
-
-    
-  
-    useEffect(() => {
-        setRol(localStorage.getItem("rol"));
-    }, []);
-
-    useEffect(() => {
-        notificacionService.hasNotificaciones(userId)
-        .then((res) => {
-            setHasNotificaciones(res)
-        })
-        .catch(error => {});
-    }, []);
 
     return (
         <>
             <header className="flex-container">
                 <div className="box1">
                     <nav className="navbar navbar-expand-lg navbar-dark">
-                        <div onClick={handleNavigateHome} style={{ cursor: 'pointer' }}>
+                        <div onClick={() => navigate('/home')} style={{ cursor: 'pointer' }}>
                             <img src={logo} alt="Logo Colaborando" />
                         </div>
                     </nav>
@@ -67,35 +49,38 @@ const Header = () => {
                     <FontAwesomeIcon 
                         icon={faHome} 
                         style={{ height: "30px", width: "30px", cursor: "pointer" }} 
-                        onClick={handleNavigateHome} // Llama a la función de navegación al hacer clic
+                        onClick={() => navigate('/home')} 
                     />
                     
-                    <div className="notification-icon">
-                        <FontAwesomeIcon 
-                            icon={faBell} 
-                            style={{ height: "30px", width: "30px", cursor: "pointer" }} 
-                            onClick={handleNotification} 
-                        />
-                        {hasNotificaciones && (
+                    {hasNotificaciones === true ? 
+                        <div className="notification-icon">
+                            <FontAwesomeIcon 
+                                icon={faBell} 
+                                style={{ height: "30px", width: "30px", cursor: "pointer" }} 
+                                onClick={handleNotification} 
+                            />
                             <span className="notification-dot"></span>
-                        )}
-                    </div>
+                        </div> 
+                        :
+                        <div className="notification-icon">
+                            <FontAwesomeIcon 
+                                icon={faBell} 
+                                style={{ height: "30px", width: "30px", cursor: "pointer" }} 
+                                onClick={handleNotification} 
+                            />
+                        </div> 
+                    }
                     <Dropdown>
                         <Dropdown.Toggle variant="link" id="dropdown-avatar">
                             <FontAwesomeIcon icon={faUser} style={{ height: "30px", width: "30px" }} />
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu align="end">
-                        {rol === "Colaborador" ? 
-                            <Dropdown.Item onClick={handleProfile}>Mi Perfil</Dropdown.Item>
-                            : null
-                        } 
-                        {rol === "Colaborador" ? 
-                                <Dropdown.Item onClick={handleEditRol}>Modificar Roles</Dropdown.Item>
-                            : null
-                        }   
+                            {rol === "Colaborador" && <Dropdown.Item onClick={() => navigate('/editar-perfil')}>Mi Perfil</Dropdown.Item>}
+                            {rol === "Colaborador" && <Dropdown.Item onClick={() => navigate('/edita-roles')}>Modificar Roles</Dropdown.Item>}
                             <Dropdown.Item onClick={handleNotification}>Notificaciones</Dropdown.Item>
-                            <Dropdown.Divider />                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
