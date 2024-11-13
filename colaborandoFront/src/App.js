@@ -12,6 +12,7 @@ import ProximosEventos from './pages/ProximosEventos';
 import DetalleEvento from './pages/DetalleEvento';
 import EventosPasados from './pages/EventosPasados';
 import ReporteHoras from './pages/ReporteHoras';
+import Footer from "./components/Footer.js";
 
 function App() {
   return (
@@ -19,8 +20,11 @@ function App() {
       <Router>
         <ContentWithHeader />
       </Router>
+      
     </div>
   );
+
+  //<Footer /> para agregar despues de router
 }
 
 function ContentWithHeader() {

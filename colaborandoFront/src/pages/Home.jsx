@@ -32,10 +32,9 @@ function Home() {
 
 
     return (
-        <div>
-           
-            <div className="container text-center">
-                <div className="row align-items-center box3">
+        <>
+            <div className="container text-center h-100">
+                <div className="row box3 h-100">
                     <div className="col-md-4">
                         <div className="card mb-3">
                             <div className="card-body">
@@ -93,7 +92,7 @@ function Home() {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

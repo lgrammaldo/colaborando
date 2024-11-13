@@ -80,14 +80,6 @@ const Header = () => {
                    
                 </div>
             </header>
-
-            <div id="navegador">
-                <Nav className="ml-auto" variant="tabs">
-                    <Nav.Item>
-                        {/* Aquí puedes agregar otros elementos de navegación si es necesario */}
-                    </Nav.Item>
-                </Nav>
-            </div>
         </>
     );
 };
