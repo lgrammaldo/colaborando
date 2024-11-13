@@ -52,10 +52,16 @@ function ContentWithHeader() {
         <Route path="/detalle-evento-emp/:id" element={<DetalleEventoEmp />} />
         <Route path="/reporte-horas/" element={<ReporteHoras />} />
         <Route path="/update-evento/:id" element={<UpdateEvento />} />
+        <Route path="/" element={<RedirectToLandingPage />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>
   );
+}
+
+function RedirectToLandingPage() {
+  window.location.href = "/landingpage/index.html";
+  return null; // Retorna null porque la redirección se maneja fuera de React.
 }
 
 export default App;
