@@ -80,7 +80,8 @@ const MisNotificaciones = () => {
                  notificacionService.confirmarColaborador(asistenciaConfirmada)  // Enviamos el notificacionId y fechaEvento
                      .then(() => {
                          alert("¡¡Felicitaciones!! ¡¡Has aceptado al colaborador!!");
-                         navigate('/home');
+                         obtenerNotificaciones();
+                         navigate('/notificaciones');
                      })
                      .catch(error => {
                          alert(error.response?.data || "Ocurrió un error al aceptar el empleo.");
@@ -97,7 +98,8 @@ const MisNotificaciones = () => {
                  notificacionService.rechazarNotificacion(notificacion?.id, rol)  // Enviamos solo notificacionId
                      .then(() => {
                         alert("Has rechazado al colaborador.");
-                        navigate('/home');  // Llamo a las activas de nuevo
+                        obtenerNotificaciones();
+                        navigate('/notificaciones');  // Llamo a las activas de nuevo
                      })
                      .catch(err => console.error("Error al rechazar notificación:", err));
              } catch (error) {
@@ -112,56 +114,68 @@ const MisNotificaciones = () => {
                 <div className="notificaciones-container">
                     <h2>Mis Notificaciones</h2>
                     <div className="notificaciones-list">
-                        {notificaciones.map((notificacion, index) => (
-                            <div key={index} className="notificacion-card">
-                                {notificacion.tipoNotificacion === 7 ? (
-                                    <>
-                                        <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
-                                        <p className="mensaje-cancelacion">
-                                            Lo sentimos, el evento <strong>{notificacion.nombreEvento}</strong> ha sido <strong>CANCELADO</strong>. 
-                                            Te hemos liberado la agenda para que puedas solicitar puestos para otros eventos.
-                                        </p>
-                                        <button className="btn entendido" onClick={() => handleEntendidoEventoCancelado(notificacion)}>Entendido</button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
-                                        <p className="descripcion">
-                                            ¡¡Buenas noticias!! El evento <strong>{notificacion.nombreEvento}</strong> busca colaboradores "<strong>{notificacion.empleo}</strong>".
-                                            Puedes enviar la solicitud a continuación. Recuerda que puedes recibir para el mismo evento diferentes propuestas.
-                                        </p>
-                                        <p className="fecha-evento"><strong>Fecha: {formatDateTime(notificacion.fechaEvento)} </strong></p>
-                                    
-                                        <div className="botones-accion">
-                                            <button className="btn aceptar" onClick={() => handleSolicitarEmpleo(notificacion)}>Enviar Solicitud</button>
-                                            <button className="btn rechazar" onClick={() => handleRechazarEmpleo(notificacion)}>Rechazar</button>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        ))}
+                        {notificaciones  && notificaciones.length > 0 ? 
+                            notificaciones.map((notificacion, index) => (
+                                <div key={index} className="notificacion-card">
+                                    {notificacion.tipoNotificacion === 7 ? (
+                                        <>
+                                            <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
+                                            <p className="mensaje-cancelacion">
+                                                Lo sentimos, el evento <strong>{notificacion.nombreEvento}</strong> ha sido <strong>CANCELADO</strong>. 
+                                                Te hemos liberado la agenda para que puedas solicitar puestos para otros eventos.
+                                            </p>
+                                            <button className="btn entendido" onClick={() => handleEntendidoEventoCancelado(notificacion)}>Entendido</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
+                                            <p className="descripcion">
+                                                ¡¡Buenas noticias!! El evento <strong>{notificacion.nombreEvento}</strong> busca colaboradores "<strong>{notificacion.empleo}</strong>".
+                                                Puedes enviar la solicitud a continuación. Recuerda que puedes recibir para el mismo evento diferentes propuestas.
+                                            </p>
+                                            <p className="fecha-evento"><strong>Fecha: {formatDateTime(notificacion.fechaEvento)} </strong></p>
+                                        
+                                            <div className="botones-accion">
+                                                <button className="btn aceptar" onClick={() => handleSolicitarEmpleo(notificacion)}>Enviar Solicitud</button>
+                                                <button className="btn rechazar" onClick={() => handleRechazarEmpleo(notificacion)}>Rechazar</button>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            ))
+                            : 
+                            <h3 className="no-events-message">
+                                Por el momento no tienes notificaciones, espera a que hayan nuevos Eventos.
+                            </h3>
+                        }
                     </div>
                 </div>
             ) : (
                 <div className="notificaciones-container">
                 <h2>Notificaciones de Establecimiento</h2>
                 <div className="notificaciones-list">
-                    {notificaciones.map((notificacion, index) => (
-                        <div key={index} className="notificacion-card">
-                            <h3 className="titulo-evento">{notificacion.detalleEvento.evento.nombre}</h3>
-                            <p className="descripcion">
-                                <strong>Colaborador:</strong> {notificacion.colaboradoresEmpleos.colaborador.nombre} {notificacion.colaboradoresEmpleos.colaborador.apellido}<br />
-                                <strong>Empleo Aspirado:</strong> {notificacion.colaboradoresEmpleos.empleos.nombre}<br />
-                                <strong>Evento:</strong> {notificacion.detalleEvento.evento.nombre}<br />
-                                <strong>Cupos disponibles:</strong> {notificacion.detalleEvento.cantidadDisponible}
-                            </p>
-                            <p className="fecha-evento"><strong>Fecha: {formatDateTime(notificacion.fechaEvento)} </strong></p>
-                            <div className="botones-accion">
-                                <button className="btn confirmar" onClick={() => handleConfirmarColaborador(notificacion)}>Confirmar</button>
-                                <button className="btn rechazar" onClick={() => handleRechazarColaborador(notificacion)}>Rechazar</button>
+                    { notificaciones  && notificaciones.length > 0 ? (
+                        notificaciones.map((notificacion, index) => (
+                            <div key={index} className="notificacion-card">
+                                <h3 className="titulo-evento">{notificacion.detalleEvento.evento.nombre}</h3>
+                                <p className="descripcion">
+                                    <strong>Colaborador:</strong> {notificacion.colaboradoresEmpleos.colaborador.nombre} {notificacion.colaboradoresEmpleos.colaborador.apellido}<br />
+                                    <strong>Empleo Aspirado:</strong> {notificacion.colaboradoresEmpleos.empleos.nombre}<br />
+                                    <strong>Evento:</strong> {notificacion.detalleEvento.evento.nombre}<br />
+                                    <strong>Cupos disponibles:</strong> {notificacion.detalleEvento.cantidadDisponible}
+                                </p>
+                                <p className="fecha-evento"><strong>Fecha: {formatDateTime(notificacion.fechaEvento)} </strong></p>
+                                <div className="botones-accion">
+                                    <button className="btn confirmar" onClick={() => handleConfirmarColaborador(notificacion)}>Confirmar</button>
+                                    <button className="btn rechazar" onClick={() => handleRechazarColaborador(notificacion)}>Rechazar</button>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )))
+                        : 
+                        <h3 className="no-events-message">
+                            Por el momento no tienes solicitudes, espera a que hayan nuevos postulanes.
+                        </h3>
+                    }
                 </div>
             </div>
             )}
