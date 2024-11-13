@@ -101,6 +101,7 @@ const CrearEvento = () => {
                             <option value="opcion1">Camarero</option>
                             <option value="opcion2">Mozo</option>
                             <option value="opcion3">DJ</option>
+                             <option value="opcion3">DJ</option>
                           </select>
                         </td>
                         <td>
