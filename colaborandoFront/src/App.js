@@ -13,6 +13,7 @@ import DetalleEvento from './pages/DetalleEvento';
 import DetalleEventoEmp from './pages/DetalleEventoEmp';
 import EventosPasados from './pages/EventosPasados';
 import ReporteHoras from './pages/ReporteHoras';
+import Footer from "./components/Footer.js";
 import UpdateEvento from './pages/UpdateEvento';
 
 function App() {
@@ -21,8 +22,11 @@ function App() {
       <Router>
         <ContentWithHeader />
       </Router>
+      
     </div>
   );
+
+  //<Footer /> para agregar despues de router
 }
 
 function ContentWithHeader() {
