@@ -80,6 +80,19 @@ public class NotificacionService {
                 .collect(Collectors.toList());
     }
 
+    public Boolean hasNotificaciones(Integer userId) {
+        Usuario usuario = usuarioRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        if ("Colaborador".equals(usuario.getTipoUsuario())){
+            return notificacionesRepository.findAll().stream()
+                    .anyMatch(notificaciones -> "Active".equals(notificaciones.getStatus()));
+        } else if ("Establecimiento".equals(usuario.getTipoUsuario())){
+            return solicitudesRepository.findAll().stream()
+                    .anyMatch(solicitud -> "Active".equals(solicitud.getStatus()));
+        }
+        return false;
+    }
+
     public void actualizarEstadoNotificacion(Integer notificacionId) {
         Notificaciones notificacion = notificacionesRepository.findById(notificacionId)
                 .orElseThrow(() -> new IllegalArgumentException("Notificación no encontrada"));

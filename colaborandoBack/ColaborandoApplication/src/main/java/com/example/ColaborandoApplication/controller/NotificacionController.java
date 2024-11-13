@@ -31,6 +31,11 @@ public class NotificacionController {
         return ResponseEntity.ok(notificacionService.getNotificacionesEstablecimiento(userId));
     }
 
+    @GetMapping("/hasNotifications/{userId}")
+    public ResponseEntity<Boolean> userHasNotifications(@PathVariable Integer userId) {
+        return ResponseEntity.ok(notificacionService.hasNotificaciones(userId));
+    }
+
     @PutMapping("/rechazar/{notificacionId}")
     public ResponseEntity<Void> rechazarNotificacion(@PathVariable Integer notificacionId) {
         notificacionService.actualizarEstadoNotificacion(notificacionId);

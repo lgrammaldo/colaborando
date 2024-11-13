@@ -2,15 +2,18 @@
 import React, { useState, useEffect } from 'react';
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHome, faBell } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import logo from '../imagenes/logoColab.png';
+import notificacionService from '../services/NotificacionesService';
 
 const Header = () => {
     const [rol, setRol] = useState(localStorage.getItem("rol"));
+    const [userId, setUserId] = useState(localStorage.getItem("userId"));
+    const [hasNotificaciones, setHasNotificaciones] = useState();
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -41,6 +44,14 @@ const Header = () => {
         setRol(localStorage.getItem("rol"));
     }, []);
 
+    useEffect(() => {
+        notificacionService.hasNotificaciones(userId)
+        .then((res) => {
+            setHasNotificaciones(res)
+        })
+        .catch(error => {});
+    }, []);
+
     return (
         <>
             <header className="flex-container">
@@ -53,11 +64,22 @@ const Header = () => {
                 </div>
 
                 <div className="box3">
-                <FontAwesomeIcon 
-                    icon={faHome} 
-                    style={{ height: "30px", width: "30px", cursor: "pointer" }} 
-                    onClick={handleNavigateHome} // Llama a la función de navegación al hacer clic
-                />
+                    <FontAwesomeIcon 
+                        icon={faHome} 
+                        style={{ height: "30px", width: "30px", cursor: "pointer" }} 
+                        onClick={handleNavigateHome} // Llama a la función de navegación al hacer clic
+                    />
+                    
+                    <div className="notification-icon">
+                        <FontAwesomeIcon 
+                            icon={faBell} 
+                            style={{ height: "30px", width: "30px", cursor: "pointer" }} 
+                            onClick={handleNotification} 
+                        />
+                        {hasNotificaciones && (
+                            <span className="notification-dot"></span>
+                        )}
+                    </div>
                     <Dropdown>
                         <Dropdown.Toggle variant="link" id="dropdown-avatar">
                             <FontAwesomeIcon icon={faUser} style={{ height: "30px", width: "30px" }} />
@@ -73,11 +95,9 @@ const Header = () => {
                             : null
                         }   
                             <Dropdown.Item onClick={handleNotification}>Notificaciones</Dropdown.Item>
-                            <Dropdown.Divider />
-                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                            <Dropdown.Divider />                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                   
                 </div>
             </header>
 

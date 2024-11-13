@@ -26,6 +26,10 @@ class NotificacionesService {
         return axios.post(`${NOTIFICACIONES_API_BASE_URL}/confirmar_colaborador`, detalleColaborador);
     }
 
+    hasNotificaciones(userId) {
+        return axios.get(`${NOTIFICACIONES_API_BASE_URL}/hasNotifications/${userId}`);
+    }
+
 }
 
 const notificacionesService = new NotificacionesService();
