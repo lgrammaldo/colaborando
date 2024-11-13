@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const EVENTO_API_BASE_URL = "http://localhost:8080/colaborando/evento";
+const EVENTO_API_BASE_URL_ASISTENCIAS = "http://localhost:8080/colaborando/asistencias";
 
 class EventoService { 
 
@@ -15,12 +16,20 @@ class EventoService {
 
     updateEvento(idEvento){
         return axios.get(`${EVENTO_API_BASE_URL}/update-evento/${idEvento}`, {});
+    }   
+    
+    updateEventoCompleto(evento){
+        return axios.get(`${EVENTO_API_BASE_URL}/update-evento-completo`, evento, {});
     }       
 
     getEvento(idEvento){
         return axios.get(`${EVENTO_API_BASE_URL}/get-evento/${idEvento}`, {});
+    }     
+    
+    getEventoAsistentes(idEvento){
+        return axios.get(`${EVENTO_API_BASE_URL_ASISTENCIAS}/get-evento-asistentes/${idEvento}`, {});
     }       
-
+    
     getEventosColaborador(status, colaborador){
         return axios.get(`${EVENTO_API_BASE_URL}/get-eventos-colaborador/${status}/${colaborador}`, {});
     }     
@@ -29,6 +38,10 @@ class EventoService {
         return axios.get(`${EVENTO_API_BASE_URL}/get-eventos-colaborador/${status}/${colaborador}`, {});
     }       
 
+    getAsistentesRequeridos(idEvento){
+        return axios.get(`${EVENTO_API_BASE_URL_ASISTENCIAS}/get-evento-asistentes/${idEvento}`, {});
+    }       
+    
 }
 
 const eventoService = new EventoService();

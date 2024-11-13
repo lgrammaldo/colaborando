@@ -12,7 +12,7 @@ const DetalleEvento = () => {
   const [fecha_fin, setFechaFin] = useState('');
   const [especificaciones, setEspecificaciones] = useState('');
   const [descripcion, setDescripcion] = useState('');
-
+  const [asistentesEventos, setAsistentesEventos] = useState([]);
   const [empleos, setEmpleos] = useState([]);
   const [puestos, setPuestos] = useState([{ empleo: "", cantidad: "" }]);
   const [errorMessage, setErrorMessage] = useState('');
@@ -22,6 +22,7 @@ const DetalleEvento = () => {
   useEffect(() => {
     if (id) {
       getEvento(id);
+      getEventoAsistentes(id);
     }
   }, [id]);
 
@@ -41,6 +42,18 @@ const DetalleEvento = () => {
         setErrorMessage("Hubo un error al cargar los datos del evento.");
       });
   };
+
+  const getEventoAsistentes = (eventId) => {
+    eventoService.getEventoAsistentes(eventId)
+    .then(res => {
+        setAsistentesEventos(res.data);
+    })
+    .catch(err => {
+      console.error("Error cargando los asistentes del evento:", err);
+      setErrorMessage("Hubo un error al cargar los asistentes del evento.");
+    });
+  } 
+    
   
   const proxEventos = (e) => {
     e.preventDefault();
@@ -77,12 +90,18 @@ const DetalleEvento = () => {
                     <label>Descripción:</label>
                     <input type="text" className="form-control" value={descripcion} readOnly />
                   </div>
-
-                  
+                  <ul className="list-group">
+                    {asistentesEventos.map((evento, index) => (
+                    <li className="list-group-item" key={index}>
+                        <strong>{evento.colaborador.apellido}, {evento.colaborador.nombre} - {evento.colaboradoresEmpleos.empleos.descripcion} </strong> 
+                    </li>
+                    ))}
+                  </ul>    
                   <button type="submit" className="btn btn-lg mt-4" onClick={proxEventos} style={{ width: '100%', backgroundColor: 'rgb(203, 102, 101)', color: 'white' }}>
                     Volver
                   </button>
                 </form>
+            
               </div>
               <div>
                <LogoComponente/>

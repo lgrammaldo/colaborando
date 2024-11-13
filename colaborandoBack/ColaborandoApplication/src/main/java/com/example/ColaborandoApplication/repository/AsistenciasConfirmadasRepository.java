@@ -1,10 +1,9 @@
 package com.example.ColaborandoApplication.repository;
 
-import com.example.ColaborandoApplication.Entity.AsistenciasConfirmadas;
-import com.example.ColaborandoApplication.Entity.Colaborador;
-import com.example.ColaborandoApplication.Entity.ColaboradoresEmpleos;
-import com.example.ColaborandoApplication.Entity.Solicitudes;
+import com.example.ColaborandoApplication.Entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -17,5 +16,11 @@ public interface AsistenciasConfirmadasRepository extends JpaRepository<Asistenc
     List<AsistenciasConfirmadas> findByColaboradoresEmpleos(ColaboradoresEmpleos colaboradoresEmpleos);
 
     List<AsistenciasConfirmadas> findByColaborador (Colaborador colaborador);
+
+    List<AsistenciasConfirmadas> findByEvento(Evento evento);
+
+    //@Query("SELECT e FROM AsistenciasConfirmadas e WHERE e.id_detalleEvento = :evento")
+    //List<AsistenciasConfirmadas> findByEvento(@Param("evento") Evento evento);
+
 
 }

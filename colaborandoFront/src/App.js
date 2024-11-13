@@ -10,9 +10,11 @@ import EditaRoles from './pages/EditaRoles';
 import MisNotificaciones from './pages/MisNotificaciones';
 import ProximosEventos from './pages/ProximosEventos';
 import DetalleEvento from './pages/DetalleEvento';
+import DetalleEventoEmp from './pages/DetalleEventoEmp';
 import EventosPasados from './pages/EventosPasados';
 import ReporteHoras from './pages/ReporteHoras';
 import Footer from "./components/Footer.js";
+import UpdateEvento from './pages/UpdateEvento';
 
 function App() {
   return (
@@ -47,7 +49,9 @@ function ContentWithHeader() {
         <Route path="/proxEventos" element={<ProximosEventos />} />
         <Route path="/eventos-inactive" element={<EventosPasados />} />
         <Route path="/detalle-evento/:id" element={<DetalleEvento />} />
+        <Route path="/detalle-evento-emp/:id" element={<DetalleEventoEmp />} />
         <Route path="/reporte-horas/" element={<ReporteHoras />} />
+        <Route path="/update-evento/:id" element={<UpdateEvento />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>

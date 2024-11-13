@@ -24,6 +24,12 @@ public class EventoController {
         return ResponseEntity.ok(evento);
     }
 
+    @GetMapping("/update-evento-completo")
+    public ResponseEntity<Evento> updateEventos(@RequestBody EventoDTO eventoDTO) {
+        return ResponseEntity.ok(eventoService.updateEventoCompleto(eventoDTO));
+    }
+
+
     @GetMapping("/get-eventos/{status}")
     public ResponseEntity<List<Evento>> getEventos(@PathVariable String status) {
         return ResponseEntity.ok(eventoService.getEventos(status));
@@ -38,7 +44,12 @@ public class EventoController {
     public ResponseEntity<Evento> getEventos(@PathVariable Integer idEvento) {
         return ResponseEntity.ok(eventoService.getEvento(idEvento));
     }
-
+/*
+    @GetMapping("/get-evento-asistentes/{idEvento}")
+    public ResponseEntity<AsistenciasConfirmadas> getEventosAsistentes(@PathVariable Integer idEvento) {
+        return ResponseEntity.ok(eventoService.getEventoAsistentes(idEvento));
+    }
+*/
     @GetMapping("/get-eventos-colaborador/{status}/{colaborador}")
     public ResponseEntity<List<AsistenciasConfirmadas>> getEventosColaborador(@PathVariable String status, @PathVariable Integer colaborador) {
         return ResponseEntity.ok(eventoService.getEventosColaborador(status, colaborador));
