@@ -127,20 +127,31 @@ const MisNotificaciones = () => {
                                             <button className="btn entendido" onClick={() => handleEntendidoEventoCancelado(notificacion)}>Entendido</button>
                                         </>
                                     ) : (
-                                        <>
-                                            <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
-                                            <p className="descripcion">
-                                                ¡¡Buenas noticias!! El evento <strong>{notificacion.nombreEvento}</strong> busca colaboradores "<strong>{notificacion.empleo}</strong>".
-                                                Puedes enviar la solicitud a continuación. Recuerda que puedes recibir para el mismo evento diferentes propuestas.
-                                            </p>
-                                            <p className="fecha-evento"><strong>Fecha: {formatDateTime(notificacion.fechaEvento)} </strong></p>
-                                        
-                                            <div className="botones-accion">
-                                                <button className="btn aceptar" onClick={() => handleSolicitarEmpleo(notificacion)}>Enviar Solicitud</button>
-                                                <button className="btn rechazar" onClick={() => handleRechazarEmpleo(notificacion)}>Rechazar</button>
-                                            </div>
-                                        </>
-                                    )}
+                                        notificacion.tipoNotificacion === 3 ? (
+                                            <>
+                                                <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
+                                                <p className="mensaje-cancelacion">
+                                                    ¡¡Felicitaciones!! !!Has sido seleccionado para el evento ¡¡<strong>{notificacion.nombreEvento}</strong> como <strong>{notificacion.empleo}</strong>. 
+                                                    Verás mas especificaciones en tus Próximos Eventos.
+                                                </p>
+                                                <button className="btn entendido" onClick={() => handleEntendidoEventoCancelado(notificacion)}>Entendido</button>
+                                            </>
+                                        ) : 
+                                            <>
+                                                <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
+                                                <p className="descripcion">
+                                                    ¡¡Buenas noticias!! El evento <strong>{notificacion.nombreEvento}</strong> busca colaboradores "<strong>{notificacion.empleo}</strong>".
+                                                    Puedes enviar la solicitud a continuación. Recuerda que puedes recibir para el mismo evento diferentes propuestas.
+                                                </p>
+                                                <p className="fecha-evento"><strong>Fecha: {formatDateTime(notificacion.fechaEvento)} </strong></p>
+                                            
+                                                <div className="botones-accion">
+                                                    <button className="btn aceptar" onClick={() => handleSolicitarEmpleo(notificacion)}>Enviar Solicitud</button>
+                                                    <button className="btn rechazar" onClick={() => handleRechazarEmpleo(notificacion)}>Rechazar</button>
+                                                </div>
+                                            </>
+                                        )
+                                    }
                                 </div>
                             ))
                             : 

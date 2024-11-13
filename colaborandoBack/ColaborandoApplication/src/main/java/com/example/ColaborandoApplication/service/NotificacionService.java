@@ -178,6 +178,13 @@ public class NotificacionService {
                     .orElseThrow(() -> new IllegalArgumentException("Solicitud no encontrada"));
             solicitud.setStatus("Inactive"); // O lo que necesites
             solicitudesRepository.save(solicitud);
+
+            Notificaciones notificacionQuedasteColaborador = new Notificaciones();
+            notificacionQuedasteColaborador.setEvento(asistenciasConfirmadasDTO.getDetalleEvento().getEvento());
+            notificacionQuedasteColaborador.setColaboradoresEmpleos(asistenciasConfirmadasDTO.getColaboradoresEmpleos());
+            notificacionQuedasteColaborador.setStatus("Active");
+            notificacionQuedasteColaborador.setNotificacion(3);
+            notificacionesRepository.save(notificacionQuedasteColaborador);
         } else {
             throw new CustomException(String.format("¡Ya ocupaste el cupo para %s", detalleEvento.getEmpleos().getNombre()));
         }
