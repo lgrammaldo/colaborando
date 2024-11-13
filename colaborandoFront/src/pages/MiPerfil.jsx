@@ -136,9 +136,6 @@ const MiPerfil = () => {
                                 </button>
                             </div>
                         </form>
-                        <footer className="footer">
-                            <LogoComponente />
-                        </footer>
                     </div>
                 </div>
             </div>

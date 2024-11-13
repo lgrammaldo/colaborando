@@ -1,11 +1,11 @@
-import React, { useEffect, useState }  from 'react';
-import './Home.css';
+import React, { useEffect, useState } from 'react';
+import './ProximosEventos.css';
 import Header from './Header.jsx';
 import { useNavigate } from 'react-router-dom';
 import eventoService from '../services/EventoService.js';
-import moment from 'moment'; // Importa moment
+import moment from 'moment';
 
-function Home() {
+function ProximosEventos() {
     const navigate = useNavigate();
     const [rol, setRol] = useState(localStorage.getItem("rol"));
     const [proximosEventos, setProximosEventos] = useState([]);
@@ -15,25 +15,15 @@ function Home() {
     const [userId] = useState(localStorage.getItem("userId"));
 
     useEffect(() => {
-        const status = 'Active'
-        {rol === 'Colaborador' ? eventoService.getEventosColaborador(status, userId) 
-            .then(res => {
-                setProximosEventos(res.data);
-              })
-              .catch(err => {
-                console.error("Error cargando próximos eventos:", err);
-              })
-            : 
-             eventoService.getEventos(status) // Asegúrate de que esta función esté definida en tu servicio
-             .then(res => {
-                setProximosEventos(res.data);
-              })
-              .catch(err => {
-                console.error("Error cargando próximos eventos:", err);
-              });
-        }
+        const status = 'Active';
+        const fetchEventos = rol === 'Colaborador' 
+            ? eventoService.getEventosColaborador(status, userId) 
+            : eventoService.getEventos(status);
 
-    }, []);   
+        fetchEventos
+            .then(res => setProximosEventos(res.data))
+            .catch(err => console.error("Error cargando próximos eventos:", err));
+    }, [rol, userId]);
 
     const handleShowModal = (id) => {
         setEventoId(id);
@@ -41,131 +31,65 @@ function Home() {
         setSuccessMessage("");
     };
 
-    // Función para cerrar el modal
     const handleCloseModal = () => {
         setShowModal(false);
         setEventoId(null);
         setSuccessMessage("");
     };
 
-    const detalleEvento = (id) => {
-        setEventoId(id);
-        navigate(`/detalle-evento/${id}`);
-      };    
+    const detalleEventoEmp = (id) => navigate(`/detalle-evento-emp/${id}`);
+    const updateEventoEmp = (id) => navigate(`/update-evento/${id}`);
 
-    const detalleEventoEmp = (id) => {
-        setEventoId(id);
-        navigate(`/detalle-evento-emp/${id}`);
-      };     
-      
-    const updateEventoEmp = (id) => {
-        setEventoId(id);
-        navigate(`/update-evento/${id}`);
-      };           
-
-    // Función para actualizar el evento
     const handleUpdate = () => {
-        const status = 'Active'
-        // Llama a la función que actualiza el evento
-        {rol === 'Colaborador' ?
-        eventoService.updateEvento(idEvento)//, { /* Aquí pasas los nuevos datos del evento */ })
-            .then(eventoService.getEventosColaborador(status, userId)
-                .then(res => {
-                    setProximosEventos(res.data);
-                    setSuccessMessage("El evento fue cancelado exitosamente."); // Establecemos el mensaje de éxito
-                })
-                .catch(err => {
-                    console.error("Error cargando próximos eventos:", err);
-                })
-            ) 
+        const status = 'Active';
+        const update = eventoService.updateEvento(idEvento);
+        const fetchEventos = rol === 'Colaborador' 
+            ? eventoService.getEventosColaborador(status, userId)
+            : eventoService.getEventos(status);
 
-                /*res => {
-                console.log('Evento actualizado exitosamente:', res);
-                // Actualizar los eventos después del update, si es necesario
-                setProximosEventos(prevEventos =>
-                    prevEventos.map(evento =>
-                        evento.id === idEvento ? { ...evento, ...res.data } : evento
-                    )
-                );
-                setSuccessMessage("Su asistencia al evento fue cancelada exitosamente."); // Establecemos el mensaje de éxito
-            }*/
+        update
+            .then(() => fetchEventos.then(res => {
+                setProximosEventos(res.data);
+                setSuccessMessage("El evento fue cancelado exitosamente.");
+            }))
             .catch(err => {
                 console.error("Error actualizando el evento:", err);
-                setSuccessMessage("Hubo un error al cancelar la asistencia al evento. Intenta nuevamente."); // Establecemos un mensaje de error
-            })
-        :
-        eventoService.updateEvento(idEvento)//, { /* Aquí pasas los nuevos datos del evento */ })
-            .then(eventoService.getEventos(status)
-                .then(res => {
-                    setProximosEventos(res.data);
-                    setSuccessMessage("El evento fue cancelado exitosamente."); // Establecemos el mensaje de éxito
-                })
-                .catch(err => {
-                    console.error("Error cargando próximos eventos:", err);
-                })
-             )         
-            /*.then(res => {
-                console.log('Evento actualizado exitosamente:', res);
-                // Actualizar los eventos después del update, si es necesario
-                setProximosEventos(prevEventos =>
-                    prevEventos.map(evento =>
-                        evento.id === idEvento ? { ...evento, ...res.data } : evento
-                    )
-                );
-                setSuccessMessage("El evento fue cancelado exitosamente."); // Establecemos el mensaje de éxito
-            })*/
-            .catch(err => {
-                console.error("Error actualizando el evento:", err);
-                setSuccessMessage("Hubo un error al cancelar el evento. Intenta nuevamente."); // Establecemos un mensaje de error
-            });     
-        }   
-    };     
+                setSuccessMessage("Hubo un error al cancelar el evento. Intenta nuevamente.");
+            });
+    };
 
     return (
         <div>
-           
+          
             <div className="container text-center">
                 <div className="row align-items-center box3">
-                    <div className="col-md-4">
-                        {rol === 'Colaborador' ?
-                        <ul className="list-group">
+                    <div className="col-12">
+                        <div className="event-list">
                             {proximosEventos.map((evento, index) => (
-                            <li className="list-group-item" key={index}>
-                                <strong>{evento.evento.nombre}</strong> - {moment(evento.evento.fecha).format('DD/MM/YYYY')}
-                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => handleShowModal(evento.id_evento)}>
-                                        {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
-                                </button>  
-                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => detalleEvento(evento.evento.id_evento)}>
-                                        Ver Detalle
-                                </button>                                                                    
-                            </li>
+                                <div className="event-item" key={index}>
+                                    <span className="event-name">
+                                        {rol === 'Colaborador' ? evento.evento.nombre : evento.nombre}
+                                    </span>
+                                    <div className="event-actions">
+                                        <button className="btn btn-danger me-2" onClick={() => handleShowModal(evento.id_evento)}>
+                                            {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
+                                        </button>
+                                        <button className="btn btn-primary me-2" onClick={() => detalleEventoEmp(evento.id_evento)}>
+                                            Ver Detalle
+                                        </button>
+                                        {rol !== 'Colaborador' && (
+                                            <button className="btn btn-secondary" onClick={() => updateEventoEmp(evento.id_evento)}>
+                                                Editar Evento
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
                             ))}
-                        </ul>  
-                        :
-                        <ul className="list-group">
-                            {proximosEventos.map((evento, index) => (
-                            <li className="list-group-item" key={index}>
-                                <strong>{evento.nombre}</strong> - {moment(evento.fecha).format('DD/MM/YYYY')}
-                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => handleShowModal(evento.id_evento)}>
-                                        {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
-                                </button>  
-                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => detalleEventoEmp(evento.id_evento)}>
-                                        Ver Detalle
-                                </button>  
-                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => updateEventoEmp(evento.id_evento)}>
-                                        Editar Evento
-                                </button>                                                                                                    
-                            </li>
-                            ))}
-                        </ul>  }                        
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div className={`modal fade ${showModal ? 'show' : ''}`} tabIndex="-1" style={{ display: showModal ? 'block' : 'none' }} aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -193,4 +117,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default ProximosEventos;

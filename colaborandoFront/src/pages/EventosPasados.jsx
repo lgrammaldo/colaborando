@@ -1,118 +1,112 @@
-import React, { useEffect, useState }  from 'react';
-import './Home.css';
-import Header from './Header.jsx';
+import React, { useEffect, useState } from 'react';
+import './EventosPasados.css';
 import { useNavigate } from 'react-router-dom';
 import eventoService from '../services/EventoService.js';
-import moment from 'moment'; // Importa moment
+import moment from 'moment';
 
-function Home() {
+function EventosPasados() {
     const navigate = useNavigate();
     const [rol, setRol] = useState(localStorage.getItem("rol"));
-    const [proximosEventos, setProximosEventos] = useState([]);
+    const [eventosPasados, setEventosPasados] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [eventoId, setEventoId] = useState(null);
+    const [idEvento, setEventoId] = useState(null);
+    const [successMessage, setSuccessMessage] = useState("");
     const [userId] = useState(localStorage.getItem("userId"));
 
     useEffect(() => {
-        const status = 'Inactive'
-        {rol === 'Colaborador' ? eventoService.getEventosColaborador(status, userId) 
-            .then(res => {
-                setProximosEventos(res.data);
-              })
-              .catch(err => {
-                console.error("Error cargando eventos pasados:", err);
-              })
-            : 
-             eventoService.getEventos(status) // Asegúrate de que esta función esté definida en tu servicio
-             .then(res => {
-                setProximosEventos(res.data);
-              })
-              .catch(err => {
-                console.error("Error cargando eventos pasados:", err);
-              });
-        }
-    }, []);   
+        const status = 'Inactive';  // Asumimos que los eventos pasados tienen estado 'Inactive'
+        const fetchEventos = rol === 'Colaborador'
+            ? eventoService.getEventosColaborador(status, userId)
+            : eventoService.getEventos(status);
+
+        fetchEventos
+            .then(res => setEventosPasados(res.data))
+            .catch(err => console.error("Error cargando eventos pasados:", err));
+    }, [rol, userId]);
 
     const handleShowModal = (id) => {
         setEventoId(id);
         setShowModal(true);
+        setSuccessMessage("");
     };
 
-    // Función para cerrar el modal
     const handleCloseModal = () => {
         setShowModal(false);
         setEventoId(null);
+        setSuccessMessage("");
     };
 
-    const detalleEvento = (id) => {
-        setEventoId(id);
-        navigate(`/detalle-evento-emp/${id}`);
-      };        
+    const detalleEventoEmp = (id) => navigate(`/detalle-evento-emp/${id}`);
+    const updateEventoEmp = (id) => navigate(`/update-evento/${id}`);
 
-    // Función para actualizar el evento
     const handleUpdate = () => {
-        // Llama a la función que actualiza el evento
-        eventoService.updateEvento(eventoId)
-            .then(res => {
-                console.log('Evento actualizado exitosamente:', res);
-                // Actualizar los eventos después del update, si es necesario
-                /*setProximosEventos(prevEventos =>
-                    prevEventos.map(evento =>
-                        evento.id === eventoId ? { ...evento, ...res.data } : evento
-                    )
-                );*/
-            })
+        const status = 'Inactive';
+        const update = eventoService.updateEvento(idEvento);
+        const fetchEventos = rol === 'Colaborador'
+            ? eventoService.getEventosColaborador(status, userId)
+            : eventoService.getEventos(status);
+
+        update
+            .then(() => fetchEventos.then(res => {
+                setEventosPasados(res.data);
+                setSuccessMessage("El evento fue cancelado exitosamente.");
+            }))
             .catch(err => {
                 console.error("Error actualizando el evento:", err);
+                setSuccessMessage("Hubo un error al cancelar el evento. Intenta nuevamente.");
             });
-    };     
+    };
 
     return (
         <div>
-           
             <div className="container text-center">
                 <div className="row align-items-center box3">
-                    <div className="col-md-4">
-                    {rol === 'Colaborador' ?
-                        <ul className="list-group">
-                            {proximosEventos.map((evento, index) => (
-                            <li className="list-group-item" key={index}>
-                                <strong>{evento.evento.nombre}</strong> - {moment(evento.evento.fecha).format('DD/MM/YYYY')} - {evento.evento.status}
-                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => detalleEvento(evento.evento.id_evento)}>
-                                        Ver Detalle
-                                </button>                                
-                            </li>
+                    <div className="col-12">
+                        <div className="event-list">
+                            {eventosPasados.map((evento, index) => (
+                                <div className="event-item" key={index}>
+                                    <span className="event-name">
+                                        {rol === 'Colaborador' ? evento.evento.nombre : evento.nombre}
+                                    </span>
+                                    <div className="event-actions">
+                                        <button className="btn btn-danger me-2" onClick={() => handleShowModal(evento.id_evento)}>
+                                            {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
+                                        </button>
+                                        <button className="btn btn-primary me-2" onClick={() => detalleEventoEmp(evento.id_evento)}>
+                                            Ver Detalle
+                                        </button>
+                                        {rol !== 'Colaborador' && (
+                                            <button className="btn btn-secondary" onClick={() => updateEventoEmp(evento.id_evento)}>
+                                                Editar Evento
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
                             ))}
-                        </ul> 
-                        : 
-                        <ul className="list-group">
-                            {proximosEventos.map((evento, index) => (
-                            <li className="list-group-item" key={index}>
-                                <strong>{evento.nombre}</strong> - {moment(evento.fecha).format('DD/MM/YYYY')} - {evento.status}
-                                <button className="btn btn-primary ms-2" // Puedes cambiar las clases según tu estilo
-                                        onClick={() => detalleEvento(evento.id_evento)}>
-                                        Ver Detalle
-                                </button>                                
-                            </li>
-                            ))}
-                        </ul> }                        
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div className={`modal fade ${showModal ? 'show' : ''}`} tabIndex="-1" style={{ display: showModal ? 'block' : 'none' }} aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Confirmar Edición</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Confirmar cancelación</h5>
                             <button type="button" className="btn-close" onClick={handleCloseModal} aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            ¿Estás seguro de que deseas editar este evento?
+                            {successMessage ? successMessage : "¿Estás seguro de que deseas cancelar este evento?"}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cancelar</button>
-                            <button type="button" className="btn btn-primary" onClick={handleUpdate}>Confirmar</button>
+                            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+                                {successMessage ? 'Cerrar' : 'Cancelar'}
+                            </button>
+                            {!successMessage && (
+                                <button type="button" className="btn btn-danger" onClick={handleUpdate}>
+                                    Confirmar
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -121,4 +115,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default EventosPasados;

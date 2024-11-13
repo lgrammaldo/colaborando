@@ -13,6 +13,7 @@ import DetalleEvento from './pages/DetalleEvento';
 import DetalleEventoEmp from './pages/DetalleEventoEmp';
 import EventosPasados from './pages/EventosPasados';
 import ReporteHoras from './pages/ReporteHoras';
+import Footer from "./components/Footer.js";
 import UpdateEvento from './pages/UpdateEvento';
 
 function App() {
@@ -21,8 +22,11 @@ function App() {
       <Router>
         <ContentWithHeader />
       </Router>
+      
     </div>
   );
+
+  //<Footer /> para agregar despues de router
 }
 
 function ContentWithHeader() {
@@ -48,10 +52,16 @@ function ContentWithHeader() {
         <Route path="/detalle-evento-emp/:id" element={<DetalleEventoEmp />} />
         <Route path="/reporte-horas/" element={<ReporteHoras />} />
         <Route path="/update-evento/:id" element={<UpdateEvento />} />
+        <Route path="/" element={<RedirectToLandingPage />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>
   );
+}
+
+function RedirectToLandingPage() {
+  window.location.href = "/landingpage/index.html";
+  return null; // Retorna null porque la redirección se maneja fuera de React.
 }
 
 export default App;

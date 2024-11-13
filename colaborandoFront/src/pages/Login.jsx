@@ -45,14 +45,12 @@ const Login = ({ history }) => {
   return (
     <div>
       <NavBar />
-      <div className="container h-100">
-        <div className="row h-100 justify-content-center align-items-center">
+      <div className="container">
+        <div className="row h-100">
           <div className="col-md-6">
             <div className="card shadow" style={{ borderColor: '#CB6665' }}> {/* Borde coral oscuro */}
               <div className="card-body d-flex flex-column align-items-center">
-                <h1 className="text-center mb-4" style={{ color: '#CB6665' }}> {/* Texto coral oscuro */}
-                  Bienvenido
-                </h1>
+                <h1 className="text-center" style={{ color: '#CB6665' }}> {/* Texto coral oscuro */}Bienvenido</h1>
                 <img src={logo} alt="Logo CoLaborando" className="img-fluid mb-4" />
                 <form onSubmit={handleLogin}>
                   <div className="mb-3">
