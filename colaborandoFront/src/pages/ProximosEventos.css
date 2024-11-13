@@ -98,3 +98,9 @@
         /* Ajuste adicional para pantallas pequeñas */
     }
 }
+
+.no-events-message {
+    font-size: 1.5em;
+    color: #777;
+    margin-top: 20px;
+}

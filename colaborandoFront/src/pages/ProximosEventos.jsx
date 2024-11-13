@@ -60,31 +60,36 @@ function ProximosEventos() {
 
     return (
         <div>
-          
             <div className="container text-center">
                 <div className="row align-items-center box3">
                     <div className="col-12">
                         <div className="event-list">
-                            {proximosEventos.map((evento, index) => (
-                                <div className="event-item" key={index}>
-                                    <span className="event-name">
-                                        {rol === 'Colaborador' ? evento.evento.nombre : evento.nombre}
-                                    </span>
-                                    <div className="event-actions">
-                                        <button className="btn btn-danger me-2" onClick={() => handleShowModal(evento.id_evento)}>
-                                            {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
-                                        </button>
-                                        <button className="btn btn-primary me-2" onClick={() => detalleEventoEmp(evento.id_evento)}>
-                                            Ver Detalle
-                                        </button>
-                                        {rol !== 'Colaborador' && (
-                                            <button className="btn btn-secondary" onClick={() => updateEventoEmp(evento.id_evento)}>
-                                                Editar Evento
+                            {proximosEventos && proximosEventos.length > 0 ? (
+                                proximosEventos.map((evento, index) => (
+                                    <div className="event-item" key={index}>
+                                        <span className="event-name">
+                                            {rol === 'Colaborador' ? evento.evento.nombre : evento.nombre}
+                                        </span>
+                                        <div className="event-actions">
+                                            <button className="btn btn-danger me-2" onClick={() => handleShowModal(evento.id_evento)}>
+                                                {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
                                             </button>
-                                        )}
+                                            <button className="btn btn-primary me-2" onClick={() => detalleEventoEmp(evento.id_evento)}>
+                                                Ver Detalle
+                                            </button>
+                                            {rol !== 'Colaborador' && (
+                                                <button className="btn btn-secondary" onClick={() => updateEventoEmp(evento.id_evento)}>
+                                                    Editar Evento
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))
+                            ) : (
+                                <h3 className="no-events-message">
+                                    Por el momento no tienes Eventos próximos, revisa tus notificaciones para enviar solicitudes.
+                                </h3>
+                            )}
                         </div>
                     </div>
                 </div>

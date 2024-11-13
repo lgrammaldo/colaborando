@@ -36,9 +36,9 @@ public class NotificacionController {
         return ResponseEntity.ok(notificacionService.hasNotificaciones(userId));
     }
 
-    @PutMapping("/rechazar/{notificacionId}")
-    public ResponseEntity<Void> rechazarNotificacion(@PathVariable Integer notificacionId) {
-        notificacionService.actualizarEstadoNotificacion(notificacionId);
+    @PutMapping("/rechazar/{notificacionId}/{rol}")
+    public ResponseEntity<Void> rechazarNotificacion(@PathVariable Integer notificacionId, @PathVariable String rol) {
+        notificacionService.actualizarEstadoNotificacion(notificacionId, rol);
         return ResponseEntity.ok().build();
     }
 

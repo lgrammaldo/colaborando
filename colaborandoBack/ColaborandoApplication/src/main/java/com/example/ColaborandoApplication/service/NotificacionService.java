@@ -93,11 +93,19 @@ public class NotificacionService {
         return false;
     }
 
-    public void actualizarEstadoNotificacion(Integer notificacionId) {
-        Notificaciones notificacion = notificacionesRepository.findById(notificacionId)
-                .orElseThrow(() -> new IllegalArgumentException("Notificación no encontrada"));
-        notificacion.setStatus("Inactive");
-        notificacionesRepository.save(notificacion);
+    public void actualizarEstadoNotificacion(Integer notificacionId, String rol) {
+        if ("Colaborador".equals(rol)){
+            Notificaciones notificacion = notificacionesRepository.findById(notificacionId)
+                    .orElseThrow(() -> new IllegalArgumentException("Notificación no encontrada"));
+            notificacion.setStatus("Inactive");
+            notificacionesRepository.save(notificacion);
+        } else {
+            Solicitudes solicitudes = solicitudesRepository.findById(notificacionId)
+                    .orElseThrow(() -> new IllegalArgumentException("Notificación no encontrada"));
+            solicitudes.setStatus("Inactive");
+            solicitudesRepository.save(solicitudes);
+        }
+
     }
 
     @Transactional

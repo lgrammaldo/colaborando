@@ -67,6 +67,45 @@ const MisNotificaciones = () => {
         return `${formattedDate} ${formattedTime}`;
     };
 
+    const handleConfirmarColaborador = (notificacion) => { //en ese caso la "notificacion" en realidad es la "solicitud", se usa la misma var para reciclar
+        console.log(JSON.stringify(notificacion))
+         const confirmacion = window.confirm(`¿Deseas confirmar a ${notificacion.colaboradoresEmpleos.colaborador.nombre} ${notificacion.colaboradoresEmpleos.colaborador.apellido} para el puesto de ${notificacion.detalleEvento.empleos.nombre} para el evento ${notificacion.detalleEvento.evento.nombre}?`);
+         if (confirmacion) {
+             try {
+                 const colaboradoresEmpleos = notificacion?.colaboradoresEmpleos;
+                 const colaborador = notificacion?.colaboradoresEmpleos.colaborador;
+                 const detalleEvento = notificacion?.detalleEvento;
+                 const solicitudId = notificacion.id
+                 const asistenciaConfirmada = {colaboradoresEmpleos, colaborador, detalleEvento, solicitudId}
+                 notificacionService.confirmarColaborador(asistenciaConfirmada)  // Enviamos el notificacionId y fechaEvento
+                     .then(() => {
+                         alert("¡¡Felicitaciones!! ¡¡Has aceptado al colaborador!!");
+                         navigate('/home');
+                     })
+                     .catch(error => {
+                         alert(error.response?.data || "Ocurrió un error al aceptar el empleo.");
+                     });
+             } catch (error) {
+                 console.error("Error al aceptar la notificación", error);
+             }
+         }
+     };
+     const handleRechazarColaborador = (notificacion) => { //en ese caso la "notificacion" en realidad es la "solicitud", se usa la misma var para reciclar
+         const confirmacion = window.confirm(`¿Estás seguro de rechazar esta notificación?`);
+         if (confirmacion) {
+             try {
+                 notificacionService.rechazarNotificacion(notificacion?.id, rol)  // Enviamos solo notificacionId
+                     .then(() => {
+                        alert("Has rechazado al colaborador.");
+                        navigate('/home');  // Llamo a las activas de nuevo
+                     })
+                     .catch(err => console.error("Error al rechazar notificación:", err));
+             } catch (error) {
+                 console.error("Error al rechazar la notificación", error);
+             }
+         }
+     };
+
     return (
         <div>
             {rol === 'Colaborador' ? (
@@ -104,7 +143,27 @@ const MisNotificaciones = () => {
                     </div>
                 </div>
             ) : (
-               null
+                <div className="notificaciones-container">
+                <h2>Notificaciones de Establecimiento</h2>
+                <div className="notificaciones-list">
+                    {notificaciones.map((notificacion, index) => (
+                        <div key={index} className="notificacion-card">
+                            <h3 className="titulo-evento">{notificacion.detalleEvento.evento.nombre}</h3>
+                            <p className="descripcion">
+                                <strong>Colaborador:</strong> {notificacion.colaboradoresEmpleos.colaborador.nombre} {notificacion.colaboradoresEmpleos.colaborador.apellido}<br />
+                                <strong>Empleo Aspirado:</strong> {notificacion.colaboradoresEmpleos.empleos.nombre}<br />
+                                <strong>Evento:</strong> {notificacion.detalleEvento.evento.nombre}<br />
+                                <strong>Cupos disponibles:</strong> {notificacion.detalleEvento.cantidadDisponible}
+                            </p>
+                            <p className="fecha-evento"><strong>Fecha: {formatDateTime(notificacion.fechaEvento)} </strong></p>
+                            <div className="botones-accion">
+                                <button className="btn confirmar" onClick={() => handleConfirmarColaborador(notificacion)}>Confirmar</button>
+                                <button className="btn rechazar" onClick={() => handleRechazarColaborador(notificacion)}>Rechazar</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
             )}
         </div>
     );

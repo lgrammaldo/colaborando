@@ -13,8 +13,8 @@ class NotificacionesService {
         
     }
 
-    rechazarNotificacion(notificacionId) {
-        return axios.put(`${NOTIFICACIONES_API_BASE_URL}/rechazar/${notificacionId}`);
+    rechazarNotificacion(notificacionId, rol) {
+        return axios.put(`${NOTIFICACIONES_API_BASE_URL}/rechazar/${notificacionId}/${rol}`);
     }
 
     aceptarNotificacion(notificacionId, fechaEvento) {
