@@ -4,7 +4,7 @@ import axios from 'axios';
 const token = localStorage.getItem("token");
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/colaborando/*',
+  baseURL: 'http://colaborando.ddns.net:8080/colaborando/*',
   withCredentials: false,
   headers: {
     Authorization: `Bearer ${token}`,

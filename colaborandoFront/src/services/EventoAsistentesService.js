@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const EVENTO_API_BASE_URL = "http://localhost:8080/colaborando/detalleEvento";
+const EVENTO_API_BASE_URL = "http://colaborando.ddns.net:8080/colaborando/detalleEvento";
 
 class EventoService { 
 

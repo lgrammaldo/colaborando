@@ -11263,6 +11263,7 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 18 more
+<<<<<<< HEAD
 2024-11-18 22:27:17 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM ASISTENCIAS_CONFIRMADAS 
 
@@ -11924,3 +11925,8 @@ Database is already closed (to disable automatic closing at VM shutdown, add ";D
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:842)
+=======
+2024-11-16 22:08:39 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM USUARIO USUARIO USUARIO[*]"; SQL statement:
+SELECT * FROM USUARIO USUARIO USUARIO [42000-200]
+>>>>>>> fc92a89 (acceso ip publica por ddns.)

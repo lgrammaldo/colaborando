@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const NOTIFICACIONES_API_BASE_URL = "http://localhost:8080/colaborando/notificaciones";
+const NOTIFICACIONES_API_BASE_URL = "http://colaborando.ddns.net:8080/colaborando/notificaciones";
 
 class NotificacionesService { 
     // Método para obtener un colaborador enviando el userId como parámetro

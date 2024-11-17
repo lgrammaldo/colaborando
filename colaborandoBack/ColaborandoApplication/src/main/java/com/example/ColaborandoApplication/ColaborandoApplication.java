@@ -17,7 +17,7 @@ public class ColaborandoApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/colaborando/**").allowedOrigins("http://localhost:3000").allowedMethods("*").allowedHeaders("*");
+				registry.addMapping("/colaborando/**").allowedOrigins("http://colaborando.ddns.net").allowedMethods("*").allowedHeaders("*");
 			}
 		};
 	}
