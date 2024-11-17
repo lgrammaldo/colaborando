@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const PERSONA_API_BASE_URL = "http://localhost:8080/colaborando/colaborador";
+const PERSONA_API_BASE_URL = "http://colaborando.ddns.net:8080/colaborando/colaborador";
 
 class ColaboradorService { 
     // Método para obtener un colaborador enviando el userId como parámetro

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const LOGIN_API_BASE_URL = "http://localhost:8080/colaborando/login";
+const LOGIN_API_BASE_URL = "http://colaborando.ddns.net:8080/colaborando/login";
 
 class LoginService { 
     

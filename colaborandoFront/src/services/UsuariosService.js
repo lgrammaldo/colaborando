@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const PERSONA_API_BASE_URL = "http://localhost:8080/colaborando/usuario";
+const PERSONA_API_BASE_URL = "http://colaborando.ddns.net:8080/colaborando/usuario";
 
 class UsuariosService { 
 

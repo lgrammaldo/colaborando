@@ -9,7 +9,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/colaborando/**")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://colaborando.ddns.net")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowCredentials(true)
                 .allowedHeaders("Authorization");
