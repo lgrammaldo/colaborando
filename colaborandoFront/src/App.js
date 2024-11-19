@@ -13,6 +13,7 @@ import DetalleEvento from './pages/DetalleEvento';
 import DetalleEventoEmp from './pages/DetalleEventoEmp';
 import EventosPasados from './pages/EventosPasados';
 import ReporteHoras from './pages/ReporteHoras';
+import BuscarEventos from './pages/BuscarEventos';
 import Footer from "./components/Footer.js";
 import UpdateEvento from './pages/UpdateEvento';
 
@@ -52,6 +53,7 @@ function ContentWithHeader() {
         <Route path="/detalle-evento-emp/:id" element={<DetalleEventoEmp />} />
         <Route path="/reporte-horas/" element={<ReporteHoras />} />
         <Route path="/update-evento/:id" element={<UpdateEvento />} />
+        <Route path="/buscar-eventos/" element={<BuscarEventos />} />
         <Route path="/" element={<RedirectToLandingPage />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>

@@ -1,5 +1,6 @@
 package com.example.ColaborandoApplication.service;
 
+import com.example.ColaborandoApplication.DTO.NotificacionResponseDTO;
 import com.example.ColaborandoApplication.Entity.*;
 import com.example.ColaborandoApplication.mapper.EventoMapper;
 import com.example.ColaborandoApplication.repository.*;
@@ -275,5 +276,46 @@ public class EventoService {
         return  null;
     }*/
 
+    @Transactional(rollbackOn = Exception.class)
+
+    public List<Evento> getAllEventos(Integer user_id) {
+        List<Evento> eventos = null;
+
+        try {
+            // Obtener el usuario y el colaborador
+            Usuario usuario = usuarioRepository.findById(user_id)
+                    .orElseThrow(() -> new IllegalArgumentException("Colaborador no encontrado"));
+            Colaborador colaborador = colaboradorRepository.findByUsuario(usuario);
+
+            // Obtener los empleos activos o cancelados asociados al colaborador
+            List<ColaboradoresEmpleos> empleos = colaboradoresEmpleosRepository.findByColaborador(colaborador)
+                    .stream()
+                    .filter(colaboradorEmpleos -> "Active".equals(colaboradorEmpleos.getStatus())
+                            || "Canceled".equals(colaboradorEmpleos.getStatus()))
+                    .collect(Collectors.toList());
+
+            // Obtener los eventos activos
+            eventos = eventoRepository.findByStatus("Active");
+
+            // Filtrar los DetalleEvento por empleos del colaborador
+            List<DetalleEvento> detalleEventos = eventos.stream()
+                    .flatMap(evento -> detalleEventoRepository.findByEvento(evento).stream())
+                    .filter(detalleEvento -> empleos.stream()
+                            .anyMatch(colaboradorEmpleos -> colaboradorEmpleos.getEmpleos().equals(detalleEvento.getEmpleos()))
+                    )
+                    .collect(Collectors.toList());
+
+            // Opcional: Manejar la lista de eventos final si necesitas incluir sólo eventos con detalles válidos
+            eventos = eventos.stream()
+                    .filter(evento -> detalleEventos.stream()
+                            .anyMatch(detalleEvento -> detalleEvento.getEvento().equals(evento)))
+                    .collect(Collectors.toList());
+
+        } catch (Exception e) {
+            System.out.println("Error al buscar los Eventos: " + e.getMessage() + "\n");
+        }
+
+        return eventos;
+    }
 
 }

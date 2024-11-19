@@ -12,7 +12,12 @@ class EventoService {
     getEventos(status){
         console.log(`${EVENTO_API_BASE_URL}/get-eventos/${status}`, {});
         return axios.get(`${EVENTO_API_BASE_URL}/get-eventos/${status}`, {});
-    }    
+    }
+    
+    getAllEventos(userId){
+        console.log(`${EVENTO_API_BASE_URL}/get-alleventos/${userId}`, {});
+        return axios.get(`${EVENTO_API_BASE_URL}/get-alleventos/${userId}`, {});
+    }
 
     updateEvento(idEvento){
         return axios.get(`${EVENTO_API_BASE_URL}/update-evento/${idEvento}`, {});

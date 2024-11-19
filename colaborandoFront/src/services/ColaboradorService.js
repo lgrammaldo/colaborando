@@ -26,8 +26,6 @@ class ColaboradorService {
     
 }
 
-
-
 const colaboradorService = new ColaboradorService();
 
 export default colaboradorService;
