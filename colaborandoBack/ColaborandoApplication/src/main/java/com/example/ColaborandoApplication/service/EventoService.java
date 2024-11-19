@@ -1,5 +1,6 @@
 package com.example.ColaborandoApplication.service;
 
+import com.example.ColaborandoApplication.DTO.EventosAllDTO;
 import com.example.ColaborandoApplication.DTO.NotificacionResponseDTO;
 import com.example.ColaborandoApplication.Entity.*;
 import com.example.ColaborandoApplication.mapper.EventoMapper;
@@ -278,8 +279,10 @@ public class EventoService {
 
     @Transactional(rollbackOn = Exception.class)
 
-    public List<Evento> getAllEventos(Integer user_id) {
+    public List<EventosAllDTO> getAllEventos(Integer user_id) {
+        List<DetalleEvento> detalleEventos = List.of();
         List<Evento> eventos = null;
+        List<EventosAllDTO> eventosAll = null;
 
         try {
             // Obtener el usuario y el colaborador
@@ -298,7 +301,7 @@ public class EventoService {
             eventos = eventoRepository.findByStatus("Active");
 
             // Filtrar los DetalleEvento por empleos del colaborador
-            List<DetalleEvento> detalleEventos = eventos.stream()
+            detalleEventos = eventos.stream()
                     .flatMap(evento -> detalleEventoRepository.findByEvento(evento).stream())
                     .filter(detalleEvento -> empleos.stream()
                             .anyMatch(colaboradorEmpleos -> colaboradorEmpleos.getEmpleos().equals(detalleEvento.getEmpleos()))
@@ -315,7 +318,18 @@ public class EventoService {
             System.out.println("Error al buscar los Eventos: " + e.getMessage() + "\n");
         }
 
-        return eventos;
+        return detalleEventos.stream()
+                .map(evento -> {
+                    EventosAllDTO dto = new EventosAllDTO();
+                    dto.setNombre(evento.getEvento().getNombre());
+                    dto.setFechaEvento(evento.getEvento().getFecha_inicio());
+                    dto.setEmpleo(evento.getColaboradoresEmpleos().getEmpleos().getNombre());
+                    dto.setColaboradoresEmpleosId(evento.getColaboradoresEmpleos().getId_colaboradoresEmpleos());
+                    dto.setNotificacionId(evento.getId());
+                    dto.setEventoId(evento.getEvento().getId_evento());
+                    dto.setTipoNotificacion(evento.getNotificacion());
+                    return dto;
+                }).collect(Collectors.toList());
     }
 
 }
