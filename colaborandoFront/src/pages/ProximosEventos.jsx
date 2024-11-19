@@ -37,17 +37,29 @@ function ProximosEventos() {
         setSuccessMessage("");
     };
 
+    const cancelarAsistenciaEvento = () => {
+        handleCloseModal()
+        alert("¡Has cancelado tu asistencia! Se le notificará al establecimiento para que pueda realizar más búsquedas.")
+        navigate('/home')
+    };
+
     const detalleEventoEmp = (id) => navigate(`/detalle-evento-emp/${id}`);
     const updateEventoEmp = (id) => navigate(`/update-evento/${id}`);
 
     const handleUpdate = () => {
         const status = 'Active';
-        const update = eventoService.updateEvento(idEvento);
+       
         const fetchEventos = rol === 'Colaborador' 
             ? eventoService.getEventosColaborador(status, userId)
             : eventoService.getEventos(status);
 
-        update
+        if (rol === 'Colaborador'){
+            eventoService.cancelarEventoColaborador(idEvento, userId)
+            .then(cancelarAsistenciaEvento())
+            .catch()
+        } else{
+            const update = eventoService.updateEvento(idEvento);
+            update
             .then(() => fetchEventos.then(res => {
                 setProximosEventos(res.data);
                 setSuccessMessage("El evento fue cancelado exitosamente.");
@@ -56,6 +68,7 @@ function ProximosEventos() {
                 console.error("Error actualizando el evento:", err);
                 setSuccessMessage("Hubo un error al cancelar el evento. Intenta nuevamente.");
             });
+        }   
     };
 
     return (
@@ -71,10 +84,10 @@ function ProximosEventos() {
                                             {rol === 'Colaborador' ? evento.evento.nombre : evento.nombre}
                                         </span>
                                         <div className="event-actions">
-                                            <button className="btn btn-danger me-2" onClick={() => handleShowModal(evento.id_evento)}>
+                                            <button className="btn btn-danger me-2" onClick={() => handleShowModal(rol === 'Colaborador' ? evento.evento.id_evento : evento.id_evento)}>
                                                 {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
                                             </button>
-                                            <button className="btn btn-primary me-2" onClick={() => detalleEventoEmp(evento.id_evento)}>
+                                            <button className="btn btn-primary me-2" onClick={() => detalleEventoEmp(rol === 'Colaborador' ? evento.evento.id_evento : evento.id_evento)}>
                                                 Ver Detalle
                                             </button>
                                             {rol !== 'Colaborador' && (

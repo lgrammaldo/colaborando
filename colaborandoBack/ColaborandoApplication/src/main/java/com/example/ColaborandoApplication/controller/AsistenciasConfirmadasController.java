@@ -24,4 +24,10 @@ public class AsistenciasConfirmadasController {
         return ResponseEntity.ok(asistenciasConfirmadasService.getEventoAsistentes(idEvento));
     }
 
+    @GetMapping("/cancelar_asistencia_confirmada/{eventoId}/{userId}")
+    public ResponseEntity<Void> getAsistenciasCanceladas(@PathVariable Integer eventoId, @PathVariable Integer userId) {
+        asistenciasConfirmadasService.cancelarAsistenciaColaborador(eventoId, userId);
+        return null;
+    }
+
 }

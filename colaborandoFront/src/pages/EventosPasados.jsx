@@ -69,17 +69,9 @@ function EventosPasados() {
                                         {rol === 'Colaborador' ? evento.evento.nombre : evento.nombre}
                                     </span>
                                     <div className="event-actions">
-                                        <button className="btn btn-danger me-2" onClick={() => handleShowModal(evento.id_evento)}>
-                                            {rol === 'Colaborador' ? 'Cancelar Asistencia' : 'Cancelar Evento'}
-                                        </button>
                                         <button className="btn btn-primary me-2" onClick={() => detalleEventoEmp(evento.id_evento)}>
                                             Ver Detalle
                                         </button>
-                                        {rol !== 'Colaborador' && (
-                                            <button className="btn btn-secondary" onClick={() => updateEventoEmp(evento.id_evento)}>
-                                                Editar Evento
-                                            </button>
-                                        )}
                                     </div>
                                 </div>
                             ))}

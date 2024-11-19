@@ -76,7 +76,7 @@ public class NotificacionService {
 
     public List<Solicitudes> getNotificacionesEstablecimiento(Integer userId) {
         return solicitudesRepository.findAll().stream()
-                .filter(solicitud -> "Active".equals(solicitud.getStatus()))
+                .filter(solicitud -> "Active".equals(solicitud.getStatus()) || "Cancelled".equals(solicitud.getStatus()))
                 .collect(Collectors.toList());
     }
 

@@ -260,6 +260,7 @@ public class EventoService {
         return  null;
     }
 
+    /* SE MIGRÓ LA CANCELACIÓN POR PARTE DEL COLABORADOR EN ASISTENCIASCONFIRMADASCONTROLLER
     public Evento updateEventoColaborador(String status, Integer colaborador){
         try{
             //Falta ver como cancelar correctamente la asistencia del colaborador
@@ -272,7 +273,7 @@ public class EventoService {
             System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
         }
         return  null;
-    }
+    }*/
 
 
 }

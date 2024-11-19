@@ -55,9 +55,10 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.getEventosColaborador(status, colaborador));
     }
 
+    /*SE MIGRÓ LA CANCELACIÓN POR PARTE DEL COLABORADOR EN ASISTENCIASCONFIRMADASCONTROLLER
     @GetMapping("/update-eventos-colaborador/{status}/{colaborador}")
     public ResponseEntity<Evento> updateEventoColaborador(@PathVariable String status, @PathVariable Integer colaborador) {
         return ResponseEntity.ok(eventoService.updateEventoColaborador(status, colaborador));
-    }
+    }*/
 
 }

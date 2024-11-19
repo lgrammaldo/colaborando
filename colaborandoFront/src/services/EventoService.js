@@ -40,7 +40,11 @@ class EventoService {
 
     getAsistentesRequeridos(idEvento){
         return axios.get(`${EVENTO_API_BASE_URL_ASISTENCIAS}/get-evento-asistentes/${idEvento}`, {});
-    }       
+    }
+    
+    cancelarEventoColaborador(eventoId, colaborador){
+        return axios.get(`${EVENTO_API_BASE_URL_ASISTENCIAS}/cancelar_asistencia_confirmada/${eventoId}/${colaborador}`, {});
+    }  
     
 }
 
