@@ -18,6 +18,6 @@ public class EventosAllDTO {
     private Integer userId;
     private String especificaciones;
     private String descripcion;
-    private Map<Integer, Integer> empleosYcantidad;
-
+    private String empleo;
+    private Integer colaboradoresEmpleosId;
 }
