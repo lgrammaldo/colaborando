@@ -3,7 +3,7 @@ package com.example.ColaborandoApplication.DTO;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Map;
 
 @Data

@@ -59,9 +59,9 @@ const BuscarEventos = () => {
                                 <div key={index} className="notificacion-card">
                                     {notificacion.tipoNotificacion === 7 ? (
                                         <>
-                                            <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
+                                            <h3 className="titulo-evento">{notificacion.nombre}</h3>
                                             <p className="mensaje-cancelacion">
-                                                Lo sentimos, el evento <strong>{notificacion.nombreEvento}</strong> ha sido <strong>CANCELADO</strong>. 
+                                                Lo sentimos, el evento <strong>{notificacion.nombre}</strong> ha sido <strong>CANCELADO</strong>. 
                                                 Te hemos liberado la agenda para que puedas solicitar puestos para otros eventos.
                                             </p>
                                             <button className="btn entendido" onClick={() => handleEntendidoEventoCancelado(notificacion)}>Entendido</button>
@@ -69,19 +69,19 @@ const BuscarEventos = () => {
                                     ) : (
                                         notificacion.tipoNotificacion === 3 ? (
                                             <>
-                                                <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
+                                                <h3 className="titulo-evento">{notificacion.nombre}</h3>
                                                 <p className="mensaje-cancelacion">
-                                                    ¡¡Felicitaciones!! !!Has sido seleccionado para el evento ¡¡<strong>{notificacion.nombreEvento}</strong> como <strong>{notificacion.empleo}</strong>. 
+                                                    ¡¡Felicitaciones!! !!Has sido seleccionado para el evento ¡¡<strong>{notificacion.nombre}</strong> como <strong>{notificacion.empleo}</strong>. 
                                                     Verás mas especificaciones en tus Próximos Eventos.
                                                 </p>
                                                 <button className="btn entendido" onClick={() => handleEntendidoEventoCancelado(notificacion)}>Entendido</button>
                                             </>
                                         ) : 
                                             <>
-                                                <h3 className="titulo-evento">{notificacion.nombreEvento}</h3>
+                                                <h3 className="titulo-evento">{notificacion.nombre}</h3>
                                                 <p className="descripcion">
-                                                    ¡¡Buenas noticias!! El evento <strong>{notificacion.nombreEvento}</strong> busca colaboradores "<strong>{notificacion.empleo}</strong>".
-                                                    Puedes enviar la solicitud a continuación. Recuerda que puedes recibir para el mismo evento diferentes propuestas.
+                                                    El evento <strong>{notificacion.nombre}</strong> busca el perfil "<strong>{notificacion.empleo}</strong>".
+                                                    Puedes enviar la solicitud a continuación. 
                                                 </p>
                                                 <p className="fecha-evento"><strong>Fecha: {formatDateTime(notificacion.fecha_inicio)} </strong></p>
                                             

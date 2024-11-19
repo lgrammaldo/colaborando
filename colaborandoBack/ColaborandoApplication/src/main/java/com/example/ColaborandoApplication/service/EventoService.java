@@ -292,11 +292,6 @@ public class EventoService {
                     )
                     .collect(Collectors.toList());
 
-            // Opcional: Manejar la lista de eventos final si necesitas incluir sólo eventos con detalles válidos
-            eventos = eventos.stream()
-                    .filter(evento -> detalleEventos.stream()
-                            .anyMatch(detalleEvento -> detalleEvento.getEvento().equals(evento)))
-                    .collect(Collectors.toList());
 
         } catch (Exception e) {
             System.out.println("Error al buscar los Eventos: " + e.getMessage() + "\n");
@@ -306,12 +301,9 @@ public class EventoService {
                 .map(evento -> {
                     EventosAllDTO dto = new EventosAllDTO();
                     dto.setNombre(evento.getEvento().getNombre());
-                    dto.setFechaEvento(evento.getEvento().getFecha_inicio());
-                    dto.setEmpleo(evento.getColaboradoresEmpleos().getEmpleos().getNombre());
-                    dto.setColaboradoresEmpleosId(evento.getColaboradoresEmpleos().getId_colaboradoresEmpleos());
-                    dto.setNotificacionId(evento.getId());
-                    dto.setEventoId(evento.getEvento().getId_evento());
-                    dto.setTipoNotificacion(evento.getNotificacion());
+                    //dto.setEmpleo(evento.getColaboradoresEmpleos().getEmpleos().getNombre());
+                    dto.setFecha_inicio(evento.getEvento().getFecha_inicio());
+
                     return dto;
                 }).collect(Collectors.toList());
     }

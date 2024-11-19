@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @RequiredArgsConstructor
@@ -27,4 +28,6 @@ public class DetalleEvento {
     @OneToOne
     @JoinColumn(name = "id_empleos", unique = false)
     private Empleos empleos;
+
+
 }

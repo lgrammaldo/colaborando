@@ -1,6 +1,7 @@
 package com.example.ColaborandoApplication.controller;
 
 import com.example.ColaborandoApplication.DTO.EventoDTO;
+import com.example.ColaborandoApplication.DTO.EventosAllDTO;
 import com.example.ColaborandoApplication.Entity.AsistenciasConfirmadas;
 import com.example.ColaborandoApplication.Entity.Evento;
 import com.example.ColaborandoApplication.service.EventoService;
@@ -36,7 +37,7 @@ public class EventoController {
     }
 
     @GetMapping("/get-alleventos/{userId}")
-    public ResponseEntity<List<Evento>> getAllEventos(@PathVariable Integer userId) {
+    public ResponseEntity<List<EventosAllDTO>> getAllEventos(@PathVariable Integer userId) {
         return ResponseEntity.ok(eventoService.getAllEventos(userId));
     }
 
