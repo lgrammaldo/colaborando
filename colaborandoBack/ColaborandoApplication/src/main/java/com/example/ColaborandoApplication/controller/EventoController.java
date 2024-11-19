@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://colaborando.ddns.net")
+@CrossOrigin(origins = {"http://colaborando.ddns.net", "http://localhost:3000"})
 @RestController
 @RequestMapping("/colaborando/evento")
 public class EventoController {
@@ -33,6 +33,11 @@ public class EventoController {
     @GetMapping("/get-eventos/{status}")
     public ResponseEntity<List<Evento>> getEventos(@PathVariable String status) {
         return ResponseEntity.ok(eventoService.getEventos(status));
+    }
+
+    @GetMapping("/get-alleventos/{userId}")
+    public ResponseEntity<List<Evento>> getAllEventos(@PathVariable Integer userId) {
+        return ResponseEntity.ok(eventoService.getAllEventos(userId));
     }
 
     @GetMapping("/update-evento/{idEvento}")

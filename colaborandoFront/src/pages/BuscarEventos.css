@@ -1,0 +1,111 @@
+.notificaciones-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.notificaciones-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notificacion-card {
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.titulo-evento {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.botones-accion {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.aceptar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.rechazar {
+    background-color: #F44336;
+    color: white;
+}
+/*
+.entendido {
+    background-color: #271d7e;
+    color: white;
+}*/
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.confirmar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cancelar {
+    background-color: #F44336;
+    color: white;
+}
+
+.entendido {
+    margin-top: 16px; /* Espacio superior para separar del texto */
+    padding: 8px 16px;
+    background-color: #271d7e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}

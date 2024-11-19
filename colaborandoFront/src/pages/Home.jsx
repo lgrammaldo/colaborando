@@ -9,8 +9,8 @@ function Home() {
     const [rol, setRol] = useState(localStorage.getItem("rol"));
     
 
-    const addTurno = () => {
-        navigate('/editar-perfil');
+    const buscarEventos = () => {
+        navigate('/buscar-eventos');
     };
 
     const addEvento = () => {
@@ -40,13 +40,13 @@ function Home() {
                             <div className="card-body">
                                 <h5 className="card-title icon-user">
                                     <i className="fas fa-calendar-alt"></i> <br></br>
-                                    {rol === 'Colaborador' ? 'Perfil' : 'Evento'}
+                                    {rol === 'Colaborador' ? 'Buscar Eventos' : 'Evento'}
                                 </h5>                                  
                                 <p className="card-text">
-                                {rol === 'Colaborador' ? 'Edita tu perfil' : 'Aqui podras crear tus Eventos'}
+                                {rol === 'Colaborador' ? 'Lista eventos disponibles' : 'Aqui podras crear tus Eventos'}
                                 </p>
-                                <button className="btn" onClick={rol === 'Colaborador' ? addTurno : addEvento}>
-                                    {rol === 'Colaborador' ? 'Editar Perfil' : 'Crear Evento'}
+                                <button className="btn" onClick={rol === 'Colaborador' ? buscarEventos : addEvento}>
+                                    {rol === 'Colaborador' ? 'Buscar Eventos' : 'Crear Evento'}
                                 </button>
                             </div>
                         </div>

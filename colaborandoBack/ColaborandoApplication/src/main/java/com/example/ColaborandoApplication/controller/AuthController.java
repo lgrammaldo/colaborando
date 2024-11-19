@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://colaborando.ddns.net")
+@CrossOrigin(origins = {"http://colaborando.ddns.net", "http://localhost:3000"})
 @RestController
 @RequestMapping("/colaborando")
 public class AuthController {
