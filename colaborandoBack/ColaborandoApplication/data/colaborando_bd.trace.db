@@ -11264,6 +11264,7 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 18 more
 <<<<<<< HEAD
+<<<<<<< HEAD
 2024-11-18 22:27:17 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM ASISTENCIAS_CONFIRMADAS 
 
@@ -11932,6 +11933,11 @@ SELECT * FROM USUARIO USUARIO USUARIO [42000-200]
 <<<<<<< HEAD
 >>>>>>> fc92a89 (acceso ip publica por ddns.)
 =======
+=======
+2024-11-16 22:08:39 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM USUARIO USUARIO USUARIO[*]"; SQL statement:
+SELECT * FROM USUARIO USUARIO USUARIO [42000-200]
+>>>>>>> 2082d9709ef1942a9a774c5c9e3b6c0559437424
 2024-11-16 23:51:55 database: wrong user or password; user: "SA"
 org.h2.message.DbException: Wrong user name or password [28000-200]
 	at org.h2.message.DbException.get(DbException.java:205)
@@ -12142,4 +12148,7 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:461)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 99 more
+<<<<<<< HEAD
 >>>>>>> 8d3d46d (modificado evento)
+=======
+>>>>>>> 2082d9709ef1942a9a774c5c9e3b6c0559437424

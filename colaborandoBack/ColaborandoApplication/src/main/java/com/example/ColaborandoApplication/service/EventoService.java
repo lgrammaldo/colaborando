@@ -261,22 +261,6 @@ public class EventoService {
         }
         return  null;
     }
-
-    /* SE MIGRÓ LA CANCELACIÓN POR PARTE DEL COLABORADOR EN ASISTENCIASCONFIRMADASCONTROLLER
-    public Evento updateEventoColaborador(String status, Integer colaborador){
-        try{
-            //Falta ver como cancelar correctamente la asistencia del colaborador
-            Evento evento = eventoRepository.findById(colaborador)
-                    .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
-            evento.setStatus("Canceled");
-            eventoRepository.save(evento);
-            return evento;
-        } catch (Exception e) {
-            System.out.println("Error al buscar los Eventos: {}"+ e.getMessage()+"\n");
-        }
-        return  null;
-    }*/
-
     @Transactional(rollbackOn = Exception.class)
 
     public List<EventosAllDTO> getAllEventos(Integer user_id) {
@@ -331,5 +315,4 @@ public class EventoService {
                     return dto;
                 }).collect(Collectors.toList());
     }
-
 }
