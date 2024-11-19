@@ -53,3 +53,21 @@
     border-radius: 50%;
     border: 1px solid white; /* Opcional: agrega un borde blanco para mejorar la visibilidad */
 }
+
+.user-role {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.role-label {
+    background-color: #CB6665;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white;
+    margin-left: 10px;
+    font-size: 12px;
+}

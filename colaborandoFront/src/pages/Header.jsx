@@ -70,6 +70,13 @@ const Header = () => {
                             />
                         </div> 
                     }
+
+                    <div className="user-role">
+                        <span className="role-label">
+                            {`${rol}`}
+                        </span>
+                    </div>
+
                     <Dropdown>
                         <Dropdown.Toggle variant="link" id="dropdown-avatar">
                             <FontAwesomeIcon icon={faUser} style={{ height: "30px", width: "30px" }} />
